@@ -44,12 +44,16 @@ Sprwadzić, czy czas podziału będzie mniejszy dla nowotworów.
 
 4 typy morfologi:
 
-* wydłużone
-* gwieździste
-* spłaszczone
-* jeszcze coś
+* wydłużone     elongated shape
+* gwieździste   star shape
+* spłaszczone   flatten shape
+* jeszcze coś   
 
 Porównać zdjęcia przed i po dla komórek i czy kształt jest taki sam. 
+
+Działanie programu ma pozwalać na posiadanie tresholda dla danych zmiennych. Tzn np. że treshold dla obrazka, i jego "podobieństwo" do oryginalnego jest ustalone, z tym, że będą ustalone także dane kształty komórek, które chcemy wykryć.
+
+Program ma też za zadanie zbadać jaki kształt przyjmują komórki "przed", czyli wyjściowo, i w trakcie. Tzn. z każdego zdjęcia zbadać, i próbować naszkicować wygląd komórki.
 
 Zdjęcia robione co 4h 72h lub 68h.
 
