@@ -15,6 +15,23 @@ class Transformations{
     /*Function alters the image brightnes within the file (opens and saves it)*/
     static void alter_brightnes(std::string path, double brightnes);
 
+    /**
+     *  Function performes Morphological opening, the operation can be:
+     *  operation='O' -> Morphological Opening
+     *  operation='C' -> Morphological Close
+     *  operation='W' -> White Top-Hat
+     *  operation='B' -> Black Top-Hat
+     *  operation='G' -> Gradient
+     * */
+    static void opening(cv::Mat &image,std::string path, char operation, int kernelSize=5);
+
+    /**
+     *  Function removes dots using connected components, can be removed by size and
+     *  @param threshold_black states how black mean of object can be
+     *  @param threshold_size states min size of object which is accepted
+     * */
+    static void dots_remove(cv::Mat &img, int threshold_black=100, int threshold_size=50);
+
 
     private:
 
