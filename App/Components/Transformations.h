@@ -6,11 +6,12 @@
 #include <iostream>
 #include <string>
 #include <stdexcept>
+#include <vector>
 
 class Transformations{
     public:
     /*Function returns average brightnes of the image*/
-    static double image_brightnes(std::string path);
+    static double image_brightnes(cv::Mat img);
 
     /*Function alters the image brightnes within the file (opens and saves it)*/
     static void alter_brightnes(std::string path, double brightnes);
@@ -23,7 +24,7 @@ class Transformations{
      *  operation='B' -> Black Top-Hat
      *  operation='G' -> Gradient
      * */
-    static void opening(cv::Mat &image,std::string path, char operation, int kernelSize=5);
+    static void opening(cv::Mat &image,cv::Mat src, char operation, int kernelSize=5);
 
     /**
      *  Function removes dots using connected components, can be removed by size and

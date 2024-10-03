@@ -11,9 +11,10 @@ int main(int argc, char** argv) {
     // const double brightnes = Transformations::image_brightnes("./Test/T1.JPG");
     // std::cout << "Average brightnes of the image is: " << brightnes << std::endl;
     //Transformations::alter_brightnes("./Test/T1.JPG",brightnes);
-    const cv::Mat img = cv::imread("./Test/T2.JPG",cv::IMREAD_GRAYSCALE);
+    cv::Mat img = cv::imread("./Test/T2.JPG",cv::IMREAD_GRAYSCALE);
     cv::Mat d_img;
     cv::resize(img,d_img,cv::Size(1000,1000));
+    //cv::equalizeHist(d_img,img);
     cv::imshow("original",d_img);
     Transformations::dots_remove(d_img);
     cv::waitKey(0);
