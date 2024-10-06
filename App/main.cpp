@@ -16,7 +16,9 @@ int main(int argc, char** argv) {
     cv::resize(img,d_img,cv::Size(1000,1000));
     //cv::equalizeHist(d_img,img);
     cv::imshow("original",d_img);
-    Transformations::dots_remove(d_img);
+    Transformations::norm_brightnes(d_img,50);
+    cv::imshow("altered brightnes",d_img);
+    //Transformations::dots_remove(d_img);
     cv::waitKey(0);
     // const char operations[5] = {'O','C','W','B','G'};
     // for(int x = 0; x < 5; x++){

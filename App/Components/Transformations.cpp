@@ -99,3 +99,30 @@ void Transformations::dots_remove(cv::Mat &img, int threshold_black, int thresho
 }
 
 
+void Transformations::norm_brightnes(cv::Mat &img, int max_radius){
+    //Check if the image exists and is not broken
+    Transformations::is_image(img);
+    //First, calculate the average brightnes to which every part of the image will be altered
+    const double BASE_BR = Transformations::image_brightnes(img);
+    std::cout<<"Altering brightnes \n";
+    //Now, based on radius, find the circle on an image, which is the closes to the BASE_BR
+    cv::Point start_point;
+    double curr_closest_mean = 255; // it is mathematically imposibble to be higher than 255
+    for(int x = 0; x < img.rows; x += max_radius){
+        for(int y = 0; y < img.cols; y += max_radius){
+            cv::Point curr_point(x,y);
+            const double curr_mean = Transformations::get_mean_of_circle(img,curr_point,max_radius);
+            if(abs(BASE_BR - curr_mean) < curr_closest_mean){
+                curr_closest_mean = abs(BASE_BR - curr_mean);
+                start_point.x = x;
+                start_point.y = y;
+            }
+        }
+    }
+    std::cout<<"Best point found on:" << start_point.x <<" and: " << start_point.y << "\n";
+    //Now, we have our starting point
+    //From that starting point we project "dikstra-like" alorithm to alter brightnes
+    Transformations::dijkstra_mean_alter(img,start_point,BASE_BR,max_radius);
+}
+
+
