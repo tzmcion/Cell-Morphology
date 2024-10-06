@@ -117,14 +117,15 @@ class Transformations{
 
     static void dijkstra_mean_alter(cv::Mat &img,cv::Point center, int brightnes, int radius){
         //End recurency
-        if(center.x < 0 || center.x > img.rows || center.y < 0 || center.y > img.rows)return;
+        if(center.x < 0 || center.x > img.rows || center.y < 0 || center.y > img.cols)
         //Perform operation
         alter_mean_of_circle(img,center,brightnes,radius);
         //Call recurency
-        dijkstra_mean_alter(img,cv::Point(center.x + radius, center.y + radius),brightnes,radius);
-        dijkstra_mean_alter(img,cv::Point(center.x + radius, center.y - radius),brightnes,radius);
-        dijkstra_mean_alter(img,cv::Point(center.x - radius, center.y + radius),brightnes,radius);
-        dijkstra_mean_alter(img,cv::Point(center.x - radius, center.y - radius),brightnes,radius);
+        //It will work badly, needs to be done with a Heap or Pile
+        // dijkstra_mean_alter(img,cv::Point(center.x + radius, center.y + radius),brightnes,radius);
+        // dijkstra_mean_alter(img,cv::Point(center.x + radius, center.y - radius),brightnes,radius);
+        // dijkstra_mean_alter(img,cv::Point(center.x - radius, center.y + radius),brightnes,radius);
+        // dijkstra_mean_alter(img,cv::Point(center.x - radius, center.y - radius),brightnes,radius);
     }
 };
 
