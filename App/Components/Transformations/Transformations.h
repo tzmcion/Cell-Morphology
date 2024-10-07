@@ -1,13 +1,7 @@
 #pragma once
 
-#include <opencv2/opencv.hpp>
-#include <opencv2/imgcodecs.hpp>
-#include <opencv2/highgui.hpp>
-#include <iostream>
-#include <string>
-#include <stdexcept>
-#include <vector>
-#include <cmath>
+#include "../Includes/includes.h"
+#include "../Structures/Structures.h"
 
 class Transformations{
     public:
@@ -39,7 +33,7 @@ class Transformations{
      *  @param img cv.Mat imag3
      *  @param max_radius Maximum radius of the mean brightness of the area
      * */
-    static void norm_brightnes(cv::Mat &img, int max_radius=50);
+    static void norm_brightnes(cv::Mat &img, int max_radius=50, int alter_radius=200);
 
 
     private:
@@ -54,7 +48,7 @@ class Transformations{
     /**
      *  Function return mean of brightnes of circle on the image
      * */
-    static double get_mean_of_circle(cv::Mat &img, cv::Point center, int radius){
+    static double get_mean_of_circle(cv::Mat &img, cv::Point center, int radius = 50){
         //literally the same code as in alter_ without altering
                 const int rows=img.rows, cols=img.cols;
         const int x_max = std::min(rows,center.x + radius);
@@ -105,27 +99,81 @@ class Transformations{
                 }
             }
         }
-        const double ajd_mean = goal_brightness - sum/count;
+        double ajd_mean = goal_brightness - sum/count;
         //Now, the loop has to be done again to alter the points depending on brightnes
+        //Let's also add statament that alter cannot be bigger than 5
+        if(abs(ajd_mean) > 4){ajd_mean = 4 * (ajd_mean > 0 ? 1 : -1);}
         for(int i = 0; i < points.size(); i++){
             const int x = points[i].x;
             const int y = points[i].y;
-            img.at<cv::uint8_t>(x,y) = cv::saturate_cast<uchar>(img.at<uchar>(x,y) + ajd_mean);
+            img.at<cv::uint8_t>(x,y) = cv::saturate_cast<cv::uint8_t>(img.at<cv::uint8_t>(x,y) + ajd_mean);
         }
         //Should work :)
     }
 
-    static void dijkstra_mean_alter(cv::Mat &img,cv::Point center, int brightnes, int radius){
-        //End recurency
-        if(center.x < 0 || center.x > img.rows || center.y < 0 || center.y > img.cols)
-        //Perform operation
-        alter_mean_of_circle(img,center,brightnes,radius);
-        //Call recurency
-        //It will work badly, needs to be done with a Heap or Pile
-        // dijkstra_mean_alter(img,cv::Point(center.x + radius, center.y + radius),brightnes,radius);
-        // dijkstra_mean_alter(img,cv::Point(center.x + radius, center.y - radius),brightnes,radius);
-        // dijkstra_mean_alter(img,cv::Point(center.x - radius, center.y + radius),brightnes,radius);
-        // dijkstra_mean_alter(img,cv::Point(center.x - radius, center.y - radius),brightnes,radius);
+    struct dijkstra_point{
+        dijkstra_point(cv::Point c, std::vector<cv::Point> *v):center(c), visited(v){};
+
+        //Copy
+        dijkstra_point(const dijkstra_point& other) 
+            : center(other.center), visited(other.visited) {}
+
+        // Assignment operator
+        dijkstra_point& operator=(const dijkstra_point& other) {
+            if (this != &other) {
+                center = other.center;
+                visited = other.visited;
+            }
+            return *this;
+        }
+
+        cv::Point center;
+        std::vector<cv::Point> *visited;
+    };
+
+
+    //TODO:
+    //Decide if algorithm will go 8 ways or 4 ways;
+    static void dijkstra_mean_alter(cv::Mat &img,cv::Point start_point, int brightnes,int radius = 50, int alter_radius = 100){
+        Entites::Queue<Transformations::dijkstra_point> queue;
+        //vectors collecting already visited points
+        std::vector<cv::Point> visited_right;
+        std::vector<cv::Point> visited_left;
+        std::vector<cv::Point> visited_top;
+        std::vector<cv::Point> visited_bottom;
+        
+        //variables to get from queue
+        std::vector<cv::Point> *visited;
+        cv::Point center = start_point;
+
+        //Initial queue:
+        queue.append(dijkstra_point(cv::Point(center.x + radius, center.y),&visited_right));
+        queue.append(dijkstra_point(cv::Point(center.x, center.y + radius),&visited_top));
+        queue.append(dijkstra_point(cv::Point(center.x - radius, center.y),&visited_left));
+        queue.append(dijkstra_point(cv::Point(center.x, center.y - radius),&visited_bottom));
+
+
+        while(!queue.empty()){
+            const dijkstra_point p = queue.pop();
+            visited = p.visited;
+            center = p.center;
+            if(center.x < 0 || center.x > img.rows || center.y < 0 || center.y > img.cols){
+                //If center is out of bonds, continue
+                //TODO:
+                //change continue to be on the bonds (on the border)
+                continue;
+            }
+            if(std::find(visited->begin(), visited->end(), center) != visited->end()){
+                //Here check if this point was already visited by this instance
+                continue;
+            }
+            alter_mean_of_circle(img,center,brightnes,alter_radius);
+            visited->push_back(cv::Point(center));
+            queue.append(dijkstra_point(cv::Point(center.x + radius, center.y),visited));
+            queue.append(dijkstra_point(cv::Point(center.x, center.y + radius),visited));
+            queue.append(dijkstra_point(cv::Point(center.x - radius, center.y),visited));
+            queue.append(dijkstra_point(cv::Point(center.x, center.y - radius),visited));
+        }
     }
 };
 

@@ -99,7 +99,7 @@ void Transformations::dots_remove(cv::Mat &img, int threshold_black, int thresho
 }
 
 
-void Transformations::norm_brightnes(cv::Mat &img, int max_radius){
+void Transformations::norm_brightnes(cv::Mat &img, int max_radius, int alter_radius){
     //Check if the image exists and is not broken
     Transformations::is_image(img);
     //First, calculate the average brightnes to which every part of the image will be altered
@@ -122,7 +122,7 @@ void Transformations::norm_brightnes(cv::Mat &img, int max_radius){
     std::cout<<"Best point found on:" << start_point.x <<" and: " << start_point.y << "\n";
     //Now, we have our starting point
     //From that starting point we project "dikstra-like" alorithm to alter brightnes
-    Transformations::dijkstra_mean_alter(img,start_point,BASE_BR,max_radius);
+    Transformations::dijkstra_mean_alter(img,start_point,BASE_BR,max_radius,alter_radius);
 }
 
 
