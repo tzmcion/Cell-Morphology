@@ -61,15 +61,14 @@ void Transformations::dots_remove(cv::Mat &img, int threshold_black, int thresho
     cv::Mat binary_image;
     const double brightnes = Transformations::image_brightnes(img);
     cv::threshold(img,binary_image,(brightnes/5*3),255,cv::THRESH_BINARY_INV);
-    //cv::threshold(img,binary_image,180,255,cv::THRESH_BINARY_INV);
     cv::Mat labels,stats,centroids;
     const int numLab = cv::connectedComponentsWithStats(binary_image,labels,stats,centroids,4,4);
     cv::Mat o_img;  img.copyTo(o_img);//cv::Mat::zeros(binary_image.size(),0);
-    cv::Mat kernel = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(5, 5));
-    cv::Mat kernel_small = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(3, 3));
+    cv::Mat kernel = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(3, 3));
+    cv::Mat kernel_small = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(2, 2));
     std::vector<int> x_set;
     for(int x = 1; x < numLab; x++){
-        cv::Mat componentMask = (labels == x);
+        cv::Mat componentMask = (labels == x)*255;
         int area = stats.at<int>(x, cv::CC_STAT_AREA);
         // std::cout<<meanBrightness<<std::endl;
         if(area < 30)
@@ -89,12 +88,12 @@ void Transformations::dots_remove(cv::Mat &img, int threshold_black, int thresho
         cv::Mat mask = componentMask;
         mask.setTo(brightnes,componentMask);
         cv::dilate(componentMask,mask,kernel);
-        cv::inpaint(o_img, mask, o_img, 5, cv::INPAINT_TELEA);
+        cv::inpaint(o_img, mask, o_img, 3, cv::INPAINT_TELEA);
         //cv::GaussianBlur(o_img,o_img,cv::Size(5,5),0);
     }
-        //Let's do tomorrow gausian blur in places where the areas leave
-        //Then it should do the trick
-        //cv::GaussianBlur(o_img,o_img,cv::Size(5,5),4);
+    //Let's do tomorrow gausian blur in places where the areas leave
+    //Then it should do the trick
+    //cv::GaussianBlur(o_img,o_img,cv::Size(5,5),4);
     cv::imshow("Show",o_img);
     cv::imshow("Binary",binary_image);
 }
