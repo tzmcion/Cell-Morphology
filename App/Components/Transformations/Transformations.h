@@ -94,13 +94,13 @@ class Transformations{
         for(int x = x_min; x < x_max; x++){
             for(int y = y_min; y < y_max; y++){
                 const int distance = std::floor(std::sqrt(std::pow(x - center.x,2) + std::pow(y - center.y,2)));
-                if(distance <= radius){
+                if(distance < radius){
                     if(abs(goal_brightness - img.at<float>(x,y)) > threshold_val){
                         cv::Point ap_point(x,y);
                         influence.push_back(double(radius - distance) / radius);
                         points.push_back(ap_point);
                         continue;
-                    } 
+                    }
                     sum += img.at<float>(x,y);
                     count += 1;
                     cv::Point ap_point(x,y);
@@ -110,12 +110,14 @@ class Transformations{
             }
         }
         double ajd_mean = goal_brightness - sum/count;
+        if(!(sum > 0) )return;
         //Influence size must be same size as points
         for(int i = 0; i < points.size(); i++){
             const int x = points[i].x;
             const int y = points[i].y;
             img.at<float>(x,y) += ajd_mean*influence[i];
-            //std::cout<< ajd_mean*influence[i] << std::endl;
+            // std::cout<< ajd_mean*influence[i] << "INF:" << influence[i] << "ADJ:" << ajd_mean << "SUM:" << sum << std::endl;
+            // cv::waitKey(0);
         }
         //Should work :)
     }
@@ -147,7 +149,8 @@ class Transformations{
         Entites::Queue<Transformations::dijkstra_point> queue;
         cv::Mat img;
         img_o.convertTo(img, CV_32F);
-        //vectors collecting already visited points
+        std::cout << "AT:" << img.at<float>(580,263) << std::endl;
+        cv::waitKey(0);
         std::vector<cv::Point> visited_right;
         std::vector<cv::Point> visited_left;
         std::vector<cv::Point> visited_top;
