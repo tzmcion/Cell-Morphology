@@ -33,7 +33,7 @@ class Transformations{
      *  @param img cv.Mat imag3
      *  @param max_radius Maximum radius of the mean brightness of the area
      * */
-    static void norm_brightnes(cv::Mat &img, int max_radius=50, int alter_radius=200, int threshold);
+    static void norm_brightnes(cv::Mat &img, int max_radius=50, int alter_radius=200, int threshold=30);
 
 
     private:

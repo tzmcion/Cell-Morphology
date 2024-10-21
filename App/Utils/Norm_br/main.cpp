@@ -1,6 +1,6 @@
-#include "../../Transformations/Transformations.h"
-#include "../../Structures/Structures.h"
-#include "../../Structures/Colors.h"
+#include "../../Components/Transformations/Transformations.h"
+#include "../../Components/Structures/Structures.h"
+#include "../../Components/Structures/Colors.h"
 
 /**
  *  Component Created by Tymoteusz Apriasz \n
@@ -41,10 +41,12 @@ int main(int argc, char** argv){
     for(int x = 0; x < images.size(); x++){
         const std::string PATH = images[x];
         std::cout << Colors::YELLOW << "Processing of:: " << Colors::RESET << PATH;
+        std::cout << std::flush;
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
         cv::Mat img;
         img = cv::imread(PATH,cv::IMREAD_GRAYSCALE);
         Transformations::norm_brightnes(img,RADIUS,TRAVERSE,MAX_DIFF);
-        
+        std::cout << Colors::GREEN <<" [...DONE! ]"<< Colors::RESET << std::endl;
     }
 
     return 0;

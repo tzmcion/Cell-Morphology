@@ -1,4 +1,4 @@
-#include "Transformations.h"
+#include "./Transformations.h"
 
 double Transformations::image_brightnes(cv::Mat img){
     cv::Mat gray = img;

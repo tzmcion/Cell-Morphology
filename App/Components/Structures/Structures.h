@@ -2,7 +2,7 @@
 
 #include "../Includes/includes.h"
 #include <fstream>
-#include <filesystem>
+#include <sys/stat.h>
 
 namespace Entites{
     template<typename T>
@@ -93,19 +93,21 @@ namespace Entites{
         }
     };
 
+
     class FILES{
         public:
         static void folder_create(const char* folderPath){
-
-            // Check if the directory exists
-            if (std::filesystem::exists(folderPath)) {
-            } else {
-                // Directory does not exist, create it
-                if (std::filesystem::create_directory(folderPath)) {
+                struct stat info;
+                if (stat(folderPath, &info) == 0 && (info.st_mode & S_IFDIR)) {
+                    std::cout << "Directory already exists: " << folderPath << std::endl;
                 } else {
-                    std::cerr << "Error: Failed to create directory: " << folderPath << std::endl;
+                    // Directory does not exist, create it
+                    if (mkdir(folderPath, 0777) == 0) {
+                        std::cout << "Directory created successfully: " << folderPath << std::endl;
+                    } else {
+                        std::cerr << "Error: Failed to create directory: " << folderPath << std::endl;
+                    }
                 }
-            }
         }
     };
 }
