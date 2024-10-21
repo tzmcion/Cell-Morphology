@@ -33,7 +33,7 @@ class Transformations{
      *  @param img cv.Mat imag3
      *  @param max_radius Maximum radius of the mean brightness of the area
      * */
-    static void norm_brightnes(cv::Mat &img, int max_radius=50, int alter_radius=200);
+    static void norm_brightnes(cv::Mat &img, int max_radius=50, int alter_radius=200, int threshold);
 
 
     private:
@@ -145,11 +145,11 @@ class Transformations{
 
     //TODO:
     //Decide if algorithm will go 8 ways or 4 ways;
-    static void dijkstra_mean_alter(cv::Mat &img_o,cv::Point start_point, int brightnes,int radius = 50, int alter_radius = 100){
+    static void dijkstra_mean_alter(cv::Mat &img_o,cv::Point start_point, int brightnes,int radius = 50, int alter_radius = 100, int threshold=20){
         Entites::Queue<Transformations::dijkstra_point> queue;
         cv::Mat img;
         img_o.convertTo(img, CV_32F);
-        std::cout << "AT:" << img.at<float>(580,263) << std::endl;
+        //std::cout << "AT:" << img.at<float>(580,263) << std::endl;
         cv::waitKey(0);
         std::vector<cv::Point> visited_right;
         std::vector<cv::Point> visited_left;
@@ -184,7 +184,7 @@ class Transformations{
                 //Here check if this point was already visited by this instance
                 continue;
             }
-            alter_mean_of_circle(img,center,brightnes,alter_radius,20);
+            alter_mean_of_circle(img,center,brightnes,alter_radius,threshold);
             visited->push_back(cv::Point(center));
             queue.append(dijkstra_point(cv::Point(center.x + radius, center.y),visited));
             queue.append(dijkstra_point(cv::Point(center.x, center.y + radius),visited));
