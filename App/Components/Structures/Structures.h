@@ -48,9 +48,7 @@ namespace Entites{
          * */
         public: 
         static void c_char_to_string(std::vector<std::string> &vec, const char* list){
-            if( &vec == nullptr){
-                throw std::invalid_argument("Vector passed to fill is NULL");
-            }
+            vec.clear();
             if( list[0] != '[' ){
                 throw std::invalid_argument("list passed as argument is not in shape of [ar1, ar2]");
             }
@@ -108,6 +106,22 @@ namespace Entites{
                         std::cerr << "Error: Failed to create directory: " << folderPath << std::endl;
                     }
                 }
+        }
+
+        static std::string save_to_folder(std::string initial_path, std::string folder_name, cv::Mat &img){
+                std::string file_name = "";
+                int i = initial_path.length() -1;
+                while(initial_path[i] != '/' && initial_path[i] != '\\'){
+                    file_name += initial_path[i];
+                    i--;
+                }
+                if(folder_name[folder_name.length()-1] != '/' && folder_name[folder_name.length()-1] != '\\'){
+                    file_name += '/';
+                }
+                std::reverse(file_name.begin(),file_name.end());
+                file_name = folder_name + file_name;
+                cv::imwrite(file_name,img);
+                return file_name;
         }
     };
 }

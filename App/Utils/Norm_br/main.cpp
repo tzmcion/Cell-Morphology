@@ -13,6 +13,7 @@
 
 
 int main(int argc, char** argv){
+    cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_SILENT);
     if(argc != 6){
         throw std::invalid_argument( "Number of Arguments is too little, required is 5");
     }
@@ -27,7 +28,7 @@ int main(int argc, char** argv){
     std::cout << "Reading input files, note that this process will end in infinite loop if provided array does not end with \"]\"! \n";
     std::vector<std::string> images;
     Entites::Convert::c_char_to_string(images,PATHS);
-    for(int x = 0; x < images.size(); x++){
+    for(size_t x = 0; x < images.size(); x++){
         std::cout << "Image_" << x << ' ' << Colors::MAGENTA << images[x] << Colors::RESET << std::endl;
     }
     std::cout << "Detected " << images.size() << " files to convert in total \n";
@@ -38,7 +39,7 @@ int main(int argc, char** argv){
     std::cout << "Traverse: " << TRAVERSE << std::endl;
     std::cout << "MAX_DIFF: " << MAX_DIFF << std::endl;
     std::cout << "Starting the processment of data: \n";
-    for(int x = 0; x < images.size(); x++){
+    for(size_t x = 0; x < images.size(); x++){
         const std::string PATH = images[x];
         std::cout << Colors::YELLOW << "Processing of:: " << Colors::RESET << PATH;
         std::cout << std::flush;
@@ -46,8 +47,11 @@ int main(int argc, char** argv){
         cv::Mat img;
         img = cv::imread(PATH,cv::IMREAD_GRAYSCALE);
         Transformations::norm_brightnes(img,RADIUS,TRAVERSE,MAX_DIFF);
-        std::cout << Colors::GREEN <<" [...DONE! ]"<< Colors::RESET << std::endl;
+        std::cout << Colors::GREEN <<" [...DONE! ]"<< Colors::RESET << " Saving File... ";
+        std::string out_name = Entites::FILES::save_to_folder(PATH,OUT_FOLDER,img);
+        std::cout << Colors::GREEN <<" [...DONE! ]" << Colors::RESET << " Succesfully saved to: " << Colors::MAGENTA << out_name << Colors::RESET << std::endl;
     }
-
+    std::string out_data = Entites::Convert::text_file_to_string("./SUCCES.txt");
+    std::cout << out_data << "All operations finished, process will end with zero" << std::endl << std::endl;
     return 0;
 }

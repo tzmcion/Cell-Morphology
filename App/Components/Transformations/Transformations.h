@@ -112,7 +112,7 @@ class Transformations{
         double ajd_mean = goal_brightness - sum/count;
         if(!(sum > 0) )return;
         //Influence size must be same size as points
-        for(int i = 0; i < points.size(); i++){
+        for(size_t i = 0; i < points.size(); i++){
             const int x = points[i].x;
             const int y = points[i].y;
             img.at<float>(x,y) += ajd_mean*influence[i];

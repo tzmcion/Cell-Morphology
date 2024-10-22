@@ -83,7 +83,7 @@ void Transformations::dots_remove(cv::Mat &img, int threshold_black, int thresho
         }
     }
     std::cout<<"inpaint time\n";
-    for(int x = 0; x < x_set.size(); x++){
+    for(size_t x = 0; x < x_set.size(); x++){
         std::cout<<x_set[x]<<std::endl;
         cv::Mat componentMask = (labels == x_set[x]);
         cv::Mat mask = componentMask;
