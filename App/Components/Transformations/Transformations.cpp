@@ -72,7 +72,7 @@ void Transformations::dots_remove(cv::Mat &img, int threshold_black, int thresho
         cv::Mat componentMask = (labels == x);
         int area = stats.at<int>(x, cv::CC_STAT_AREA);
         // std::cout<<meanBrightness<<std::endl;
-        if(area < 30)
+        if(area < threshold_size)
         {    
             x_set.push_back(x);
             cv::Mat mask;
@@ -82,9 +82,7 @@ void Transformations::dots_remove(cv::Mat &img, int threshold_black, int thresho
             //regionToBlur.copyTo(o_img,componentMask);
         }
     }
-    std::cout<<"inpaint time\n";
     for(size_t x = 0; x < x_set.size(); x++){
-        std::cout<<x_set[x]<<std::endl;
         cv::Mat componentMask = (labels == x_set[x]);
         cv::Mat mask = componentMask;
         mask.setTo(brightnes,componentMask);

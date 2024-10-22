@@ -43,7 +43,6 @@ int main(int argc, char** argv){
         const std::string PATH = images[x];
         std::cout << Colors::YELLOW << "Processing of:: " << Colors::RESET << PATH;
         std::cout << std::flush;
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
         cv::Mat img;
         img = cv::imread(PATH,cv::IMREAD_GRAYSCALE);
         Transformations::norm_brightnes(img,RADIUS,TRAVERSE,MAX_DIFF);
@@ -51,7 +50,7 @@ int main(int argc, char** argv){
         std::string out_name = Entites::FILES::save_to_folder(PATH,OUT_FOLDER,img);
         std::cout << Colors::GREEN <<" [...DONE! ]" << Colors::RESET << " Succesfully saved to: " << Colors::MAGENTA << out_name << Colors::RESET << std::endl;
     }
-    std::string out_data = Entites::Convert::text_file_to_string("./SUCCES.txt");
+    std::string out_data = Entites::Convert::text_file_to_string("../SUCCES.txt");
     std::cout << out_data << "All operations finished, process will end with zero" << std::endl << std::endl;
     return 0;
 }
