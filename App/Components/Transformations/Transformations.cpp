@@ -57,29 +57,26 @@ void Transformations::opening(cv::Mat &image,cv::Mat src, char operation, int ke
     image = o_img;
 }
 
-void Transformations::dots_remove(cv::Mat &img, int threshold_black, int threshold_size){
+void Transformations::dots_remove(cv::Mat &img, int threshold_black, int threshold_size, int kern_s_dil_init, int kern_s_dil_sec, int inpaint_size, int type){
+    Transformations::data_validation_dots_remove(threshold_black,threshold_size,kern_s_dil_init,kern_s_dil_sec,inpaint_size,type);
     cv::Mat binary_image;
     const double brightnes = Transformations::image_brightnes(img);
-    cv::threshold(img,binary_image,(brightnes/5*3),255,cv::THRESH_BINARY_INV);
-    //cv::threshold(img,binary_image,180,255,cv::THRESH_BINARY_INV);
+    cv::threshold(img,binary_image,(brightnes/25*threshold_black),255,cv::THRESH_BINARY_INV);
     cv::Mat labels,stats,centroids;
     const int numLab = cv::connectedComponentsWithStats(binary_image,labels,stats,centroids,4,4);
-    cv::Mat o_img;  img.copyTo(o_img);//cv::Mat::zeros(binary_image.size(),0);
-    cv::Mat kernel = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(5, 5));
-    cv::Mat kernel_small = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(3, 3));
+    cv::Mat o_img;  img.copyTo(o_img);
+    cv::Mat kernel = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(kern_s_dil_sec, kern_s_dil_sec));
+    cv::Mat kernel_small = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(kern_s_dil_init, kern_s_dil_init));
     std::vector<int> x_set;
     for(int x = 1; x < numLab; x++){
         cv::Mat componentMask = (labels == x);
         int area = stats.at<int>(x, cv::CC_STAT_AREA);
-        // std::cout<<meanBrightness<<std::endl;
         if(area < threshold_size)
         {    
             x_set.push_back(x);
             cv::Mat mask;
             cv::dilate(componentMask,mask,kernel_small);
             o_img.setTo(brightnes,mask);
-            // Transformations::opening(temp,regionToBlur,'G',5);
-            //regionToBlur.copyTo(o_img,componentMask);
         }
     }
     for(size_t x = 0; x < x_set.size(); x++){
@@ -87,15 +84,9 @@ void Transformations::dots_remove(cv::Mat &img, int threshold_black, int thresho
         cv::Mat mask = componentMask;
         mask.setTo(brightnes,componentMask);
         cv::dilate(componentMask,mask,kernel);
-        cv::inpaint(o_img, mask, o_img, 5, cv::INPAINT_TELEA);
-        //cv::GaussianBlur(o_img,o_img,cv::Size(5,5),0);
+        cv::inpaint(o_img, mask, o_img, inpaint_size, type);
     }
-        //Let's do tomorrow gausian blur in places where the areas leave
-        //Then it should do the trick
-        //cv::GaussianBlur(o_img,o_img,cv::Size(5,5),4);
     img = o_img;
-    // cv::imshow("Show",o_img);
-    // cv::imshow("Binary",binary_image);
 }
 
 
@@ -104,7 +95,6 @@ void Transformations::norm_brightnes(cv::Mat &img, int max_radius, int alter_rad
     Transformations::is_image(img);
     //First, calculate the average brightnes to which every part of the image will be altered
     const double BASE_BR = Transformations::image_brightnes(img);
-    //std::cout<<"Altering brightnes \n";
     //Now, based on radius, find the circle on an image, which is the closes to the BASE_BR
     cv::Point start_point;
     double curr_closest_mean = 255; // it is mathematically imposibble to be higher than 255
@@ -119,7 +109,6 @@ void Transformations::norm_brightnes(cv::Mat &img, int max_radius, int alter_rad
             }
         }
     }
-    //std::cout<<"Best point found on:" << start_point.x <<" and: " << start_point.y << "\n";
     //Now, we have our starting point
     //From that starting point we project "dikstra-like" alorithm to alter brightnes
     Transformations::dijkstra_mean_alter(img,start_point,BASE_BR,max_radius,alter_radius,threshold);

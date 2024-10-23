@@ -22,11 +22,15 @@ class Transformations{
     static void opening(cv::Mat &image,cv::Mat src, char operation, int kernelSize=5);
 
     /**
-     *  Function removes dots using connected components, can be removed by size and
-     *  @param threshold_black states how black mean of object can be
-     *  @param threshold_size states min size of object which is accepted
+     *  Function removes dots using connected components, can be removed by size and acceptance threshold
+     *  @param threshold_black Threshold value for detecting the object as removable (ratio -- mean/25 * threshold_black)
+     *  @param threshold_size size of detected object being to big to be counted as noise
+     *  @param kern_s_dil_init size of initial dilation, before the painting of gray over the detected object 
+     *  @param kern_s_dil_sec size of second dilation, after the painting of gray over the detected object
+     *  @param inpaint_size size of kernel of inpaint, inpaint merges the objects with background
+     *  @param type type of inpaint algorithm, 1 or 0
      * */
-    static void dots_remove(cv::Mat &img, int threshold_black=100, int threshold_size=50);
+    static void dots_remove(cv::Mat &img, int threshold_black=15, int threshold_size=50, int kern_s_dil_init = 3, int kern_s_dil_sec = 5, int inpaint_size = 5, int type = 1);
 
     /**
      *  Function normalizes brightnes of the image
@@ -38,10 +42,54 @@ class Transformations{
 
     private:
 
+    /**
+     *  Function check if provide variable is image, and end quits program if is not
+     * */
     static void is_image(cv::Mat &img, std::string path="certain_path"){
         if(img.empty()){
             const std::string msg = "Could not open the image on path: " + path;
             throw std::invalid_argument(msg);
+        }
+    }
+
+    /**
+     *  Function validates values for function dots_remove and quits the probram if values are out of bonds
+     * */
+    static void data_validation_dots_remove(int threshold_black, int threshold_size, int ker1, int ker2, int inp, int type){
+        std::string message = "ERROR for algorithm of dots_remove provided value(s): ";
+        std::string check = message;
+        if(threshold_black <= 0 || threshold_black > 50){
+            message += "* Threshold: ";
+            message += threshold_black;
+            message += " While the range is <int>[1, 50] \n";
+        }
+        if(threshold_size <= 0){
+            message += "* area_size: ";
+            message += threshold_size;
+            message += " While the range is <int>[1, +inf)\n";
+        }
+        if(ker1 <= 0 || ker1 >= 8){
+            message += "* Kernel_size_dilation_initial: ";
+            message += ker1;
+            message += " While the range is <int>[1, 7]\n";
+        }
+        if(ker2 <= 0 || ker2 >= 8){
+            message += "* Kernel_size_dilation_second: ";
+            message += ker2;
+            message += " While the range is <int>[1, 7]\n";
+        }
+        if(inp <= 0 || inp >= 8){
+            message += "* inpaint_size: ";
+            message += inp;
+            message += " While the range is <int>[1,7]\n";
+        }
+        if(type != 0 && type != 1){
+            message += "* inpaint_type: ";
+            message += type;
+            message += " While this value is binarry <int>[0,1]";
+        }
+        if(check != message){
+            throw std::invalid_argument(message);
         }
     }
 
@@ -74,8 +122,6 @@ class Transformations{
 
     /**
      *  Function alters brightnes on a circle
-     *  TODO: Calculatio of mean depends on the distance from the center
-     *  Maybe thanks to this it will work in some other way idk
      * */
     static void alter_mean_of_circle(cv::Mat &img, cv::Point center, int goal_brightness, int radius=50, int threshold_val = 20){
         //First, calculate boundries
@@ -116,8 +162,6 @@ class Transformations{
             const int x = points[i].x;
             const int y = points[i].y;
             img.at<float>(x,y) += ajd_mean*influence[i];
-            // std::cout<< ajd_mean*influence[i] << "INF:" << influence[i] << "ADJ:" << ajd_mean << "SUM:" << sum << std::endl;
-            // cv::waitKey(0);
         }
         //Should work :)
     }
@@ -149,7 +193,6 @@ class Transformations{
         Entites::Queue<Transformations::dijkstra_point> queue;
         cv::Mat img;
         img_o.convertTo(img, CV_32F);
-        //std::cout << "AT:" << img.at<float>(580,263) << std::endl;
         cv::waitKey(0);
         std::vector<cv::Point> visited_right;
         std::vector<cv::Point> visited_left;
@@ -172,8 +215,6 @@ class Transformations{
             const dijkstra_point p = queue.pop();
             visited = p.visited;
             center = p.center;
-            // cv::imshow("Changes",img);
-            // cv::waitKey(0);
             if(center.x < 0 || center.x > img.rows || center.y < 0 || center.y > img.cols){
                 //If center is out of bonds, continue
                 //TODO:
@@ -181,7 +222,6 @@ class Transformations{
                 continue;
             }
             if(std::find(visited->begin(), visited->end(), center) != visited->end()){
-                //Here check if this point was already visited by this instance
                 continue;
             }
             alter_mean_of_circle(img,center,brightnes,alter_radius,threshold);

@@ -50,7 +50,7 @@ namespace Entites{
         static void c_char_to_string(std::vector<std::string> &vec, const char* list){
             vec.clear();
             if( list[0] != '[' ){
-                throw std::invalid_argument("list passed as argument is not in shape of [ar1, ar2]");
+                throw std::invalid_argument("list passed as argument is not in shape of [ar1,ar2] !! DELETE SPACES IF YOU HAVE");
             }
             int i = 1;
             while(1){

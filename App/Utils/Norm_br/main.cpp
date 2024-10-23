@@ -7,7 +7,7 @@
  *  ©Avant 2024/2025 \n
  *  Process Normalizes Brightness in Image using it's mean brightnes \n
  *  Args:  radius, traverse_radius, max_diff_threshold, [path1,path2,...,path(n)], output_folder \n
- *  Example of input: ./main.out 10 15 30 [./d1.jpg, ./d2.jpg, ./d3.jpg, ./d4.jpg] ./temp_img \n
+ *  Example of input: ./main.out 10 15 30 [./d1.jpg,./d2.jpg,./d3.jpg,./d4.jpg] ./temp_img \n
  * */
 
 

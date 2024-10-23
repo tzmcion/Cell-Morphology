@@ -1,6 +1,6 @@
 #include "./Components/Transformations/Transformations.h"
 
-//Transformation of set of images given in a string input, and smoothen of the brightness
+//This File is for testing purposes
 
 int main(int argc, char** argv) {
     // if(argc < 2){
