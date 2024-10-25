@@ -114,4 +114,19 @@ void Transformations::norm_brightnes(cv::Mat &img, int max_radius, int alter_rad
     Transformations::dijkstra_mean_alter(img,start_point,BASE_BR,max_radius,alter_radius,threshold);
 }
 
+void Transformations::square_and_resize(cv::Mat &img, int d_size){
+    Transformations::is_image(img);
+    //Find the shorter dimension, which will be base
+    int crop_size = std::min(img.rows, img.cols);
 
+    // Define the top-left corner of the crop based on the center
+    int x_offset = (img.cols - crop_size) / 2;
+    int y_offset = (img.rows - crop_size) / 2;
+
+    // Perform center crop by defining a region of interest (ROI)
+    cv::Rect roi(x_offset, y_offset, crop_size, crop_size);
+    cv::Mat cropped_img = img(roi);
+
+    // Resize the cropped square image to the desired size
+    cv::resize(cropped_img, img, cv::Size(d_size, d_size), 0, 0, cv::INTER_LINEAR);
+}

@@ -39,6 +39,12 @@ class Transformations{
      * */
     static void norm_brightnes(cv::Mat &img, int max_radius=50, int alter_radius=200, int threshold=30);
 
+    /**
+     *  Function crops the image to be a square, calculating from the middle
+     *  @param img CV.Mat image to alter
+     *  @param d_size desired size of image (width)
+     * */
+    static void square_and_resize(cv::Mat &img, int d_size = 1000);
 
     private:
 
