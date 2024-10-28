@@ -128,5 +128,5 @@ void Transformations::square_and_resize(cv::Mat &img, int d_size){
     cv::Mat cropped_img = img(roi);
 
     // Resize the cropped square image to the desired size
-    cv::resize(cropped_img, img, cv::Size(d_size, d_size), 0, 0, cv::INTER_LINEAR);
+    cv::resize(cropped_img, img, cv::Size(d_size, d_size));
 }
