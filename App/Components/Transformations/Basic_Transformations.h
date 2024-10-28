@@ -1,0 +1,91 @@
+#pragma once
+#include "../Includes/includes.h"
+
+using namespace cv;
+using namespace std;
+
+class BasicTransofrmations{
+    public:
+        /**
+         * TO DESCRIBE
+         * */
+        static void dilation(Mat &inp, Mat &out, int size, int elem, int iterations){
+            if(BasicTransofrmations::is_null<int>(inp,out,size))return;
+            int erosion_type = 0;
+            if( elem == 0 ){ erosion_type = MORPH_RECT; }
+            else if( elem == 1 ){ erosion_type = MORPH_CROSS; }
+            else if( elem == 2) { erosion_type = MORPH_ELLIPSE; }
+            Mat element = getStructuringElement( erosion_type, Size( 2*size + 1, 2*size+1 ),Point( size, size ) );
+            dilate( inp, out, element, Point(-1,-1), iterations);
+        }
+
+        /**
+         *  TO DESCRIBE
+         * */
+        static void erosion(Mat &inp, Mat &out, int size, int erosion_elem, int iterations){
+            if(BasicTransofrmations::is_null<int>(inp,out,size))return;
+            int erosion_type = 0;
+            if( erosion_elem == 0 ){ erosion_type = MORPH_RECT; }
+            else if( erosion_elem == 1 ){ erosion_type = MORPH_CROSS; }
+            else if( erosion_elem == 2) { erosion_type = MORPH_ELLIPSE; }
+            Mat element = getStructuringElement( erosion_type, Size( 2*size + 1, 2*size+1 ),Point( size, size ) );
+            erode( inp, out, element, Point(-1,-1), iterations);
+        }
+
+        /**
+         *  TO DESCRIBE
+         * */
+        static void clahe(Mat &inp, Mat &out, double force){
+            if(BasicTransofrmations::is_null<double>(inp,out,force))return;
+            cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE();
+            clahe->setClipLimit(force);
+            cv::Mat claheImg;
+            clahe->apply(inp, out);
+        }
+
+        /**
+         *  TO DESCRIBE
+         * */
+        static void double_blur(Mat &inp, Mat &out, int blur_force, int mean_force){
+            BasicTransofrmations::is_image(inp);
+            if((mean_force == blur_force) == 0){
+                out = inp;
+                return;
+            }
+                if(blur_force != 0)
+                cv::GaussianBlur(inp, out, cv::Size(blur_force, blur_force), 0);
+                if(mean_force != 0)
+                cv::medianBlur(inp,out,mean_force);
+        }
+
+        /**
+         *  TO DESCRIBE
+         * */
+        static void resize(Mat &inp, Mat &out, int new_size){
+
+        }
+
+    private:
+    /**
+     *  Check if size is zero
+     * */
+    template <typename T>
+    static bool is_null(Mat &inp, Mat &out, T check_val){
+        BasicTransofrmations::is_image(inp);
+        if(check_val == 0){
+            out = inp;
+            return true;
+        }
+    }
+
+    protected:
+    /**
+     *  Function check if provide variable is image, and end quits program if is not
+     * */
+    static void is_image(cv::Mat &img, std::string path="certain_path"){
+        if(img.empty()){
+            const std::string msg = "Could not open the image on path: " + path;
+            throw std::invalid_argument(msg);
+        }
+    }
+};

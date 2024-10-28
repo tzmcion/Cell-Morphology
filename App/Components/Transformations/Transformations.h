@@ -1,15 +1,12 @@
 #pragma once
 
-#include "../Includes/includes.h"
+#include "./Basic_Transformations.h"
 #include "../Structures/Structures.h"
 
-class Transformations{
+class Transformations:BasicTransofrmations{
     public:
     /*Function returns average brightnes of the image*/
     static double image_brightnes(cv::Mat img);
-
-    /*Function alters the image brightnes within the file (opens and saves it)*/
-    static void alter_brightnes(std::string path, double brightnes);
 
     /**
      *  Function performes Morphological opening, the operation can be:
@@ -47,16 +44,6 @@ class Transformations{
     static void square_and_resize(cv::Mat &img, int d_size = 1000);
 
     private:
-
-    /**
-     *  Function check if provide variable is image, and end quits program if is not
-     * */
-    static void is_image(cv::Mat &img, std::string path="certain_path"){
-        if(img.empty()){
-            const std::string msg = "Could not open the image on path: " + path;
-            throw std::invalid_argument(msg);
-        }
-    }
 
     /**
      *  Function validates values for function dots_remove and quits the probram if values are out of bonds

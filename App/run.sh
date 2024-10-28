@@ -13,7 +13,7 @@ LDFLAGS="`pkg-config --libs opencv4`"
 TARGET="main"
 
 # List of source files (including .cpp files from the /components directory)
-SRCS="main.cpp $(find ../../Components -name "*.cpp")"
+SRCS="main.cpp $(find ./Components -name "*.cpp")"
 
 # List of object files (convert .cpp to .o)
 OBJS=$(echo "$SRCS" | sed 's/\.cpp/\.o/g')
