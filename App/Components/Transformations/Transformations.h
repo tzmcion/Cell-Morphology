@@ -6,7 +6,10 @@
 class Transformations:BasicTransofrmations{
     public:
     /*Function returns average brightnes of the image*/
-    static double image_brightnes(cv::Mat img);
+    static double image_brightnes(cv::Mat &img);
+
+    /*Function alters the image brightnes within the file (opens and saves it)*/
+    static void alter_brightnes(cv::Mat &img, double brightnes);
 
     /**
      *  Function performes Morphological opening, the operation can be:

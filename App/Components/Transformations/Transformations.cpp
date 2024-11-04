@@ -1,6 +1,6 @@
 #include "./Transformations.h"
 
-double Transformations::image_brightnes(cv::Mat img){
+double Transformations::image_brightnes(cv::Mat &img){
     Transformations::is_image(img);
     cv::Scalar mean_val = cv::mean(img);
     return mean_val[0];
@@ -8,6 +8,18 @@ double Transformations::image_brightnes(cv::Mat img){
 //
 //
 //
+void Transformations::alter_brightnes(cv::Mat &img, double brightnes){
+    Transformations::is_image(img);
+    cv::Mat new_img = cv::Mat::zeros(img.size(),img.type());
+    const double br = -1*(cv::mean(img)[0] - brightnes);
+    const double alpha = 1;
+    for(int x = 0; x < img.rows; x++){
+        for(int y = 0; y < img.cols; y++){
+            new_img.at<uchar>(x,y) = cv::saturate_cast<uchar>(alpha*img.at<uchar>(x,y) + br);
+        }
+    }
+    img = new_img;
+}
 //
 //
 //

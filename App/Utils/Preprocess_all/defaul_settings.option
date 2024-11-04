@@ -1,0 +1,13 @@
+#Please use the structure of the file as it should be
+ID: Norm_br
+    iterations: 1
+    arguments: [15 30 10]
+ID: Norm_br_global
+    iterations: 1
+    arguments: []
+ID: Norm_noise
+    iterations: 2
+    arguments: [22 30 2 1 1 0 0] [8 1000 2 2 2 0 0]
+
+#The program will search for the folder with name in ID, and will run the programs with specified arguments and iterations, for each iteration need to specify arguments
+

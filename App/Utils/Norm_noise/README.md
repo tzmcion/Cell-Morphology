@@ -12,7 +12,7 @@ Total of 8 params
 @param input_images_list - list of images to process
 @param output_folder_dir - directory of output folder
 @param display_changes set to 1 if need of displaying the process
-Example of input: ./main.out 15 30 3 5 5 1 [./d1.jpg,./d2.jpg,./d3.jpg,./d4.jpg] ./temp_img
+Example of input: ./main.out 15 30 3 5 5 1 0 [./d1.jpg,./d2.jpg,./d3.jpg,./d4.jpg] ./temp_img
 
 !! WARNING DO NOT USE SPACES WHEN PROVIDING PATHS! INCORRECT EXAMPLE: [./d1.jpg, ./d2.jpg] !!
 

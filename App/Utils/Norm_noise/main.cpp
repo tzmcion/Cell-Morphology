@@ -17,8 +17,8 @@
  *  @param input_images_list - List of input files
  *  @param output_folder_dir - directory of output file
  *  @param display_changes set to 1 if need of displaying the process
- *  TEMPLATE: Example of input: ./main.out 15 30 3 5 5 0 [./d1.jpg,./d2.jpg,./d3.jpg,./d4.jpg] ./temp_img \n 
- *  Optimal: 15 50 1 2 2 0 (I think)
+ *  TEMPLATE: Example of input: ./main.out 15 30 3 5 5 0 0 [./d1.jpg,./d2.jpg,./d3.jpg,./d4.jpg] ./temp_img \n 
+ *  Optimal: 15 50 1 2 2 0 0 (I think)
  * */
 int main(int argc, char** argv){
     cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_SILENT);
