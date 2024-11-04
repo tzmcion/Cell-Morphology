@@ -16,13 +16,14 @@
  *  @param inpaint_type type of inpaint algorithm, 1 or 0 | For small 0 is better
  *  @param input_images_list - List of input files
  *  @param output_folder_dir - directory of output file
+ *  @param display_changes set to 1 if need of displaying the process
  *  TEMPLATE: Example of input: ./main.out 15 30 3 5 5 0 [./d1.jpg,./d2.jpg,./d3.jpg,./d4.jpg] ./temp_img \n 
  *  Optimal: 15 50 1 2 2 0 (I think)
  * */
 int main(int argc, char** argv){
     cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_SILENT);
-    if(argc != 9){
-        throw std::invalid_argument( "Number of Arguments is too little, required is 8");
+    if(argc != 10){
+        throw std::invalid_argument( "Number of Arguments is too little, required is 9");
     }
     const int THRESHOLD = std::atoi(argv[1]);
     const int MAX_SIZE = std::atoi(argv[2]);
@@ -30,8 +31,9 @@ int main(int argc, char** argv){
     const int KERN_SIZE_SEC = std::atoi(argv[4]);
     const int INP_SIZE = std::atoi(argv[5]);
     const int INP_TYPE = std::atoi(argv[6]);
-    const char* PATHS = argv[7];
-    const char* OUT_FOLDER = argv[8];
+    const bool DISPL_CH = std::atoi(argv[7]) == 1 ? true : false;
+    const char* PATHS = argv[8];
+    const char* OUT_FOLDER = argv[9];
     std::string INP_DATA = Entites::Convert::text_file_to_string("./README.md");
     std::cout << Colors::CYAN << INP_DATA << Colors::RESET;
     std::cout << "-------------------------------------------------- \n";
@@ -58,7 +60,7 @@ int main(int argc, char** argv){
         std::cout << std::flush;
         cv::Mat image;
         image = cv::imread(PATH, cv::IMREAD_GRAYSCALE);
-        Transformations::dots_remove(image,THRESHOLD,MAX_SIZE, KERN_SIZE_INIT, KERN_SIZE_SEC, INP_SIZE, INP_TYPE);
+        Transformations::dots_remove(image,THRESHOLD,MAX_SIZE, KERN_SIZE_INIT, KERN_SIZE_SEC, INP_SIZE, INP_TYPE, DISPL_CH);
         std::cout << Colors::GREEN <<" [...DONE! ]"<< Colors::RESET << " Saving File... ";
         std::string out_name = Entites::FILES::save_to_folder(PATH,OUT_FOLDER,image);
         std::cout << Colors::GREEN <<" [...DONE! ]" << Colors::RESET << " Succesfully saved to: " << Colors::MAGENTA << out_name << Colors::RESET << std::endl;

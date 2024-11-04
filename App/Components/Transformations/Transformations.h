@@ -27,7 +27,7 @@ class Transformations:BasicTransofrmations{
      *  @param inpaint_size size of kernel of inpaint, inpaint merges the objects with background
      *  @param type type of inpaint algorithm, 1 or 0
      * */
-    static void dots_remove(cv::Mat &img, int threshold_black=15, int threshold_size=50, int kern_s_dil_init = 3, int kern_s_dil_sec = 5, int inpaint_size = 5, int type = 1);
+    static void dots_remove(cv::Mat &img, int threshold_black=15, int threshold_size=50, int kern_s_dil_init = 3, int kern_s_dil_sec = 5, int inpaint_size = 5, int type = 1, bool display_changes = false);
 
     /**
      *  Function normalizes brightnes of the image
@@ -35,6 +35,13 @@ class Transformations:BasicTransofrmations{
      *  @param max_radius Maximum radius of the mean brightness of the area
      * */
     static void norm_brightnes(cv::Mat &img, int max_radius=50, int alter_radius=200, int threshold=30);
+
+    /**
+     * Function normalizes brightness on the image and thrives with it to the goal brightness
+     * @param img cv.Mat image
+     * @param goal_brightness goal brightness to which the image will thrive
+     * */
+    static void norm_brightnes(cv::Mat &img, double goal_brightness, int max_radius=50, int alter_radius=200, int threshold=30);
 
     /**
      *  Function crops the image to be a square, calculating from the middle
