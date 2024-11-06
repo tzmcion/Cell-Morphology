@@ -22,7 +22,7 @@ int main(int argc, char** argv){
     const int MAX_DIFF = std::atoi(argv[3]);
     const char* PATHS = argv[4];
     const char* OUT_FOLDER = argv[5];
-    std::string INP_DATA = Entites::Convert::text_file_to_string("./README.md");
+    std::string INP_DATA = Entites::Convert::text_file_to_string("../Norm_br/README.md");
     std::cout << Colors::CYAN << INP_DATA << Colors::RESET;
     std::cout << "-------------------------------------------------- \n";
     std::cout << "Reading input files, note that this process will end in infinite loop if provided array does not end with \"]\"! \n";

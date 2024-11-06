@@ -21,7 +21,7 @@ int main(int argc, char** argv){
     const int D_SIZE = std::atoi(argv[1]);
     const char* PATHS = argv[2];
     const char* OUT_FOLDER = argv[3];
-    std::string INP_DATA = Entites::Convert::text_file_to_string("./README.md");
+    std::string INP_DATA = Entites::Convert::text_file_to_string("../Norm_size/README.md");
     std::cout << Colors::CYAN << INP_DATA << Colors::RESET;
     std::cout << "-------------------------------------------------- \n";
     std::cout << "Reading input files, note that this process will end in infinite loop if provided array does not end with \"]\"! \n";

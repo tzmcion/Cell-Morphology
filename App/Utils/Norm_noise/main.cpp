@@ -34,7 +34,7 @@ int main(int argc, char** argv){
     const bool DISPL_CH = std::atoi(argv[7]) == 1 ? true : false;
     const char* PATHS = argv[8];
     const char* OUT_FOLDER = argv[9];
-    std::string INP_DATA = Entites::Convert::text_file_to_string("./README.md");
+    std::string INP_DATA = Entites::Convert::text_file_to_string("../Norm_noise/README.md");
     std::cout << Colors::CYAN << INP_DATA << Colors::RESET;
     std::cout << "-------------------------------------------------- \n";
     std::cout << "Reading input files, note that this process will end in infinite loop if provided array does not end with \"]\"! \n";

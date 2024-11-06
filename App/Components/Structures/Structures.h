@@ -97,7 +97,6 @@ namespace Entites{
         static void folder_create(const char* folderPath){
                 struct stat info;
                 if (stat(folderPath, &info) == 0 && (info.st_mode & S_IFDIR)) {
-                    std::cout << "Directory already exists: " << folderPath << std::endl;
                 } else {
                     // Directory does not exist, create it
                     if (mkdir(folderPath, 0777) == 0) {
@@ -108,7 +107,7 @@ namespace Entites{
                 }
         }
 
-        static std::string save_to_folder(std::string initial_path, std::string folder_name, cv::Mat &img){
+        static std::string save_to_folder(std::string initial_path, std::string folder_name, cv::Mat &img,bool save=true){
                 std::string file_name = "";
                 int i = initial_path.length() -1;
                 while(initial_path[i] != '/' && initial_path[i] != '\\'){
@@ -120,7 +119,9 @@ namespace Entites{
                 }
                 std::reverse(file_name.begin(),file_name.end());
                 file_name = folder_name + file_name;
-                cv::imwrite(file_name,img);
+                if(save){
+                    cv::imwrite(file_name,img);
+                }
                 return file_name;
         }
     };
