@@ -10,9 +10,11 @@
  *  Description of process: 
  *      The process usess arguments specified in the options file to run each of processes
  *      Then the algorithms are run in the images, saving them during the time in temp folder
- *  Input: options [images] out_folder
+ *  Input: options link_to_file_with_paths out_folder
+ *  Input:
  *  use "def" to use default options as options
- *  Example: ./main.out def [../temp/im1.JPG] ./out_folder
+ *  Example: ./main.out def ./paths.txt ./out_folder
+ *  paths.txt must be in a form of [../l.jpg,../l2.jpg]...
  * */
 
 int main(int argc, char** argv){
@@ -20,14 +22,14 @@ int main(int argc, char** argv){
         throw std::invalid_argument("    [ERROR]: number of arguments is invalid");
     }
     const char* OPTIONS = std::string(argv[1]) == "def" ? "./default_settings.option" : argv[1];
-    const char *PATHS = argv[2];
+    std::string PATHS = Entites::Convert::text_file_to_string(argv[2]);
     const char *OUT_FOLDER = argv[3];
     const std::string README = Entites::Convert::text_file_to_string("./README.md"); 
     std::cout << Colors::GREEN << README << Colors::RESET;
     std::cout << "----------------------------------------- \n";
         std::cout << "Reading input files, note that this process will end in infinite loop if provided array does not end with \"]\"! \n";
     std::vector<std::string> images;
-    Entites::Convert::c_char_to_string(images,PATHS);
+    Entites::Convert::c_char_to_string(images,PATHS.c_str());
     for(size_t x = 0; x < images.size(); x++){
         std::cout << "Image_" << x << ' ' << Colors::MAGENTA << images[x] << Colors::RESET << std::endl;
     }
