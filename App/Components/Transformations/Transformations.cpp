@@ -48,8 +48,7 @@ void Transformations::opening(cv::Mat &image,cv::Mat src, char operation, int ke
         throw std::invalid_argument("Invalid argument in Function Transofrmations::opening()");
         break;
     }
-    cv::Mat img;
-    cv::resize(o_img,img,cv::Size(1000,1000));
+    cv::Mat img = o_img;
     cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(kernelSize, kernelSize));
     cv::morphologyEx(img,o_img,flag_operation,kernel);
     image = o_img;
@@ -63,8 +62,22 @@ void Transformations::opening(cv::Mat &image,cv::Mat src, char operation, int ke
 void Transformations::dots_remove(cv::Mat &img, int threshold_black, int threshold_size, int kern_s_dil_init, int kern_s_dil_sec, int inpaint_size, int type, bool display_changes){
     Transformations::data_validation_dots_remove(threshold_black,threshold_size,kern_s_dil_init,kern_s_dil_sec,inpaint_size,type);
     cv::Mat binary_image;
-    const double brightnes = Transformations::image_brightnes(img);
+    double brightnes = Transformations::image_brightnes(img);
+    double corrective_brightnes = 0;
+    int qt = 0;
+    for(int x = 0; x < img.cols; x++){
+        for(int y = 0; y < img.rows; y++){
+            if(img.at<uchar>(y,x) >= (brightnes/25*threshold_black)){
+                corrective_brightnes += img.at<uchar>(x,y);
+                qt+=1;
+            }
+        }
+    }
+    corrective_brightnes /= qt;
     cv::threshold(img,binary_image,(brightnes/25*threshold_black),255,cv::THRESH_BINARY_INV);
+    if(corrective_brightnes != 0){
+        brightnes = brightnes/2 + corrective_brightnes/2;
+    }
     cv::Mat labels,stats,centroids;
     const int numLab = cv::connectedComponentsWithStats(binary_image,labels,stats,centroids,4,4);
     cv::Mat o_img;  img.copyTo(o_img);

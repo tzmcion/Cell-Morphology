@@ -35,8 +35,8 @@ int main(int argc, char** argv){
     std::cout << "Output folder is: " << Colors::YELLOW <<  OUT_FOLDER << Colors::RESET << std::endl;
     Entites::FILES::folder_create(OUT_FOLDER);
     std::cout << "Variables: \n";
-    std::cout << "Radius: " << RADIUS << std::endl;
-    std::cout << "Traverse: " << TRAVERSE << std::endl;
+    std::cout << "Radius: " << TRAVERSE << std::endl;
+    std::cout << "Traverse: " << RADIUS << std::endl;
     std::cout << "MAX_DIFF: " << MAX_DIFF << std::endl;
     std::cout << "Starting the processment of data: \n";
     for(size_t x = 0; x < images.size(); x++){
