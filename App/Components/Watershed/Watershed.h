@@ -14,8 +14,6 @@ class Watershed{
          *  TODO
          * */
         static void foreground_mask(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &bg_mask);
-
-    private:
         /**
          * Functions uses techniques of standard deviations and anisotropicDiffusion
          * */

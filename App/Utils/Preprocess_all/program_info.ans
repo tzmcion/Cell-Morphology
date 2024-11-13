@@ -245,7 +245,29 @@ Inpaint type: 1
 Starting the processment of data: 
 [33mProcessing of:: [0m./out/00000.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00000.JPG[0m
 [33mProcessing of:: [0m./out/00001.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00001.JPG[0m
-[33mProcessing of:: [0m./out/00002.JPG[36mComponent Created by Tymoteusz Apriasz
+[33mProcessing of:: [0m./out/00002.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00002.JPG[0m
+[33mProcessing of:: [0m./out/00003.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00003.JPG[0m
+[33mProcessing of:: [0m./out/00004.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00004.JPG[0m
+[33mProcessing of:: [0m./out/00005.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00005.JPG[0m
+[33mProcessing of:: [0m./out/00006.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00006.JPG[0m
+[33mProcessing of:: [0m./out/00007.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00007.JPG[0m
+[33mProcessing of:: [0m./out/00008.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00008.JPG[0m
+[33mProcessing of:: [0m./out/00009.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00009.JPG[0m
+[33mProcessing of:: [0m./out/00010.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00010.JPG[0m
+[33mProcessing of:: [0m./out/00011.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00011.JPG[0m
+[33mProcessing of:: [0m./out/00012.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00012.JPG[0m
+[33mProcessing of:: [0m./out/00013.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00013.JPG[0m
+[33mProcessing of:: [0m./out/00014.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00014.JPG[0m
+[33mProcessing of:: [0m./out/00015.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00015.JPG[0m
+[33mProcessing of:: [0m./out/00016.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00016.JPG[0m
+[33mProcessing of:: [0m./out/00017.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00017.JPG[0m
+***************************************
+*            !!SUCCESS!!              *
+*       ALL OPERATIONS COMPLEATED     *                  
+***************************************
+All operations finished, process will end with zero
+
+[36mComponent Created by Tymoteusz Apriasz
 ©Avant 2024/2025
 Process Reducing of the noise on the image using connected components
 Args:  
@@ -296,4 +318,140 @@ Kernel size for second dilation: 2
 Inpaint size: 3
 Inpaint type: 1
 Starting the processment of data: 
-[33mProcessing of:: [0m./out/00000.JPG
+[33mProcessing of:: [0m./out/00000.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00000.JPG[0m
+[33mProcessing of:: [0m./out/00001.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00001.JPG[0m
+[33mProcessing of:: [0m./out/00002.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00002.JPG[0m
+[33mProcessing of:: [0m./out/00003.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00003.JPG[0m
+[33mProcessing of:: [0m./out/00004.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00004.JPG[0m
+[33mProcessing of:: [0m./out/00005.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00005.JPG[0m
+[33mProcessing of:: [0m./out/00006.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00006.JPG[0m
+[33mProcessing of:: [0m./out/00007.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00007.JPG[0m
+[33mProcessing of:: [0m./out/00008.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00008.JPG[0m
+[33mProcessing of:: [0m./out/00009.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00009.JPG[0m
+[33mProcessing of:: [0m./out/00010.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00010.JPG[0m
+[33mProcessing of:: [0m./out/00011.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00011.JPG[0m
+[33mProcessing of:: [0m./out/00012.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00012.JPG[0m
+[33mProcessing of:: [0m./out/00013.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00013.JPG[0m
+[33mProcessing of:: [0m./out/00014.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00014.JPG[0m
+[33mProcessing of:: [0m./out/00015.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00015.JPG[0m
+[33mProcessing of:: [0m./out/00016.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00016.JPG[0m
+[33mProcessing of:: [0m./out/00017.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00017.JPG[0m
+***************************************
+*            !!SUCCESS!!              *
+*       ALL OPERATIONS COMPLEATED     *                  
+***************************************
+All operations finished, process will end with zero
+
+[36mComponent Created by Tymoteusz Apriasz
+©Avant 2024/2025
+Process Reducing of the noise on the image using connected components
+Args:  
+Total of 8 params
+@param threshold Threshold value for detecting the object as removable (ratio -- mean/25 * threshold_black)
+@param area_size size of detected object being to big to be counted as noise
+@param kernel_size_dilation_initial size of initial dilation, before the painting of gray over the detected object 
+@param kernel_size_dilation_second size of second dilation, after the painting of gray over the detected object
+@param inpaint_size size of kernel of inpaint, inpaint merges the objects with background
+@param inpaint_type type of inpaint algorithm, 1 or 0
+@param input_images_list - list of images to process
+@param output_folder_dir - directory of output folder
+@param display_changes set to 1 if need of displaying the process
+Example of input: ./main.out 15 30 3 5 5 1 0 [./d1.jpg,./d2.jpg,./d3.jpg,./d4.jpg] ./temp_img
+
+!! WARNING DO NOT USE SPACES WHEN PROVIDING PATHS! INCORRECT EXAMPLE: [./d1.jpg, ./d2.jpg] !!
+
+NOTE! Please be aware that optimal size for mage is 1000x1000. Biggest size is hugely ineffective and requires too much time to process.
+Please use Resize process provided by author, to make image compatibile with algorithms
+NOTE! Please use grayscale images, if image is not saved as grayscale, it might not work properly
+[0m-------------------------------------------------- 
+Reading input files, note that this process will end in infinite loop if provided array does not end with "]"! 
+Image_0 [35m./out/00000.JPG[0m
+Image_1 [35m./out/00001.JPG[0m
+Image_2 [35m./out/00002.JPG[0m
+Image_3 [35m./out/00003.JPG[0m
+Image_4 [35m./out/00004.JPG[0m
+Image_5 [35m./out/00005.JPG[0m
+Image_6 [35m./out/00006.JPG[0m
+Image_7 [35m./out/00007.JPG[0m
+Image_8 [35m./out/00008.JPG[0m
+Image_9 [35m./out/00009.JPG[0m
+Image_10 [35m./out/00010.JPG[0m
+Image_11 [35m./out/00011.JPG[0m
+Image_12 [35m./out/00012.JPG[0m
+Image_13 [35m./out/00013.JPG[0m
+Image_14 [35m./out/00014.JPG[0m
+Image_15 [35m./out/00015.JPG[0m
+Image_16 [35m./out/00016.JPG[0m
+Image_17 [35m./out/00017.JPG[0m
+Detected 18 files to convert in total 
+Output folder is: [33m./out[0m
+Variables: 
+Threshold: 15
+Size: 50
+Kernel size for initial dilation: 1
+Kernel size for second dilation: 2
+Inpaint size: 2
+Inpaint type: 1
+Starting the processment of data: 
+[33mProcessing of:: [0m./out/00000.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00000.JPG[0m
+[33mProcessing of:: [0m./out/00001.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00001.JPG[0m
+[33mProcessing of:: [0m./out/00002.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00002.JPG[0m
+[33mProcessing of:: [0m./out/00003.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00003.JPG[0m
+[33mProcessing of:: [0m./out/00004.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00004.JPG[0m
+[33mProcessing of:: [0m./out/00005.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00005.JPG[0m
+[33mProcessing of:: [0m./out/00006.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00006.JPG[0m
+[33mProcessing of:: [0m./out/00007.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00007.JPG[0m
+[33mProcessing of:: [0m./out/00008.JPG[36mComponent Created by Tymoteusz Apriasz
+©Avant 2024/2025
+Process Reducing of the noise on the image using connected components
+Args:  
+Total of 8 params
+@param threshold Threshold value for detecting the object as removable (ratio -- mean/25 * threshold_black)
+@param area_size size of detected object being to big to be counted as noise
+@param kernel_size_dilation_initial size of initial dilation, before the painting of gray over the detected object 
+@param kernel_size_dilation_second size of second dilation, after the painting of gray over the detected object
+@param inpaint_size size of kernel of inpaint, inpaint merges the objects with background
+@param inpaint_type type of inpaint algorithm, 1 or 0
+@param input_images_list - list of images to process
+@param output_folder_dir - directory of output folder
+@param display_changes set to 1 if need of displaying the process
+Example of input: ./main.out 15 30 3 5 5 1 0 [./d1.jpg,./d2.jpg,./d3.jpg,./d4.jpg] ./temp_img
+
+!! WARNING DO NOT USE SPACES WHEN PROVIDING PATHS! INCORRECT EXAMPLE: [./d1.jpg, ./d2.jpg] !!
+
+NOTE! Please be aware that optimal size for mage is 1000x1000. Biggest size is hugely ineffective and requires too much time to process.
+Please use Resize process provided by author, to make image compatibile with algorithms
+NOTE! Please use grayscale images, if image is not saved as grayscale, it might not work properly
+[0m-------------------------------------------------- 
+Reading input files, note that this process will end in infinite loop if provided array does not end with "]"! 
+Image_0 [35m./out/00000.JPG[0m
+Image_1 [35m./out/00001.JPG[0m
+Image_2 [35m./out/00002.JPG[0m
+Image_3 [35m./out/00003.JPG[0m
+Image_4 [35m./out/00004.JPG[0m
+Image_5 [35m./out/00005.JPG[0m
+Image_6 [35m./out/00006.JPG[0m
+Image_7 [35m./out/00007.JPG[0m
+Image_8 [35m./out/00008.JPG[0m
+Image_9 [35m./out/00009.JPG[0m
+Image_10 [35m./out/00010.JPG[0m
+Image_11 [35m./out/00011.JPG[0m
+Image_12 [35m./out/00012.JPG[0m
+Image_13 [35m./out/00013.JPG[0m
+Image_14 [35m./out/00014.JPG[0m
+Image_15 [35m./out/00015.JPG[0m
+Image_16 [35m./out/00016.JPG[0m
+Image_17 [35m./out/00017.JPG[0m
+Detected 18 files to convert in total 
+Output folder is: [33m./out[0m
+Variables: 
+Threshold: 18
+Size: 10
+Kernel size for initial dilation: 1
+Kernel size for second dilation: 2
+Inpaint size: 2
+Inpaint type: 1
+Starting the processment of data: 
+[33mProcessing of:: [0m./out/00000.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00000.JPG[0m
+[33mProcessing of:: [0m./out/00001.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./out/00001.JPG[0m
+[33mProcessing of:: [0m./out/00002.JPG

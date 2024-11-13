@@ -8,9 +8,10 @@ void Watershed::background_mask(cv::Mat &src, cv::Mat &dst_mask){
     cv::Mat image;
     src.copyTo(image);
     Watershed::SD_antisotropic(image,image);
-    Watershed::hysteresisThresholding(image,image,15,80,0);
+    Watershed::hysteresisThresholding(image,image,25,80,0);
     Watershed::white_inpaint_holes(image,image,int(src.cols / 3));
-    dst_mask = image;
+    cv::Mat kernel = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(3, 3));
+    cv::erode(image,dst_mask,kernel,cv::Point(-1,-1),1);
 }
 //
 //
@@ -18,11 +19,7 @@ void Watershed::background_mask(cv::Mat &src, cv::Mat &dst_mask){
 void Watershed::foreground_mask(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &bg_mask){
     cv::Mat image, mask;
     src.copyTo(image);
-    // Watershed::SD_antisotropic(image,image,3,3,0.1,true);
     Watershed::clache_medBlur(image,image,3.0,5);
-    // cv::medianBlur(image,image,9);
-    cv::imshow("TEST",image);
-    cv::waitKey(0);
     Watershed::calc_local_extremes(image,mask);
     for (int i = 0; i < bg_mask.rows; i++) {
         for (int j = 0; j < bg_mask.cols; j++) {
@@ -157,7 +154,7 @@ void Watershed::calc_local_extremes(cv::Mat &src, cv::Mat &dst_mask){
     cv::Mat img_thresholded;
     cv::Mat minimo, img;
     src.copyTo(img);
-    cv::Mat minima_mask = (img < Transformations::image_brightnes(img)/10*7.5);
+    cv::Mat minima_mask = (img < Transformations::image_brightnes(img)/10*9);
 
     // Step 3: Detect local minima within the mask
     // Define a kernel size for the minimum search (3x3 kernel used here)
@@ -169,7 +166,7 @@ void Watershed::calc_local_extremes(cv::Mat &src, cv::Mat &dst_mask){
     cv::Mat local_minima = (img == eroded) & minima_mask;
 
     cv::Mat markerLabels;
-    std::cout << "[Number of cells:]" << cv::connectedComponents(local_minima, markerLabels);
+    cv::connectedComponents(local_minima, markerLabels);
     markerLabels = markerLabels + 1; // Para que fundo seja 1 e não 0
     markerLabels.convertTo(markerLabels,CV_32S);
 
