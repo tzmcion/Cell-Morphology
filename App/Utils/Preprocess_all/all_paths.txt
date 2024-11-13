@@ -1,1 +1,1 @@
-[/home/tymoteuszapriasz/KM/HIP/A01/00017.JPG]
+[./out/00000.JPG]

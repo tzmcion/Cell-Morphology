@@ -8,6 +8,24 @@ double Transformations::image_brightnes(cv::Mat &img){
 //
 //
 //
+double Transformations::image_brightnes(cv::Mat &img, double thr_to_exclude){
+    Transformations::is_image(img);
+    double mean = 0; 
+    int count = 0;
+    for(int x = 0; x < img.rows; x++){
+        for(int y = 0; y < img.cols; y++){
+            if(img.at<uchar>(x,y) > thr_to_exclude){
+                mean += img.at<uchar>(x,y);
+                count++;
+            }
+        }
+    }
+    if(count == 0)return 0;
+    return mean/count;
+}
+//
+//
+//
 void Transformations::alter_brightnes(cv::Mat &img, double brightnes){
     Transformations::is_image(img);
     cv::Mat new_img = cv::Mat::zeros(img.size(),img.type());
@@ -63,12 +81,13 @@ void Transformations::dots_remove(cv::Mat &img, int threshold_black, int thresho
     Transformations::data_validation_dots_remove(threshold_black,threshold_size,kern_s_dil_init,kern_s_dil_sec,inpaint_size,type);
     cv::Mat binary_image;
     double brightnes = Transformations::image_brightnes(img);
+    Transformations::is_image(img);
     double corrective_brightnes = 0;
     int qt = 0;
     for(int x = 0; x < img.cols; x++){
         for(int y = 0; y < img.rows; y++){
             if(img.at<uchar>(y,x) >= (brightnes/25*threshold_black)){
-                corrective_brightnes += img.at<uchar>(x,y);
+                corrective_brightnes += img.at<uchar>(y,x);
                 qt+=1;
             }
         }
@@ -85,7 +104,6 @@ void Transformations::dots_remove(cv::Mat &img, int threshold_black, int thresho
         cv::imshow("Noise_changes",o_img);
         cv::waitKey(1);
     }
-    std::this_thread::sleep_for(std::chrono::seconds(5));
     cv::Mat kernel = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(kern_s_dil_sec, kern_s_dil_sec));
     cv::Mat kernel_small = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(kern_s_dil_init, kern_s_dil_init));
     std::vector<int> x_set;

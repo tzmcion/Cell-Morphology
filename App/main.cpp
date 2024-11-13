@@ -1,10 +1,32 @@
 #include "./Components/Transformations/Transformations.h"
+#include "./Components/Watershed/Watershed.h"
 #include <opencv2/ximgproc.hpp>
 //This File is for testing purposes
 
 int main(int argc, char** argv) {
 
-    cv::Mat image = cv::imread("./Utils/Preprocess_all/out/00017.JPG",cv::IMREAD_GRAYSCALE);    //Import the image
+    cv::Mat image = cv::imread("./Utils/Preprocess_all/out_2/00005.JPG",cv::IMREAD_GRAYSCALE);    //Import the image
+    cv::Mat background_mask, foreground_mask;
+    Watershed::background_mask(image, background_mask);
+    cv::imshow("Background mask", background_mask);
+    cv::waitKey(0);
+    Watershed::foreground_mask(image,foreground_mask,background_mask);
+    cv::Mat img;
+    image.copyTo(img);
+    img.convertTo(img,CV_8UC3);
+    cv::Mat img_color;
+    cv::cvtColor(img, img_color, cv::COLOR_GRAY2BGR);
+    // Colorir a imagem para visualização
+    for (int i = 0; i < foreground_mask.rows; i++) {
+        for (int j = 0; j < foreground_mask.cols; j++) {
+            int label = foreground_mask.at<uchar>(i, j);
+            if (label != 0) { // Borda
+                img_color.at<Vec3b>(i, j) = Vec3b(0, 0, 255); // Vermelho para bordas
+            }
+        }
+    }
+    cv::imshow("Foreground_mask",img_color);
+    cv::waitKey(0);
 
 
     // cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE();

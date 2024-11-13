@@ -6,8 +6,8 @@ ID: Norm_br_global
     iterations: 1
     arguments: []
 ID: Norm_noise
-    iterations: 2
-    arguments: [22 10 1 1 1 0 0] [12 2000 2 2 3 1 0]
+    iterations: 3
+    arguments: [22 10 1 2 2 1 0] [20 15 1 2 2 1 0] [12 2000 2 2 3 1 0]
 
 
 #ID: Norm_noise

@@ -8,6 +8,9 @@ class Transformations:BasicTransofrmations{
     /*Function returns average brightnes of the image*/
     static double image_brightnes(cv::Mat &img);
 
+    /*Function returns average brightness on the image excluding dark regions */
+    static double image_brightnes(cv::Mat &img, double thr_to_exclude);
+
     /*Function alters the image brightnes within the file (opens and saves it)*/
     static void alter_brightnes(cv::Mat &img, double brightnes);
 
