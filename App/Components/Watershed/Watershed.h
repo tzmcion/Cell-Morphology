@@ -17,7 +17,12 @@ class Watershed{
         /**
          * Functions uses techniques of standard deviations and anisotropicDiffusion
          * */
-        static void SD_antisotropic(cv::Mat &src, cv::Mat &dst, int SD_kernel=3, int as_iterations=3,double as_time=0.1, bool AN=true);
+        static void SD_antisotropic(cv::Mat &src, cv::Mat &dst, int SD_kernel=3, int as_iterations=3,double as_time=0.1);
+
+        /**
+         * Function peformes standatd deviation on an image
+         * */
+        static void Standard_deviation(cv::Mat &src, cv::Mat &dst, int kernel);
 
         /**
          * Functions uses other technique, clacheIMG and medianblur to do first preprocessing of the image
@@ -51,4 +56,19 @@ class Watershed{
          * TODO
          * */
         static double calculate_avg_radius(cv::Mat &src, int sure_min_radius, int sure_maximum_radius);
+
+        /**
+         * 
+         * */
+        static cv::Mat createGaussianKernel(int size, double sigma);
+
+        /**
+         * 
+         * */
+        static cv::Mat GaussianKernel(int size, double sigma);
+
+        /**
+         * 
+         * */
+        static cv::Mat createRingMatchedFilter(int size, double s1, double s2);
 };

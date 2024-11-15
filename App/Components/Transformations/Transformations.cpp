@@ -95,7 +95,7 @@ void Transformations::dots_remove(cv::Mat &img, int threshold_black, int thresho
     corrective_brightnes /= qt;
     cv::threshold(img,binary_image,(brightnes/25*threshold_black),255,cv::THRESH_BINARY_INV);
     if(corrective_brightnes != 0){
-        brightnes = brightnes/2 + corrective_brightnes/2;
+        brightnes = brightnes*8/10 + corrective_brightnes*2/10;
     }
     cv::Mat labels,stats,centroids;
     const int numLab = cv::connectedComponentsWithStats(binary_image,labels,stats,centroids,4,4);
@@ -122,12 +122,13 @@ void Transformations::dots_remove(cv::Mat &img, int threshold_black, int thresho
             }
         }
     }
-    if(kern_s_dil_sec > 1)
+    if(kern_s_dil_sec >= 1)
     for(size_t x = 0; x < x_set.size(); x++){
         cv::Mat componentMask = (labels == x_set[x]);
         cv::Mat mask;
         cv::dilate(componentMask,mask,kernel);
         mask.setTo(brightnes,mask);
+        if(inpaint_size > 0)
         cv::inpaint(o_img, mask, o_img, inpaint_size, type);
         if(display_changes){
             cv::imshow("Noise_changes", o_img);

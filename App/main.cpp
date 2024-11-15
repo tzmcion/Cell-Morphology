@@ -5,18 +5,75 @@
 
 int main(int argc, char** argv) {
         cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_SILENT);
-    std::string path;
-    for(int x = 0; x < 18; x++){
-        path = "./Utils/Preprocess_all/out_2/000";
-        if(x < 10){
-            path += "0";
-        }
-        path += std::to_string(x);
-        path += ".JPG";
+        std::string path;
+        cv::Mat original = cv::imread("./Utils/Preprocess_all/out/00017 copy.JPG");
+    for(int x = 6; x < 15; x++){
+        path = "./Utils/Preprocess_all/out/00017 copy.JPG";
+        // if(x < 10){
+        //     path += "0";
+        // }
+        // path += std::to_string(x);
+        // path += ".JPG";
     cv::Mat image = cv::imread(path,cv::IMREAD_GRAYSCALE);    //Import the image
-    // cv::Mat total_original = cv::imread("../HIP/H08/00001.JPG");
     cv::Mat background_mask, foreground_mask;
     Watershed::background_mask(image, background_mask);
+    //
+    //
+    for(int x = 1; x < 2000; x+=1){
+        int kernelSize = 25;         // Size of the ring filter kernel (choose an odd size)
+        double sigma1 = 3.9;         // Standard deviation for G1
+        std::cout << x << std::endl;
+        double sigma2 = std::sqrt(x) * sigma1;  // Standard deviation for G2 (to get a ring effect)
+
+        // Create the ring-shaped matched filter
+        cv::Mat src;
+        image.copyTo(src);
+        cv::medianBlur(src,src,5);
+        Watershed::Standard_deviation(src,src,3);
+        src.convertTo(src, CV_32F, 1.0 / 255.0);
+        src.setTo(0,background_mask<1);
+        cv::imshow("src",src);
+        cv::waitKey(0);
+        cv::Mat ringFilter = Watershed::createRingMatchedFilter(kernelSize, sigma1, sigma2);
+        // cv::Mat ringFilter = createGaussianKernel(kernelSize,sigma1);
+        cv::Mat filteredImage;
+        cv::filter2D(src, filteredImage, -1, ringFilter);
+        filteredImage*=15;
+        cv::Mat normalized;
+        cv::normalize(filteredImage, normalized, 0, 255, cv::NORM_MINMAX);
+        normalized.convertTo(filteredImage,CV_8UC1);
+        cv::imshow("FF",filteredImage);
+        cv::waitKey(0);
+        std::vector<cv::Point2f> localMaxima;
+        cv::goodFeaturesToTrack(filteredImage, localMaxima, 1000, 0.05, 31/2);
+
+        // Draw the local maxima points
+        cv::Mat result = original.clone();
+        for (const auto& pt : localMaxima) {
+            cv::circle(result, pt, 3, cv::Scalar(0,255,0), -1); // Draw circles on maxima
+        }
+        cv::imshow("Local Maxima", result);
+        // cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
+        // // Perform dilation
+        // cv::Mat dilated;
+        // cv::dilate(filteredImage, dilated, kernel);
+        // // Compare the original image with the dilated image
+        // cv::Mat localMaxima;
+        // cv::compare(filteredImage, dilated, localMaxima, cv::CMP_EQ);
+        // cv::imshow("FFFF", localMaxima);
+        // cv::waitKey(0);
+        // // Optional: Filter out non-maxima or background (e.g., set threshold > 0)
+        // cv::Mat mask;
+        // mask = (filteredImage > x);
+
+        // // Combine the mask with local maxima
+        // cv::bitwise_and(localMaxima, mask, localMaxima);
+
+        // // Display the result
+        // cv::imshow("Local Maxima", localMaxima);
+        // cv::waitKey(0);
+    }
+    return 0;
     Watershed::foreground_mask(image,foreground_mask,background_mask);
     cv::Mat img;
     image.copyTo(img);
@@ -36,15 +93,21 @@ int main(int argc, char** argv) {
             }
         }
     }
-    cv::Mat markers = cv::Mat::zeros(img.size(), CV_32S);
-    background_mask = (background_mask == 0);
-    markers.setTo(1,background_mask);
-    markers.setTo(2,foreground_mask);
-    // cv::connectedComponents(foreground_mask,markers);
+    // cv::Mat markers = cv::Mat::zeros(img.size(), CV_32S);
+     background_mask = (background_mask == 0);
+    // markers.setTo(1,background_mask);
+    // markers.setTo(2,foreground_mask);
+    cv::Mat labels;
+    cv::connectedComponents(foreground_mask,labels);
+    cv::Mat markers = labels.clone(); // Start with connected components as markers
+    markers.setTo(1, background_mask != 0); // Ensure background is labeled as 1
+    markers.setTo(0, (foreground_mask == 0) & (background_mask == 0)); // Unknown regions are 0
+
+    
 
     cv::Mat img_2;
     img_wat.copyTo(img_2);
-    Watershed::clache_medBlur(img,img_2,2.0,5);
+    Watershed::clache_medBlur(img,img_2,2.0,3);
     cv::cvtColor(img_2, img_wat, cv::COLOR_GRAY2BGR);
     cv::watershed(img_wat,markers);
 
@@ -56,14 +119,14 @@ int main(int argc, char** argv) {
         for (int j = 0; j < markers.cols; j++) {
             int markerValue = markers.at<int>(i, j);
             if (markerValue == -1) {
-                result.at<Vec3b>(i, j) = Vec3b(0, 0, 255); // Red for watershed boundaries
+                result.at<Vec3b>(i, j) = Vec3b(255, 200, 255); // Red for watershed boundaries
             }
-            // else if (markerValue == 1) {
-            //     result.at<Vec3b>(i, j) = Vec3b(255, 0, 0); // Blue for background
-            // }
-            else if (markerValue == 2) {
+            else if (markerValue == 1) {
+                result.at<Vec3b>(i, j) = Vec3b(125, 50, 25); // Blue for background
+            }
+            else if (markerValue >= 2) {
                 count_green += 1;
-                result.at<Vec3b>(i, j) = Vec3b(0, 255, 0); // Green for foreground
+                result.at<Vec3b>(i, j) = Vec3b(((markerValue*markerValue)%255), markerValue*50%255, ((markerValue*markerValue) % 255)); // Green for foreground
             }
             // else {
             //     result.at<Vec3b>(i, j) = Vec3b(markerValue * 10 % 256, markerValue * 20 % 256, markerValue * 30 % 256);

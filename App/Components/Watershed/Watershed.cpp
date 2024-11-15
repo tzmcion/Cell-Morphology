@@ -19,7 +19,10 @@ void Watershed::background_mask(cv::Mat &src, cv::Mat &dst_mask){
 void Watershed::foreground_mask(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &bg_mask){
     cv::Mat image, mask;
     src.copyTo(image);
-    Watershed::clache_medBlur(image,image,3.0,5);
+    cv::medianBlur(image,image,11);
+    Watershed::Standard_deviation(image,image,3);
+    Watershed::clache_medBlur(image,image,2.0,13);
+    Watershed::clache_medBlur(image,image,2.0,9);
     Watershed::calc_local_extremes(image,mask);
     for (int i = 0; i < bg_mask.rows; i++) {
         for (int j = 0; j < bg_mask.cols; j++) {
@@ -37,30 +40,9 @@ void Watershed::foreground_mask(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &bg_mas
     Private functions
 */
 
-void Watershed::SD_antisotropic(cv::Mat &src, cv::Mat &dst, int SD_kernel, int as_iterations,double as_time, bool AN){
+void Watershed::SD_antisotropic(cv::Mat &src, cv::Mat &dst, int SD_kernel, int as_iterations,double as_time){
     cv::Mat image;
-    //Converting image to higher precision
-    cv::Mat image_float;
-    src.convertTo(image_float, CV_32F);
-    //Compute the square and local min
-    cv::Mat mean;
-    cv::blur(image_float, mean, cv::Size(SD_kernel, SD_kernel));
-    cv::Mat squared_image, squared_mean;
-    cv::pow(image_float, 2, squared_image);
-    cv::blur(squared_image, squared_mean, cv::Size(SD_kernel, SD_kernel));
-    // Calculate local variance and standard deviation part
-    cv::Mat local_variance = squared_mean - mean.mul(mean);
-    cv::Mat std_dev_image;
-    cv::sqrt(local_variance, std_dev_image);
-    // Normalize the result to 8-bit image for display
-    cv::Mat std_dev_display;
-    cv::normalize(std_dev_image, std_dev_display, 0, 255, cv::NORM_MINMAX, CV_8U);
-    image = std_dev_display;
-    if(!AN){
-        dst = image;
-        return;
-    }
-
+    Watershed::Standard_deviation(src,image,3);
     // Convert to color for anisotropicDiffusion
     cv::Mat color_image;
     cv::cvtColor(image, color_image, cv::COLOR_GRAY2BGR);
@@ -70,6 +52,24 @@ void Watershed::SD_antisotropic(cv::Mat &src, cv::Mat &dst, int SD_kernel, int a
     //Convert back to grayscale and return
     cv::cvtColor(diffused_img,image,cv::COLOR_BGR2GRAY);
     dst = image;
+}
+//
+//
+//
+void Watershed::Standard_deviation(cv::Mat &src, cv::Mat &dst, int kernel){
+    cv::Mat image, image_float, squared_image, squared_mean, mean, std_dev_image,std_dev_display;
+    src.convertTo(image_float,CV_32F);
+    //To calculate standard deviation, needed is to peform root sqare of a variation
+    //σ^2 = Var(X,Y) = E(X^2) - (E(X))^2
+    //σ = sqrt(σ^2)...
+    cv::Mat mat_kernel = cv::Mat::ones(cv::Size(kernel, kernel), CV_32F) / (kernel * kernel);
+    cv::pow(image_float,2,squared_image);
+    cv::filter2D(image_float,mean,-1,mat_kernel);
+    cv::multiply(mean,mean,mean);   //E(X)^2
+    cv::filter2D(squared_image,squared_mean,-1,mat_kernel); //E(X^2)
+    cv::sqrt(squared_mean - mean,std_dev_image);    //sqrt(Var(X,Y))
+    cv::normalize(std_dev_image,std_dev_display,0,255,cv::NORM_MINMAX,src.type());
+    dst = std_dev_display;
 }
 //
 //
@@ -154,12 +154,12 @@ void Watershed::calc_local_extremes(cv::Mat &src, cv::Mat &dst_mask){
     cv::Mat img_thresholded;
     cv::Mat minimo, img;
     src.copyTo(img);
-    cv::Mat minima_mask = (img < Transformations::image_brightnes(img)/10*9);
+    cv::Mat minima_mask = (img < Transformations::image_brightnes(img)/10*15);
 
     // Step 3: Detect local minima within the mask
     // Define a kernel size for the minimum search (3x3 kernel used here)
     cv::Mat eroded;
-    cv::dilate(img, eroded, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(2, 2)));
+    cv::dilate(img, eroded, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3)));
 
     // Compare original image to eroded image within the mask to find local minima
     cv::Mat sure_bg;
@@ -193,6 +193,71 @@ void Watershed::white_inpaint_holes(cv::Mat &src, cv::Mat &dst, int max_area){
 //
 //
 //
+
+//
+//
+//
 double Watershed::calculate_avg_radius(cv::Mat &src, int sure_min_radius, int sure_maximum_radius){
     return 2.2;
+}
+//
+//
+//
+cv::Mat Watershed::createGaussianKernel(int size, double sigma){
+    cv::Point center(size/2,size/2);
+
+    cv::Mat kernel(size, size, CV_32F);
+    double sigma2 = sigma * sigma;
+
+    for (int y = 0; y < size; y++) {
+        for (int x = 0; x < size; x++) {
+            double dx = x - center.x;
+            double dy = y - center.y;
+            double distance2 = sqrt(dx * dx + dy * dy) / (size/2) + 1;
+            kernel.at<float>(x,y) = pow(size/2 - distance2,sigma);
+        }
+    }
+
+    return kernel / cv::sum(kernel)[0] * 5;
+}
+
+cv::Mat Watershed::GaussianKernel(int size, double sigma){
+    cv::Point center(size/2,size/2);
+
+    cv::Mat kernel(size, size, CV_32F);
+    double sigma2 = sigma * sigma;
+    double constant = 1.0 / (2.0 * CV_PI * sigma2);
+
+    for (int y = 0; y < size; y++) {
+        for (int x = 0; x < size; x++) {
+            double dx = x - center.x;
+            double dy = y - center.y;
+            double distance2 = dx * dx + dy * dy;
+            kernel.at<float>(y, x) = constant * std::exp(-distance2 / (2 * sigma2));
+        }
+    }
+
+    return kernel;
+}
+//
+//
+//
+cv::Mat Watershed::createRingMatchedFilter(int size, double s1, double s2){
+    // Create two Gaussian kernels G1 and G2
+    cv::Mat G1 = Watershed::GaussianKernel(size, s1);
+    cv::Mat G2 = Watershed::GaussianKernel(size, s2);
+
+    cv::Mat G = Watershed::createGaussianKernel(size,s1);
+
+    // Construct the ring filter based on the condition
+    cv::Mat ringFilter(size, size, CV_32F);
+
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            // Apply condition: if G1(x) < G2(x), keep G1(x), otherwise set to 0
+            ringFilter.at<float>(i, j) = G1.at<float>(i, j) < G2.at<float>(i,j) ? G.at<float>(i,j) : 0.0f;
+        }
+    }
+
+    return ringFilter;
 }
