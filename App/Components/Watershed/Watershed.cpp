@@ -20,8 +20,6 @@ void Watershed::foreground_mask(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &bg_mas
     cv::Mat image, mask;
     src.copyTo(image);
     cv::medianBlur(image,image,11);
-    Watershed::Standard_deviation(image,image,3);
-    Watershed::clache_medBlur(image,image,2.0,13);
     Watershed::clache_medBlur(image,image,2.0,9);
     Watershed::calc_local_extremes(image,mask);
     for (int i = 0; i < bg_mask.rows; i++) {
@@ -154,7 +152,7 @@ void Watershed::calc_local_extremes(cv::Mat &src, cv::Mat &dst_mask){
     cv::Mat img_thresholded;
     cv::Mat minimo, img;
     src.copyTo(img);
-    cv::Mat minima_mask = (img < Transformations::image_brightnes(img)/10*15);
+    cv::Mat minima_mask = (img < Transformations::image_brightnes(img)/10 * 9);
 
     // Step 3: Detect local minima within the mask
     // Define a kernel size for the minimum search (3x3 kernel used here)
@@ -214,7 +212,7 @@ cv::Mat Watershed::createGaussianKernel(int size, double sigma){
             double dx = x - center.x;
             double dy = y - center.y;
             double distance2 = sqrt(dx * dx + dy * dy) / (size/2) + 1;
-            kernel.at<float>(x,y) = pow(size/2 - distance2,sigma);
+            kernel.at<float>(x,y) = pow(size/2 - distance2,2);
         }
     }
 
@@ -255,9 +253,30 @@ cv::Mat Watershed::createRingMatchedFilter(int size, double s1, double s2){
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             // Apply condition: if G1(x) < G2(x), keep G1(x), otherwise set to 0
-            ringFilter.at<float>(i, j) = G1.at<float>(i, j) < G2.at<float>(i,j) ? G.at<float>(i,j) : 0.0f;
+            ringFilter.at<float>(i, j) = G1.at<float>(i, j) < G2.at<float>(i,j) ? G1.at<float>(i,j) : 0.0f;
         }
     }
 
     return ringFilter;
+}
+//
+//
+//
+bool Watershed::is_object_in_radius(cv::Point p, cv::Mat surface, int radius){
+    const int col_x = p.x;
+    const int row_y = p.y;
+    const int start_x = p.x - radius > 0 ? p.x - radius : 0;
+    const int start_y = p.y - radius > 0 ? p.y - radius: 0;
+    for(int x = start_x; x < x+radius && x < surface.cols; x++){
+        for(int y = start_y; y < y+radius && y < surface.rows; y++){
+            if(surface.at<uchar>(y,x) != 0){
+                //check if distance matches the radius
+                const int d_x = abs(p.x - x);
+                const int d_y = abs(p.y - y);
+                const int distance = sqrt(pow(d_x,2) + pow(d_y,2));
+                if(distance < radius)return true;
+            }
+        }
+    }
+    return false;
 }

@@ -9,21 +9,24 @@ class BasicTransofrmations{
         /**
          * TO DESCRIBE
          * */
-        static void dilation(Mat &inp, Mat &out, int size, int elem, int iterations){
-            if(BasicTransofrmations::is_null<int>(inp,out,size))return;
+        static void dilation(Mat &inp, Mat &out, int size, int elem = 2, int iterations = 1){
+            cv::Mat src;
+            src = inp;
+            // if(BasicTransofrmations::is_null<int>(inp,out,size))return;
+            std::cout << "ILLEGAL?" << std::endl;
             int erosion_type = 0;
             if( elem == 0 ){ erosion_type = MORPH_RECT; }
             else if( elem == 1 ){ erosion_type = MORPH_CROSS; }
             else if( elem == 2) { erosion_type = MORPH_ELLIPSE; }
             Mat element = getStructuringElement( erosion_type, Size( 2*size + 1, 2*size+1 ),Point( size, size ) );
-            dilate( inp, out, element, Point(-1,-1), iterations);
+            dilate( src, out, element, Point(-1,-1), iterations);
         }
 
         /**
          *  TO DESCRIBE
          * */
         static void erosion(Mat &inp, Mat &out, int size, int erosion_elem, int iterations){
-            if(BasicTransofrmations::is_null<int>(inp,out,size))return;
+            // if(BasicTransofrmations::is_null<int>(inp,out,size))return;
             int erosion_type = 0;
             if( erosion_elem == 0 ){ erosion_type = MORPH_RECT; }
             else if( erosion_elem == 1 ){ erosion_type = MORPH_CROSS; }

@@ -3,7 +3,7 @@
 #include "./Basic_Transformations.h"
 #include "../Structures/Structures.h"
 
-class Transformations:BasicTransofrmations{
+class Transformations: public BasicTransofrmations{
     public:
     /*Function returns average brightnes of the image*/
     static double image_brightnes(cv::Mat &img);

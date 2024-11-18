@@ -71,4 +71,9 @@ class Watershed{
          * 
          * */
         static cv::Mat createRingMatchedFilter(int size, double s1, double s2);
+
+        /**
+         * 
+         * */
+        static bool is_object_in_radius(cv::Point p, cv::Mat surface, int radius);
 };

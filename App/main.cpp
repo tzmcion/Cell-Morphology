@@ -17,63 +17,153 @@ int main(int argc, char** argv) {
     cv::Mat image = cv::imread(path,cv::IMREAD_GRAYSCALE);    //Import the image
     cv::Mat background_mask, foreground_mask;
     Watershed::background_mask(image, background_mask);
+    Watershed::foreground_mask(image,foreground_mask,background_mask);
+    cv::Mat result = original.clone();
+    // Colorir a imagem para visualização
     //
     //
-    for(int x = 1; x < 2000; x+=1){
-        int kernelSize = 25;         // Size of the ring filter kernel (choose an odd size)
-        double sigma1 = 3.9;         // Standard deviation for G1
-        std::cout << x << std::endl;
-        double sigma2 = std::sqrt(x) * sigma1;  // Standard deviation for G2 (to get a ring effect)
 
-        // Create the ring-shaped matched filter
-        cv::Mat src;
-        image.copyTo(src);
-        cv::medianBlur(src,src,5);
-        Watershed::Standard_deviation(src,src,3);
-        src.convertTo(src, CV_32F, 1.0 / 255.0);
-        src.setTo(0,background_mask<1);
-        cv::imshow("src",src);
-        cv::waitKey(0);
+    // Create the ring-shaped matched filter
+    cv::Mat src;
+    image.copyTo(src);
+    cv::medianBlur(src,src,3);
+    Transformations::erosion(src,src,2,0,1);
+    Transformations::dilation(src,src,2,0,1);
+    Watershed::Standard_deviation(src,src,5);
+    src.convertTo(src, CV_32F, 1.0 / 255.0);
+    src.setTo(0,background_mask<1);
+    cv::Mat center_mask = cv::Mat::zeros(image.size(),CV_8U);
+    for(int g = 0; g < 3; g++){
+        const int cell_radius = 16;
+        int kernelSize = 53;         // Size of the ring filter kernel (choose an odd size)
+        double sigma1 = 4.8 + g/1.0;         // Standard deviation for G1, higher standard deviation for higher radius
+        std::cout << g << std::endl;
+        double sigma2 = sqrt(2) * sigma1;  // Standard deviation for G2 (to get a ring effect)
         cv::Mat ringFilter = Watershed::createRingMatchedFilter(kernelSize, sigma1, sigma2);
-        // cv::Mat ringFilter = createGaussianKernel(kernelSize,sigma1);
         cv::Mat filteredImage;
         cv::filter2D(src, filteredImage, -1, ringFilter);
-        filteredImage*=15;
+        filteredImage*=20;
         cv::Mat normalized;
         cv::normalize(filteredImage, normalized, 0, 255, cv::NORM_MINMAX);
         normalized.convertTo(filteredImage,CV_8UC1);
-        cv::imshow("FF",filteredImage);
-        cv::waitKey(0);
         std::vector<cv::Point2f> localMaxima;
-        cv::goodFeaturesToTrack(filteredImage, localMaxima, 1000, 0.05, 31/2);
-
-        // Draw the local maxima points
-        cv::Mat result = original.clone();
+        cv::goodFeaturesToTrack(filteredImage, localMaxima, 3000, 0.05, cell_radius);
+        //Create empty image of size of image
+        //Apply the points to the center_mask
+        //look for closest point on the foreground_mask from each point
+        //Loop need to be created to travers from point
         for (const auto& pt : localMaxima) {
-            cv::circle(result, pt, 3, cv::Scalar(0,255,0), -1); // Draw circles on maxima
+            const int cell_radius_multiplier = 5;
+            //Define limits for checking for other points in center mask
+            const int upper_limit_x = pt.x + cell_radius < center_mask.rows ? pt.x + cell_radius : center_mask.rows-1;
+            const int lower_limit_x = pt.x - cell_radius > 0 ? pt.x - cell_radius : 0;
+            const int upper_limit_y = pt.y + cell_radius < center_mask.cols ? pt.y + cell_radius : center_mask.cols;
+            const int lower_limit_y = pt.y - cell_radius > 0 ? pt.y - cell_radius : 0; 
+            //Define limits for searching for element of foreground mask
+            const int foreground_upper_limit_x = pt.x + cell_radius*cell_radius_multiplier < center_mask.rows ? pt.x + cell_radius*cell_radius_multiplier : center_mask.rows-1;
+            const int foreground_lower_limit_x = pt.x - cell_radius*cell_radius_multiplier > 0 ? pt.x - cell_radius*cell_radius_multiplier : 0;
+            const int foreground_upper_limit_y = pt.y + cell_radius*cell_radius_multiplier < center_mask.cols ? pt.y + cell_radius*cell_radius_multiplier : center_mask.cols;
+            const int foreground_lower_limit_y = pt.y - cell_radius*cell_radius_multiplier > 0 ? pt.y - cell_radius*cell_radius_multiplier : 0;
+            //Limit the foreground to work in the same time for down and up
+            const int foreground_limit_x = abs(pt.x - foreground_lower_limit_x) > abs(pt.x - foreground_upper_limit_x) ? abs(pt.x - foreground_lower_limit_x) : abs(pt.x - foreground_upper_limit_x);
+            const int foreground_limit_y = abs(pt.y - foreground_lower_limit_y) > abs(pt.y - foreground_upper_limit_y) ? abs(pt.y - foreground_lower_limit_y) : abs(pt.y - foreground_upper_limit_y);
+            bool done=false;
+            for(int x = pt.x; x < foreground_limit_x + pt.x && !done; x++) {
+                for(int y = pt.y; y < foreground_limit_y + pt.y; y++) {
+                    int diff_x = x - pt.x;
+                    int diff_y = y - pt.y;
+
+                    // Precompute coordinates
+                    int new_x1 = pt.x - diff_x, new_x2 = pt.x + diff_x;
+                    int new_y1 = pt.y - diff_y, new_y2 = pt.y + diff_y;
+
+                    // Check bounds and draw if conditions are met
+                    if(new_x1 >= 0 && new_y1 >= 0 &&
+                    foreground_mask.at<uchar>(new_y1, new_x1) != 0) {
+                        if(!Watershed::is_object_in_radius(cv::Point(new_x1,new_y1),center_mask,cell_radius)){
+                            cv::circle(result, cv::Point(new_x1, new_y1), 3, cv::Scalar(0,55,255), -1);
+                            cv::circle(center_mask, cv::Point(new_x1, new_y1), 1, cv::Scalar(255), -1);
+                            done = true;
+                            break;
+                        }
+                    }
+                    else if(new_x1 >= 0 && new_y2 < background_mask.cols &&
+                    foreground_mask.at<uchar>(new_y2, new_x1) != 0) {
+                        if(!Watershed::is_object_in_radius(cv::Point(new_x1,new_y2),center_mask,cell_radius)){
+                            cv::circle(result, cv::Point(new_x1, new_y2), 3, cv::Scalar(0,55,255), -1);
+                            cv::circle(center_mask, cv::Point(new_x1, new_y2), 1, cv::Scalar(255), -1);
+                            done = true;
+                            break;
+                        }
+                    }
+                    if(new_x2 < background_mask.rows && new_y1 >= 0 &&
+                    foreground_mask.at<uchar>(new_y1, new_x2) != 0) {
+                        if(!Watershed::is_object_in_radius(cv::Point(new_x2,new_y1),center_mask,cell_radius)){
+                            cv::circle(result, cv::Point(new_x2, new_y1), 3, cv::Scalar(0,55,255), -1);
+                            cv::circle(center_mask, cv::Point(new_x2, new_y1), 1, cv::Scalar(255), -1);
+                            done = true;
+                            break;
+                        }
+                    }
+                    else if(new_x2 < background_mask.rows && new_y2 < background_mask.cols &&
+                    foreground_mask.at<uchar>(new_y2, new_x2) != 0) {
+                        if(!Watershed::is_object_in_radius(cv::Point(new_x2,new_y2),center_mask,cell_radius)){
+                            cv::circle(result, cv::Point(new_x2, new_y2), 3, cv::Scalar(0,55,255), -1);
+                            cv::circle(center_mask, cv::Point(new_x2, new_y2), 1, cv::Scalar(255), -1);
+                            done = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // if(background_mask.at<int>(pt.x,pt.y) != 0){
+            //     cv::circle(center_mask, pt, 1, cv::Scalar(255), -1); // Draw circles on maxima
+            // }
         }
-        cv::imshow("Local Maxima", result);
-        // cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
-        // // Perform dilation
-        // cv::Mat dilated;
-        // cv::dilate(filteredImage, dilated, kernel);
-        // // Compare the original image with the dilated image
-        // cv::Mat localMaxima;
-        // cv::compare(filteredImage, dilated, localMaxima, cv::CMP_EQ);
-        // cv::imshow("FFFF", localMaxima);
-        // cv::waitKey(0);
-        // // Optional: Filter out non-maxima or background (e.g., set threshold > 0)
-        // cv::Mat mask;
-        // mask = (filteredImage > x);
+        // for (int i = 0; i < foreground_mask.rows; i++) {
+        //     for (int j = 0; j < foreground_mask.cols; j++) {
+        //         int label = foreground_mask.at<uchar>(i, j);
+        //         int bg_label = background_mask.at<uchar>(i, j);
+        //         // if(bg_label != 0){
+        //         //     img_color.at<Vec3b>(i, j) = Vec3b(255, 125, 50); // Vermelho para bordas
+        //         // }
+        //         if (label != 0) { // Borda
+        //             result.at<Vec3b>(i, j) = Vec3b(0, 0, 255); // Vermelho para bordas
+        //         }
+        //     }
+        // }
 
-        // // Combine the mask with local maxima
-        // cv::bitwise_and(localMaxima, mask, localMaxima);
-
-        // // Display the result
-        // cv::imshow("Local Maxima", localMaxima);
-        // cv::waitKey(0);
+        // for (const auto& pt : localMaxima) {
+        //     if(background_mask.at<int>(pt.x,pt.y) != 0){
+        //         cv::circle(result, pt, 2, cv::Scalar(255,0,255), -1); // Draw circles on maxima
+        //     }
+        // }
     }
-    return 0;
+    cv::imshow("src",src);
+    cv::imshow("Local Maxima", result);
+    cv::waitKey(0);
+
+    // Draw the local maxima points
+    // cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
+    // // Perform dilation
+    // cv::Mat dilated;
+    // cv::dilate(filteredImage, dilated, kernel);
+    // // Compare the original image with the dilated image
+    // cv::Mat localMaxima;
+    // cv::compare(filteredImage, dilated, localMaxima, cv::CMP_EQ);
+    // cv::imshow("FFFF", localMaxima);
+    // cv::waitKey(0);
+    // // Optional: Filter out non-maxima or background (e.g., set threshold > 0)
+    // cv::Mat mask;
+    // mask = (filteredImage > x);
+
+    // // Combine the mask with local maxima
+    // cv::bitwise_and(localMaxima, mask, localMaxima);
+
+    // // Display the result
+    // cv::imshow("Local Maxima", localMaxima);
+    // cv::waitKey(0);
     Watershed::foreground_mask(image,foreground_mask,background_mask);
     cv::Mat img;
     image.copyTo(img);
@@ -98,20 +188,23 @@ int main(int argc, char** argv) {
     // markers.setTo(1,background_mask);
     // markers.setTo(2,foreground_mask);
     cv::Mat labels;
-    cv::connectedComponents(foreground_mask,labels);
+    cv::connectedComponents(center_mask,labels);
     cv::Mat markers = labels.clone(); // Start with connected components as markers
     markers.setTo(1, background_mask != 0); // Ensure background is labeled as 1
-    markers.setTo(0, (foreground_mask == 0) & (background_mask == 0)); // Unknown regions are 0
+    markers.setTo(0, (background_mask == 0) & (center_mask == 0)); // Unknown regions are 0
 
     
-
+    // 2 | 2 | 5 | 2.0 | 3
     cv::Mat img_2;
     img_wat.copyTo(img_2);
-    Watershed::clache_medBlur(img,img_2,2.0,3);
+    Transformations::erosion(img,img_2,2,0,1);
+    Transformations::dilation(img_2,img_2,2,0,1);
+    cv::medianBlur(img_2,img_2,5);
+    // Watershed::clache_medBlur(img_2,img_2,2.0,3);
     cv::cvtColor(img_2, img_wat, cv::COLOR_GRAY2BGR);
     cv::watershed(img_wat,markers);
 
-    Mat result;
+    // Mat result;
     cv::cvtColor(image,result,cv::COLOR_GRAY2RGB);
     int count_green = 0;
     // img_wat.copyTo(result);
@@ -119,14 +212,14 @@ int main(int argc, char** argv) {
         for (int j = 0; j < markers.cols; j++) {
             int markerValue = markers.at<int>(i, j);
             if (markerValue == -1) {
-                result.at<Vec3b>(i, j) = Vec3b(255, 200, 255); // Red for watershed boundaries
+                result.at<Vec3b>(i, j) = Vec3b(2, 0, 255); // Red for watershed boundaries
             }
             else if (markerValue == 1) {
-                result.at<Vec3b>(i, j) = Vec3b(125, 50, 25); // Blue for background
+                result.at<Vec3b>(i, j) = Vec3b(250, 100, 255); // Blue for background
             }
             else if (markerValue >= 2) {
                 count_green += 1;
-                result.at<Vec3b>(i, j) = Vec3b(((markerValue*markerValue)%255), markerValue*50%255, ((markerValue*markerValue) % 255)); // Green for foreground
+                result.at<Vec3b>(i, j) = Vec3b((markerValue % 5)*100,255,0);
             }
             // else {
             //     result.at<Vec3b>(i, j) = Vec3b(markerValue * 10 % 256, markerValue * 20 % 256, markerValue * 30 % 256);
