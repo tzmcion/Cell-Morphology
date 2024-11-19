@@ -12,8 +12,6 @@ class BasicTransofrmations{
         static void dilation(Mat &inp, Mat &out, int size, int elem = 2, int iterations = 1){
             cv::Mat src;
             src = inp;
-            // if(BasicTransofrmations::is_null<int>(inp,out,size))return;
-            std::cout << "ILLEGAL?" << std::endl;
             int erosion_type = 0;
             if( elem == 0 ){ erosion_type = MORPH_RECT; }
             else if( elem == 1 ){ erosion_type = MORPH_CROSS; }
