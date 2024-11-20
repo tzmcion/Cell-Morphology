@@ -5,10 +5,11 @@ import os
 import shutil
 from pathlib import Path
 
+
 accepted_types = ['.jpg', '.JPG', '.png', '.PNG']
-current_folder = ["./H08"]
+current_folder = ["../H08"]
 print('[', end='')
-paths = [f.path for f in os.scandir("./") if f.is_dir()]
+paths = [f.path for f in os.scandir("../") if f.is_dir()]
 
 for path in paths:
     if path not in current_folder:

@@ -8,22 +8,40 @@ Example of input: ./main.out 10 15 30 [./d1.jpg,./d2.jpg,./d3.jpg,./d4.jpg] ./te
 !! WARNING DO NOT USE SPACES WHEN PROVIDING PATHS! INCORRECT EXAMPLE: [./d1.jpg, ./d2.jpg] !!
 [0m-------------------------------------------------- 
 Reading input files, note that this process will end in infinite loop if provided array does not end with "]"! 
-Image_0 [35m./test/00014.JPG[0m
-Detected 1 files to convert in total 
-Output folder is: [33m./test[0m
+Image_0 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00000.JPG[0m
+Image_1 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00001.JPG[0m
+Image_2 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00002.JPG[0m
+Image_3 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00003.JPG[0m
+Image_4 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00004.JPG[0m
+Image_5 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00005.JPG[0m
+Image_6 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00006.JPG[0m
+Image_7 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00007.JPG[0m
+Image_8 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00008.JPG[0m
+Image_9 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00009.JPG[0m
+Image_10 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00010.JPG[0m
+Image_11 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00011.JPG[0m
+Image_12 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00012.JPG[0m
+Image_13 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00013.JPG[0m
+Image_14 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00014.JPG[0m
+Image_15 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00015.JPG[0m
+Image_16 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00016.JPG[0m
+Image_17 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00017.JPG[0m
+Detected 18 files to convert in total 
+Output folder is: [33m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01[0m
 Variables: 
-Radius: 15
-Traverse: 10
+Radius: 30
+Traverse: 20
 MAX_DIFF: 30
 Starting the processment of data: 
-[33mProcessing of:: [0m./test/00014.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./test/00014.JPG[0m
-***************************************
-*            !!SUCCESS!!              *
-*       ALL OPERATIONS COMPLEATED     *                  
-***************************************
-All operations finished, process will end with zero
-
-[36m/**
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00000.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00000.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00001.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00001.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00002.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00002.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00003.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00003.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00004.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00004.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00005.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00005.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00006.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00006.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00007.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00007.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00008.JPG[36m/**
  *  Component Created by Tymoteusz Apriasz
  *  ©Avant 2024/2025
  *  Process Normalizes the brightness on set of the images, by using their overall mean
@@ -32,181 +50,51 @@ All operations finished, process will end with zero
  * */
 [0m-------------------------------------------------- 
 Reading input files, note that this process will end in infinite loop if provided array does not end with "]"! 
-Image_0 [35m./test/00014.JPG[0m
-Detected 1 files to convert in total 
-Output folder is: [33m./test[0m
+Image_0 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00000.JPG[0m
+Image_1 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00001.JPG[0m
+Image_2 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00002.JPG[0m
+Image_3 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00003.JPG[0m
+Image_4 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00004.JPG[0m
+Image_5 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00005.JPG[0m
+Image_6 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00006.JPG[0m
+Image_7 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00007.JPG[0m
+Image_8 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00008.JPG[0m
+Image_9 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00009.JPG[0m
+Image_10 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00010.JPG[0m
+Image_11 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00011.JPG[0m
+Image_12 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00012.JPG[0m
+Image_13 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00013.JPG[0m
+Image_14 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00014.JPG[0m
+Image_15 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00015.JPG[0m
+Image_16 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00016.JPG[0m
+Image_17 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00017.JPG[0m
+Detected 18 files to convert in total 
+Output folder is: [33m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01[0m
 Variables: 
 No variables for this process
 Starting the processment of data: 
 [...] 
 Starting the process of calculating the best mean 
-Mean brightness calculated as: 198.832 normalizing brightness on images... 
+Mean brightness calculated as: 113.701 normalizing brightness on images... 
  
-[33mProcessing of:: [0m./test/00014.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./test/00014.JPG[0m
-***************************************
-*            !!SUCCESS!!              *
-*       ALL OPERATIONS COMPLEATED     *                  
-***************************************
-All operations finished, process will end with zero
-
-[36mComponent Created by Tymoteusz Apriasz
-©Avant 2024/2025
-Process Reducing of the noise on the image using connected components
-Args:  
-Total of 8 params
-@param threshold Threshold value for detecting the object as removable (ratio -- mean/25 * threshold_black)
-@param area_size size of detected object being to big to be counted as noise
-@param kernel_size_dilation_initial size of initial dilation, before the painting of gray over the detected object 
-@param kernel_size_dilation_second size of second dilation, after the painting of gray over the detected object
-@param inpaint_size size of kernel of inpaint, inpaint merges the objects with background
-@param inpaint_type type of inpaint algorithm, 1 or 0
-@param input_images_list - list of images to process
-@param output_folder_dir - directory of output folder
-@param display_changes set to 1 if need of displaying the process
-Example of input: ./main.out 15 30 3 5 5 1 0 [./d1.jpg,./d2.jpg,./d3.jpg,./d4.jpg] ./temp_img
-
-!! WARNING DO NOT USE SPACES WHEN PROVIDING PATHS! INCORRECT EXAMPLE: [./d1.jpg, ./d2.jpg] !!
-
-NOTE! Please be aware that optimal size for mage is 1000x1000. Biggest size is hugely ineffective and requires too much time to process.
-Please use Resize process provided by author, to make image compatibile with algorithms
-NOTE! Please use grayscale images, if image is not saved as grayscale, it might not work properly
-[0m-------------------------------------------------- 
-Reading input files, note that this process will end in infinite loop if provided array does not end with "]"! 
-Image_0 [35m./test/00014.JPG[0m
-Detected 1 files to convert in total 
-Output folder is: [33m./test[0m
-Variables: 
-Threshold: 12
-Size: 2000
-Kernel size for initial dilation: 2
-Kernel size for second dilation: 1
-Inpaint size: 1
-Inpaint type: 0
-Starting the processment of data: 
-[33mProcessing of:: [0m./test/00014.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./test/00014.JPG[0m
-***************************************
-*            !!SUCCESS!!              *
-*       ALL OPERATIONS COMPLEATED     *                  
-***************************************
-All operations finished, process will end with zero
-
-[36mComponent Created by Tymoteusz Apriasz
-©Avant 2024/2025
-Process Reducing of the noise on the image using connected components
-Args:  
-Total of 8 params
-@param threshold Threshold value for detecting the object as removable (ratio -- mean/25 * threshold_black)
-@param area_size size of detected object being to big to be counted as noise
-@param kernel_size_dilation_initial size of initial dilation, before the painting of gray over the detected object 
-@param kernel_size_dilation_second size of second dilation, after the painting of gray over the detected object
-@param inpaint_size size of kernel of inpaint, inpaint merges the objects with background
-@param inpaint_type type of inpaint algorithm, 1 or 0
-@param input_images_list - list of images to process
-@param output_folder_dir - directory of output folder
-@param display_changes set to 1 if need of displaying the process
-Example of input: ./main.out 15 30 3 5 5 1 0 [./d1.jpg,./d2.jpg,./d3.jpg,./d4.jpg] ./temp_img
-
-!! WARNING DO NOT USE SPACES WHEN PROVIDING PATHS! INCORRECT EXAMPLE: [./d1.jpg, ./d2.jpg] !!
-
-NOTE! Please be aware that optimal size for mage is 1000x1000. Biggest size is hugely ineffective and requires too much time to process.
-Please use Resize process provided by author, to make image compatibile with algorithms
-NOTE! Please use grayscale images, if image is not saved as grayscale, it might not work properly
-[0m-------------------------------------------------- 
-Reading input files, note that this process will end in infinite loop if provided array does not end with "]"! 
-Image_0 [35m./test/00014.JPG[0m
-Detected 1 files to convert in total 
-Output folder is: [33m./test[0m
-Variables: 
-Threshold: 14
-Size: 2000
-Kernel size for initial dilation: 1
-Kernel size for second dilation: 1
-Inpaint size: 1
-Inpaint type: 0
-Starting the processment of data: 
-[33mProcessing of:: [0m./test/00014.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./test/00014.JPG[0m
-***************************************
-*            !!SUCCESS!!              *
-*       ALL OPERATIONS COMPLEATED     *                  
-***************************************
-All operations finished, process will end with zero
-
-[36mComponent Created by Tymoteusz Apriasz
-©Avant 2024/2025
-Process Reducing of the noise on the image using connected components
-Args:  
-Total of 8 params
-@param threshold Threshold value for detecting the object as removable (ratio -- mean/25 * threshold_black)
-@param area_size size of detected object being to big to be counted as noise
-@param kernel_size_dilation_initial size of initial dilation, before the painting of gray over the detected object 
-@param kernel_size_dilation_second size of second dilation, after the painting of gray over the detected object
-@param inpaint_size size of kernel of inpaint, inpaint merges the objects with background
-@param inpaint_type type of inpaint algorithm, 1 or 0
-@param input_images_list - list of images to process
-@param output_folder_dir - directory of output folder
-@param display_changes set to 1 if need of displaying the process
-Example of input: ./main.out 15 30 3 5 5 1 0 [./d1.jpg,./d2.jpg,./d3.jpg,./d4.jpg] ./temp_img
-
-!! WARNING DO NOT USE SPACES WHEN PROVIDING PATHS! INCORRECT EXAMPLE: [./d1.jpg, ./d2.jpg] !!
-
-NOTE! Please be aware that optimal size for mage is 1000x1000. Biggest size is hugely ineffective and requires too much time to process.
-Please use Resize process provided by author, to make image compatibile with algorithms
-NOTE! Please use grayscale images, if image is not saved as grayscale, it might not work properly
-[0m-------------------------------------------------- 
-Reading input files, note that this process will end in infinite loop if provided array does not end with "]"! 
-Image_0 [35m./test/00014.JPG[0m
-Detected 1 files to convert in total 
-Output folder is: [33m./test[0m
-Variables: 
-Threshold: 16
-Size: 50
-Kernel size for initial dilation: 1
-Kernel size for second dilation: 2
-Inpaint size: 2
-Inpaint type: 0
-Starting the processment of data: 
-[33mProcessing of:: [0m./test/00014.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./test/00014.JPG[0m
-***************************************
-*            !!SUCCESS!!              *
-*       ALL OPERATIONS COMPLEATED     *                  
-***************************************
-All operations finished, process will end with zero
-
-[36mComponent Created by Tymoteusz Apriasz
-©Avant 2024/2025
-Process Reducing of the noise on the image using connected components
-Args:  
-Total of 8 params
-@param threshold Threshold value for detecting the object as removable (ratio -- mean/25 * threshold_black)
-@param area_size size of detected object being to big to be counted as noise
-@param kernel_size_dilation_initial size of initial dilation, before the painting of gray over the detected object 
-@param kernel_size_dilation_second size of second dilation, after the painting of gray over the detected object
-@param inpaint_size size of kernel of inpaint, inpaint merges the objects with background
-@param inpaint_type type of inpaint algorithm, 1 or 0
-@param input_images_list - list of images to process
-@param output_folder_dir - directory of output folder
-@param display_changes set to 1 if need of displaying the process
-Example of input: ./main.out 15 30 3 5 5 1 0 [./d1.jpg,./d2.jpg,./d3.jpg,./d4.jpg] ./temp_img
-
-!! WARNING DO NOT USE SPACES WHEN PROVIDING PATHS! INCORRECT EXAMPLE: [./d1.jpg, ./d2.jpg] !!
-
-NOTE! Please be aware that optimal size for mage is 1000x1000. Biggest size is hugely ineffective and requires too much time to process.
-Please use Resize process provided by author, to make image compatibile with algorithms
-NOTE! Please use grayscale images, if image is not saved as grayscale, it might not work properly
-[0m-------------------------------------------------- 
-Reading input files, note that this process will end in infinite loop if provided array does not end with "]"! 
-Image_0 [35m./test/00014.JPG[0m
-Detected 1 files to convert in total 
-Output folder is: [33m./test[0m
-Variables: 
-Threshold: 20
-Size: 10
-Kernel size for initial dilation: 1
-Kernel size for second dilation: 2
-Inpaint size: 2
-Inpaint type: 1
-Starting the processment of data: 
-[33mProcessing of:: [0m./test/00014.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./test/00014.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00000.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00000.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00001.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00001.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00002.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00002.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00003.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00003.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00004.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00004.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00005.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00005.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00006.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00006.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00007.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00007.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00008.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00008.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00009.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00009.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00010.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00010.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00011.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00011.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00012.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00012.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00013.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00013.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00014.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00014.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00015.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00015.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00016.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00016.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00017.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00017.JPG[0m
 ***************************************
 *            !!SUCCESS!!              *
 *       ALL OPERATIONS COMPLEATED     *                  
