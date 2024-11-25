@@ -6,25 +6,108 @@
 class Watershed{
     public:
         /**
-         * Function creates a mask for sure background
+         * Function creates a mask for sure background with default argument values
+         * It uses standard deviation to emphesize potential cell walls (as they are brighter)
+         * the, the walls are computed as strong points in hysterisis thresholding
+         * With that, the background mask is created
          * @param src source_image
          * @param dst_mask output mask
          * */
         static void background_mask(cv::Mat &src, cv::Mat &dst_mask);
 
         /**
-         *  Function returns a set of regions which can be potential foreground mask
+         * Function creates a mask for sure background with provided options
+         * It uses standard deviation to emphesize potential cell walls (as they are brighter)
+         * the, the walls are computed as strong points in hysterisis thresholding
+         * With that, the background mask is created
+         * @param src   source image
+         * @param dst_mask  destination image/mask (output)
+         * @param SD_kernel Size of kernel for standard deviation, bigger->more emphesized, but more noise remains
+         * @param as_iterations iterations of anisotropic filter
+         * @param as_time   time for anisotropic filter
+         * @param hs_min    hysterisisThreshold min threshold (weak points)
+         * @param hs_max    hysterisisThreshold max threshold (strong points)
+         * @param hs_min_area   hysterisisThreshold min area (minimum area of strong points)
+         * @param max_hole_size Inpianting holes left by HS, max size of a hole is defined here
+         * @param erosion_size  Kernel size of erosion, 1=3, so 3 equals one, 2 equals 5, 3 equals 7 etc... 
+         * */
+        static void background_mask(cv::Mat &src, cv::Mat &dst_mask, int SD_kernel, int as_iterations, double as_time, int hs_min, int hs_max, int hs_min_area, double max_hole_size, int erosion_size);
+
+        /**
+         *  Function returns a set of regions which can be potential foreground mask with default argument values
+         *  Function performes a serie of blurs, morphs opening, and smoothing of the image to make it as fluent as possible
+         *  Then, using threshold value slightly smaller than mean threshold of image, it localizes potential local minimas
+         *  Those regions can be used for: 1. Foreground mask creation, 2. Calculation of total surface occupied by cells
          *  @param src source image
          *  @param dst_mask output
          *  @param bg_mask background mask
          * */
-        static void foreground_regoins(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &bg_mask);
+        static void foreground_regions(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &bg_mask);
 
         /**
-         *  Function creates a foreground mask for a image
+         * Function creates a prototype maskk for foreground_mask -- mutlipel regions on which the mask can be applied
+         *  Function performes a serie of blurs, morphs opening, and smoothing of the image to make it as fluent as possible
+         *  Then, using threshold value slightly smaller than mean threshold of image, it localizes potential local minimas
+         *  Those regions can be used for: 1. Foreground mask creation, 2. Calculation of total surface occupied by cells
+         * @param src   source image
+         * @param dst_mask  destination mask (output)
+         * @param bg_mask   background mask calculated prior
+         * @param blur_kernel   kernel size of initial blur
+         * @param morph_opening_kernel  kernel size of morphological opening
+         * @param clache_force  force of clache
+         * @param second_blur   kernel size of second blur
+         * @param minima_threshold  threshold multiplier for minima (mean_brightness*minima_threshold)
+         * @param minima_kernel kernel size for minima dilation
+         * */
+        static void foreground_regions(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &bg_mask, int blur_kernel, int morph_opening_kernel, double clache_force, int second_blur_kernel, double minima_threshold, int minima_kernel);
+
+        /**
+         * Function creates a foreground mask for a image with default argument values. 
+         *  Function uses Halo filter with gaussian kernel, to localize potentail cell centers. Then, after localizing
+         * Those points, they are assigned to their respective foreground region, and are divided by cell radius 
+         * @param src   source image
+         * @param dst_mask  destination mask (output)
+         * @param foreground_regions    foreground regions calculated prior
+         * @param sure_background   sure background calculated before
          * */
         static void foreground_mask(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &foreground_regions, cv::Mat &sure_background);
 
+        /**
+         * Function creates a foreground mask for image
+         * Function uses Halo filter with gaussian kernel, to localize potentail cell centers. Then, after localizing
+         * Those points, they are assigned to their respective foreground region, and are divided by cell radius 
+         * @param src   source image
+         * @param dst_mask  destination mask (output)
+         * @param foreground_regions    foreground regions calculated prior
+         * @param sure_background   sure background calculated prior
+         * @param blur_kernel   size of kernel blur
+         * @param dil_er_size   size of morphological opening
+         * @param SD_kernel_size    size of kernel in standard deviation
+         * @param iterations    !OBSECOLETE!
+         * @param sigma_min     minimum signa on gaussian kernel
+         * @param sigma_max     maximum sigma on gaussian kernel
+         * @param sigma_iterator    sigma iterator, so if sigma_min=2.0, sigma_max=3.0, sigma_iterator = 0.2, then 5 iterations will occure, respecting different possible cell radiuses
+         * @param sigma_multiplier  second sigma multiplied by this value: sigma_2 = sigma_1 * sqrt(sigma_multiplier)
+         * @param cell_radius   potential cell radius
+         * @param filter_kernel_size_multiplier size of kernel for gaussian kernel: kernel_size_gaus = cell_size * filter_kernel_size_multiplier
+         * @param gftt_corners  max corners for good features to track
+         * @param gftt_quality  quality for good features to track
+         * @param cell_radius_multiplier    multiplier of cell radius for finding closes foreground region
+         * */
+        static void foreground_mask(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &foreground_regions, cv::Mat &sure_background, int blur_kernel, int dil_er_size, int SD_kernel_size, int iterations, double sigma_min, double sigma_max, double sigma_iterator, double sigma_multiplier, int cell_radius, int filter_kernel_size_multiplier, int gftt_corners, double gftt_quality, int cell_radius_multiplier);
+
+
+        /**
+         * Functions uses other technique, clacheIMG and medianblur to do first preprocessing of the image
+         * @param src source image
+         * @param dst destination image
+         * @param clache_limit a force of clache filter
+         * */
+        static void clache(cv:: Mat &src, cv::Mat &dst, double clache_limit=4.0);
+    //*************
+    //** PRIVATE **
+    //*************
+    private: 
 
         /**
          * Function peformes standatd deviation on an image, with given kernel
@@ -72,6 +155,8 @@ class Watershed{
         static void calc_local_minima(cv::Mat &src, cv::Mat &dst_mask, double mean_multiplicator=0.9, int kernel=3);
         
         /**
+         * !!!TODO!!!
+         * !!!NOT READY!!!
          * Function calculates predicted radius of cells on the image, using background to detect cells which are alone on the image (not in cluster)
          * If no cell like that is found, function will return (sure_min_radius+sure_maximum_radius)/2
          * @param src background_mask of the image
@@ -90,19 +175,11 @@ class Watershed{
          *  -- CALCULATE:F(X)={ G1<x,y>  when    G1<x,y> > G2<x,y> ; 0 otherwise }
          *  --
          *  -- RETURN:  Y
+         * @param size size of kernel which will be created
+         * @param s1 sigma value of first gaussian distribution
+         * @param s2 sigma value of second gaussian distribution
          * */
         static cv::Mat createRingMatchedFilter(int size, double s1, double s2);
-
-        /**
-         * Functions uses other technique, clacheIMG and medianblur to do first preprocessing of the image
-         * */
-        static void clache(cv:: Mat &src, cv::Mat &dst, double clache_limit=4.0);
-
-
-        //*************
-        //** PRIVATE **
-        //*************
-        private: 
 
         /**
          *  Function creates a gaussian kernel, with set SD
@@ -122,6 +199,10 @@ class Watershed{
 
         /**
          * Functions performes anistoropic diffusion on a grayscale image
+         * @param src source image
+         * @param dst destination image
+         * @param as_iterations iterations of anisotropic, more iterations result in more blur of inside
+         * @param as_time value of time can be described as force of anisotropic
          * */
         static void Anisotropic(cv::Mat &src, cv::Mat &dst, int as_iterations=3,double as_time=0.1);
 

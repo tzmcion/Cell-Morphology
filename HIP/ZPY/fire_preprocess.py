@@ -15,6 +15,14 @@ OPTIONS = FOLDER + '/settings.option'
 
 OUT_DIR = FOLDER + '/out'
 
+#EXCLUDED FOLDERS!!!
+#! NOT EXCLUDED A10
+EXCLUDED_FOLDERS = ["A01","A02","A03","A04","A05","A06","A07","A08","A09","A11","A12","B01","B02","B03","B04","B05","B06","B07"]
+
+
+for index in range(0,len(EXCLUDED_FOLDERS)):
+    EXCLUDED_FOLDERS[index] = IMAGES + '/' + EXCLUDED_FOLDERS[index]
+
 
 def get_paths(folder:str):
     result = ""
@@ -39,6 +47,8 @@ def get_paths(folder:str):
 paths = [f.path for f in os.scandir(IMAGES) if f.is_dir()]
 IMG_PATH = FOLDER + "/temp_path.txt"
 for path in paths:
+    if path in EXCLUDED_FOLDERS:
+        continue
     deep_paths = [f.path for f in os.scandir(path)]
     OUT_DD = OUT_DIR + '/' + path[len(path)-3:len(path)]
     f = open(IMG_PATH, "w")

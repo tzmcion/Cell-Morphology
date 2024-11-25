@@ -11,7 +11,7 @@ int main(int argc, char** argv) {
     cv::Mat image = cv::imread(path,cv::IMREAD_GRAYSCALE);    //Import the image
     cv::Mat background_mask, foreground_mask, foreground_regions;
     Watershed::background_mask(image, background_mask);
-    Watershed::foreground_regoins(image,foreground_regions,background_mask);
+    Watershed::foreground_regions(image,foreground_regions,background_mask);
     Watershed::foreground_mask(image,foreground_mask,foreground_regions,background_mask);
     std::cout << "MASK CREATED" << std::endl;
     cv::Mat result = original.clone();

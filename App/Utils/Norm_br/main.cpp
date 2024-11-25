@@ -1,6 +1,7 @@
 #include "../../Components/Transformations/Transformations.h"
 #include "../../Components/Structures/Structures.h"
 #include "../../Components/Structures/Colors.h"
+#include "../../Components/Threading/Threads.h"
 
 /**
  *  Component Created by Tymoteusz Apriasz \n
@@ -38,19 +39,29 @@ int main(int argc, char** argv){
     std::cout << "Radius: " << TRAVERSE << std::endl;
     std::cout << "Traverse: " << RADIUS << std::endl;
     std::cout << "MAX_DIFF: " << MAX_DIFF << std::endl;
+    //MULTITHREAD
+    size_t cores = std::thread::hardware_concurrency();
+    if(cores == 0){
+        cores = 3;
+    }
+    Threading threads(cores);
+    //MULTITHREAD
     std::cout << "Starting the processment of data: \n";
     for(size_t x = 0; x < images.size(); x++){
-        const std::string PATH = images[x];
-        std::cout << Colors::YELLOW << "Processing of:: " << Colors::RESET << PATH;
-        std::cout << std::flush;
-        cv::Mat img;
-        img = cv::imread(PATH,cv::IMREAD_GRAYSCALE);
-        Transformations::norm_brightnes(img,RADIUS,TRAVERSE,MAX_DIFF);
-        std::cout << Colors::GREEN <<" [...DONE! ]"<< Colors::RESET << " Saving File... ";
-        std::string out_name = Entites::FILES::save_to_folder(PATH,OUT_FOLDER,img);
-        std::cout << Colors::GREEN <<" [...DONE! ]" << Colors::RESET << " Succesfully saved to: " << Colors::MAGENTA << out_name << Colors::RESET << std::endl;
+        threads.enqueueTask([images,RADIUS,TRAVERSE,MAX_DIFF,OUT_FOLDER,x](){
+            const std::string PATH = images[x];
+            std::cout << Colors::YELLOW << "Processing of:: " << Colors::RESET << PATH;
+            std::cout << std::flush;
+            cv::Mat img;
+            img = cv::imread(PATH,cv::IMREAD_GRAYSCALE);
+            Transformations::norm_brightnes(img,RADIUS,TRAVERSE,MAX_DIFF);
+
+            std::cout << Colors::GREEN <<" [...DONE! ]"<< Colors::RESET << " Saving File... ";
+            std::string out_name = Entites::FILES::save_to_folder(PATH,OUT_FOLDER,img);
+            std::cout << Colors::GREEN <<" [...DONE! ]" << Colors::RESET << " Succesfully saved to: " << Colors::MAGENTA << out_name << Colors::RESET << std::endl;
+        });
     }
-    std::string out_data = Entites::Convert::text_file_to_string("../SUCCES.txt");
-    std::cout << out_data << "All operations finished, process will end with zero" << std::endl << std::endl;
+    // std::string out_data = Entites::Convert::text_file_to_string("../SUCCES.txt");
+    // std::cout << out_data << "All operations finished, process will end with zero" << std::endl << std::endl;
     return 0;
 }

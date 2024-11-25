@@ -104,7 +104,6 @@ void Transformations::dots_remove(cv::Mat &img, int threshold_black, int thresho
         cv::imshow("Noise_changes",o_img);
         cv::waitKey(1);
     }
-    cv::Mat kernel = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(kern_s_dil_sec, kern_s_dil_sec));
     cv::Mat kernel_small = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(kern_s_dil_init, kern_s_dil_init));
     std::vector<int> x_set;
     for(int x = 1; x < numLab; x++){
@@ -122,17 +121,19 @@ void Transformations::dots_remove(cv::Mat &img, int threshold_black, int thresho
             }
         }
     }
-    if(kern_s_dil_sec >= 1)
-    for(size_t x = 0; x < x_set.size(); x++){
-        cv::Mat componentMask = (labels == x_set[x]);
-        cv::Mat mask;
-        cv::dilate(componentMask,mask,kernel);
-        mask.setTo(brightnes,mask);
-        if(inpaint_size > 0)
-        cv::inpaint(o_img, mask, o_img, inpaint_size, type);
-        if(display_changes){
-            cv::imshow("Noise_changes", o_img);
-            cv::waitKey(1);
+    if(kern_s_dil_sec >= 1){
+        cv::Mat kernel = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(kern_s_dil_sec, kern_s_dil_sec));
+        for(size_t x = 0; x < x_set.size(); x++){
+            cv::Mat componentMask = (labels == x_set[x]);
+            cv::Mat mask;
+            cv::dilate(componentMask,mask,kernel);
+            mask.setTo(brightnes,mask);
+            if(inpaint_size > 0)
+            cv::inpaint(o_img, mask, o_img, inpaint_size, type);
+            if(display_changes){
+                cv::imshow("Noise_changes", o_img);
+                cv::waitKey(1);
+            }
         }
     }
     img = o_img;

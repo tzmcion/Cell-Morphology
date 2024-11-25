@@ -2,12 +2,12 @@
 ID: Norm_br     # Name of the folder in which the program is, folder must contain ./main.out file
     iterations: 1   #number of iterations which will occure to that program 
     arguments: [10 15 30]   #arguments used in each iteration
-ID: Norm_br_global
-    iterations: 1
-    arguments: []
-ID: Norm_noise
-    iterations: 4
-    arguments: [12 2000 2 1 1 0 0] [14 2000 1 1 1 0 0] [16 50 1 2 2 0 0] [20 10 1 2 2 1 0]
+#ID: Norm_br_global
+#    iterations: 1
+#    arguments: []
+#ID: Norm_noise
+#    iterations: 4
+#    arguments: [12 2000 2 1 1 0 0] [14 2000 1 1 1 0 0] [16 50 1 2 2 0 0] [20 10 1 2 2 1 0]
 
 
 #ID: Norm_noise

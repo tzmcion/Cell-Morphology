@@ -1,13 +1,14 @@
 #include "../../Components/Transformations/Transformations.h"
 #include "../../Components/Structures/Structures.h"
 #include "../../Components/Structures/Colors.h"
+#include "../../Components/Threading/Threads.h"
 
 /**
- *  Component Created by Tymoteusz Apriasz \n
- *  ©Avant 2024/2025 \n
- *  Process Reducing of the noise on the image using connected components \n
+ *  Component Created by Tymoteusz Apriasz
+ *  ©Avant 2024/2025
+ *  Process Reducing of the noise on the image using connected components
  *  Args:  
- *  Total of 8 params
+ *  Total of 9 params
  *  @param threshold Threshold value for detecting the object as removable (ratio -- mean/25 * threshold_black)
  *  @param area_size size of detected object being to big to be counted as noise
  *  @param kernel_size_dilation_initial size of initial dilation, before the painting of gray over the detected object 
@@ -54,18 +55,27 @@ int main(int argc, char** argv){
     std::cout << "Inpaint size: " << INP_SIZE << std::endl;
     std::cout << "Inpaint type: " << INP_TYPE << std::endl;
     std::cout << "Starting the processment of data: \n";
-    for(size_t x = 0; x < images.size(); x++){
-        const std::string PATH = images[x];
-        std::cout << Colors::YELLOW << "Processing of:: " << Colors::RESET << PATH;
-        std::cout << std::flush;
-        cv::Mat image;
-        image = cv::imread(PATH, cv::IMREAD_GRAYSCALE);
-        Transformations::dots_remove(image,THRESHOLD,MAX_SIZE, KERN_SIZE_INIT, KERN_SIZE_SEC, INP_SIZE, INP_TYPE, DISPL_CH);
-        std::cout << Colors::GREEN <<" [...DONE! ]"<< Colors::RESET << " Saving File... ";
-        std::string out_name = Entites::FILES::save_to_folder(PATH,OUT_FOLDER,image);
-        std::cout << Colors::GREEN <<" [...DONE! ]" << Colors::RESET << " Succesfully saved to: " << Colors::MAGENTA << out_name << Colors::RESET << std::endl;
+    //IMPLEMENT THREADING
+    size_t cores = std::thread::hardware_concurrency();
+    if(cores == 0){
+        cores = 3;
     }
-    std::string out_data = Entites::Convert::text_file_to_string("../SUCCES.txt");
-    std::cout << out_data << "All operations finished, process will end with zero" << std::endl << std::endl;
+    Threading threads(cores);
+    //IMPLEMENT THREADING
+    for(size_t x = 0; x < images.size(); x++){
+        threads.enqueueTask([x,images,THRESHOLD,MAX_SIZE, KERN_SIZE_INIT, KERN_SIZE_SEC, INP_SIZE, INP_TYPE, DISPL_CH, OUT_FOLDER](){
+            const std::string PATH = images[x];
+            std::cout << Colors::YELLOW << "Processing of:: " << Colors::RESET << PATH;
+            std::cout << std::flush;
+            cv::Mat image;
+            image = cv::imread(PATH, cv::IMREAD_GRAYSCALE);
+            Transformations::dots_remove(image,THRESHOLD,MAX_SIZE, KERN_SIZE_INIT, KERN_SIZE_SEC, INP_SIZE, INP_TYPE, DISPL_CH);
+            std::cout << Colors::GREEN <<" [...DONE! ]"<< Colors::RESET << " Saving File... ";
+            std::string out_name = Entites::FILES::save_to_folder(PATH,OUT_FOLDER,image);
+            std::cout << Colors::GREEN <<" [...DONE! ]" << Colors::RESET << " Succesfully saved to: " << Colors::MAGENTA << out_name << Colors::RESET << std::endl;
+        });
+    }
+    // std::string out_data = Entites::Convert::text_file_to_string("../SUCCES.txt");
+    // std::cout << out_data << "All operations finished, process will end with zero" << std::endl << std::endl;
     return 0;
 }

@@ -8,11 +8,15 @@ void Watershed::background_mask(cv::Mat &src, cv::Mat &dst_mask){
     const int SD_kernel = 3;
     const int as_iterations = 3;
     const double as_time = 0.1;
-    const int hs_min = 25;
-    const int hs_max = 80;
+    const int hs_min = 15;
+    const int hs_max = 65;
     const int hs_min_area = 0;
     const int max_hole_size = int(src.cols/3);
     const int erosion_size = 1;
+    Watershed::background_mask(src, dst_mask, SD_kernel, as_iterations, as_time, hs_min, hs_max, hs_min_area, max_hole_size, erosion_size);
+}
+
+void Watershed::background_mask(cv::Mat &src, cv::Mat &dst_mask, int SD_kernel, int as_iterations, double as_time, int hs_min, int hs_max, int hs_min_area, double max_hole_size, int erosion_size){
     cv::Mat image;
     Watershed::Standard_deviation(src,image, SD_kernel);
     Watershed::Anisotropic(image,image,as_iterations, as_time);
@@ -23,13 +27,19 @@ void Watershed::background_mask(cv::Mat &src, cv::Mat &dst_mask){
 //
 //
 //
-void Watershed::foreground_regoins(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &bg_mask){
+void Watershed::foreground_regions(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &bg_mask){
     const int blur_kernel = 3;
     const int morph_opening_kernel = 3;
     const double clache_force = 2.0;
     const int second_blur_kernel = 3;
-    const double minima_threshold = 0.92;
+    const double minima_threshold = 0.95;
     const int minima_kernel = 1;
+    Watershed::foreground_regions(src,dst_mask,bg_mask,blur_kernel,morph_opening_kernel,clache_force,second_blur_kernel,minima_threshold,minima_kernel);
+}
+//
+//
+//
+void Watershed::foreground_regions(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &bg_mask, int blur_kernel, int morph_opening_kernel, double clache_force, int second_blur_kernel, double minima_threshold, int minima_kernel){
     cv::Mat image,mask;
     //Algorythm work
     cv::medianBlur(src,image,blur_kernel);
@@ -54,18 +64,25 @@ void Watershed::foreground_mask(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &foregr
     const int dil_er_size = 2;
     const int SD_kernel_size = 5;
     const int iterations = 3;
-    const double sigma_min = 4.0;
-    const double sigma_max = 5.0;
+    const double sigma_min = 7.0;
+    const double sigma_max = 7.0;
     const double sigma_iterator = 1;
     const double sigma_multiplier = sqrt(2);
-    const int cell_radius = 14;
-    const int filter_kernel_size = cell_radius*3;
-    const int good_features_max_corners = 3000;
+    const int cell_radius = 21;
+    const int filter_kernel_size = 3;
+    const int good_features_max_corners = 5000;
     const double good_features_quality = 0.05;
-    const int cell_radius_multiplier = 5;
+    const int cell_radius_multiplier = 1;
+    Watershed::foreground_mask(src,dst_mask,foreground_regions,sure_background,blur_size,dil_er_size,SD_kernel_size,iterations,sigma_min,sigma_max,sigma_iterator,sigma_multiplier,cell_radius,filter_kernel_size,good_features_max_corners,good_features_quality,cell_radius_multiplier);
+}
+//
+//
+//
+void Watershed::foreground_mask(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &foreground_regions, cv::Mat &sure_background, int blur_kernel, int dil_er_size, int SD_kernel_size, int iterations, double sigma_min, double sigma_max, double sigma_iterator, double sigma_multiplier, int cell_radius, int filter_kernel_size_multiplier, int gftt_corners, double gftt_quality, int cell_radius_multiplier){
+    const int filter_kernel_size = filter_kernel_size_multiplier*cell_radius;
     cv::Mat center_mask = cv::Mat::zeros(src.size(),CV_8U);
     cv::Mat img, filtered_image, normalized, test;
-    cv::medianBlur(src,img,blur_size);
+    cv::medianBlur(src,img,blur_kernel);
     Transformations::erosion(img,img,dil_er_size,0,1);
     Transformations::dilation(img,img,dil_er_size,0,1);
     Watershed::Standard_deviation(img,img,SD_kernel_size);
@@ -80,7 +97,7 @@ void Watershed::foreground_mask(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &foregr
         cv::normalize(filtered_image*20, normalized, 0, 255, cv::NORM_MINMAX);
         normalized.convertTo(filtered_image,CV_8UC1);
         std::vector<cv::Point2f> local_maxima;
-        cv::goodFeaturesToTrack(filtered_image, local_maxima, good_features_max_corners, good_features_quality, cell_radius);
+        cv::goodFeaturesToTrack(filtered_image, local_maxima, gftt_corners, gftt_quality, cell_radius);
         for (const auto& pt : local_maxima) {
             //Define limits for searching for element of foreground mask
             const int foreground_upper_limit_x = pt.x + cell_radius*cell_radius_multiplier < center_mask.rows ? pt.x + cell_radius*cell_radius_multiplier : center_mask.rows-1;
@@ -100,7 +117,7 @@ void Watershed::foreground_mask(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &foregr
                     int new_x1 = pt.x - diff_x, new_x2 = pt.x + diff_x;
                     int new_y1 = pt.y - diff_y, new_y2 = pt.y + diff_y;
 
-                    // Check bounds and draw if conditions are met
+                    // Check bounds and draw on bg mask if conditions are met
                     if(new_x1 >= 0 && new_y1 >= 0 &&
                     foreground_regions.at<uchar>(new_y1, new_x1) != 0) {
                         if(!Watershed::is_object_in_radius(cv::Point(new_x1,new_y1),center_mask,cell_radius)){
@@ -279,7 +296,7 @@ void Watershed::white_inpaint_holes(cv::Mat &src, cv::Mat &dst, int max_area){
     for (int i = 1; i < numComponents; i++) {
         int area = stats.at<int>(i, cv::CC_STAT_AREA);   
         if (area < max_area) {
-            output.setTo(255, labels == i); //delete pixels which are not meeting the criteria
+            output.setTo(255, labels == i); //paint pixels meeting the criteria of max size
         }
     }
     dst = output;
@@ -339,8 +356,6 @@ cv::Mat Watershed::createRingMatchedFilter(int size, double s1, double s2){
 //
 //
 bool Watershed::is_object_in_radius(cv::Point p, cv::Mat &surface, int radius){
-    const int col_x = p.x;
-    const int row_y = p.y;
     const int start_x = p.x - radius > 0 ? p.x - radius : 0;
     const int start_y = p.y - radius > 0 ? p.y - radius: 0;
     for(int x = start_x; x < x+radius && x < surface.cols; x++){

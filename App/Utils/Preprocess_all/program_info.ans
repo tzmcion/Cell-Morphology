@@ -1,100 +1,45 @@
 OUTPUT
-[36mComponent Created by Tymoteusz Apriasz
-© Avant 2024/2025
-Process Normalizes Brightness in Image using it's mean brightnes
-Args:  radius, traverse_radius, max_diff_threshold, [path1,path2,...,path(n)], output_folder
-Example of input: ./main.out 10 15 30 [./d1.jpg,./d2.jpg,./d3.jpg,./d4.jpg] ./temp_img
-
-!! WARNING DO NOT USE SPACES WHEN PROVIDING PATHS! INCORRECT EXAMPLE: [./d1.jpg, ./d2.jpg] !!
-[0m-------------------------------------------------- 
+[102m[0m-------------------------------------------------- 
 Reading input files, note that this process will end in infinite loop if provided array does not end with "]"! 
-Image_0 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00000.JPG[0m
-Image_1 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00001.JPG[0m
-Image_2 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00002.JPG[0m
-Image_3 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00003.JPG[0m
-Image_4 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00004.JPG[0m
-Image_5 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00005.JPG[0m
-Image_6 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00006.JPG[0m
-Image_7 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00007.JPG[0m
-Image_8 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00008.JPG[0m
-Image_9 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00009.JPG[0m
-Image_10 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00010.JPG[0m
-Image_11 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00011.JPG[0m
-Image_12 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00012.JPG[0m
-Image_13 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00013.JPG[0m
-Image_14 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00014.JPG[0m
-Image_15 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00015.JPG[0m
-Image_16 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00016.JPG[0m
-Image_17 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00017.JPG[0m
+Image_0 [35m./ff/00000.JPG[0m
+Image_1 [35m./ff/00001.JPG[0m
+Image_2 [35m./ff/00002.JPG[0m
+Image_3 [35m./ff/00003.JPG[0m
+Image_4 [35m./ff/00004.JPG[0m
+Image_5 [35m./ff/00005.JPG[0m
+Image_6 [35m./ff/00006.JPG[0m
+Image_7 [35m./ff/00007.JPG[0m
+Image_8 [35m./ff/00008.JPG[0m
+Image_9 [35m./ff/00009.JPG[0m
+Image_10 [35m./ff/00010.JPG[0m
+Image_11 [35m./ff/00011.JPG[0m
+Image_12 [35m./ff/00012.JPG[0m
+Image_13 [35m./ff/00013.JPG[0m
+Image_14 [35m./ff/00014.JPG[0m
+Image_15 [35m./ff/00015.JPG[0m
+Image_16 [35m./ff/00016.JPG[0m
+Image_17 [35m./ff/00017.JPG[0m
 Detected 18 files to convert in total 
-Output folder is: [33m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01[0m
-Variables: 
-Radius: 30
-Traverse: 20
-MAX_DIFF: 30
-Starting the processment of data: 
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00000.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00000.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00001.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00001.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00002.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00002.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00003.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00003.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00004.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00004.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00005.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00005.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00006.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00006.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00007.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00007.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00008.JPG[36m/**
- *  Component Created by Tymoteusz Apriasz
- *  ©Avant 2024/2025
- *  Process Normalizes the brightness on set of the images, by using their overall mean
- *  Args:  radius, traverse_radius, max_diff_threshold, [path1,path2,...,path(n)], output_folder
- *  Example of input: ./main.out 10 15 30 [./d1.jpg,./d2.jpg,./d3.jpg,./d4.jpg] ./temp_img
- * */
-[0m-------------------------------------------------- 
-Reading input files, note that this process will end in infinite loop if provided array does not end with "]"! 
-Image_0 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00000.JPG[0m
-Image_1 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00001.JPG[0m
-Image_2 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00002.JPG[0m
-Image_3 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00003.JPG[0m
-Image_4 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00004.JPG[0m
-Image_5 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00005.JPG[0m
-Image_6 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00006.JPG[0m
-Image_7 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00007.JPG[0m
-Image_8 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00008.JPG[0m
-Image_9 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00009.JPG[0m
-Image_10 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00010.JPG[0m
-Image_11 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00011.JPG[0m
-Image_12 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00012.JPG[0m
-Image_13 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00013.JPG[0m
-Image_14 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00014.JPG[0m
-Image_15 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00015.JPG[0m
-Image_16 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00016.JPG[0m
-Image_17 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00017.JPG[0m
-Detected 18 files to convert in total 
-Output folder is: [33m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01[0m
-Variables: 
-No variables for this process
-Starting the processment of data: 
-[...] 
-Starting the process of calculating the best mean 
-Mean brightness calculated as: 113.701 normalizing brightness on images... 
- 
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00000.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00000.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00001.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00001.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00002.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00002.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00003.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00003.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00004.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00004.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00005.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00005.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00006.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00006.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00007.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00007.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00008.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00008.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00009.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00009.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00010.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00010.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00011.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00011.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00012.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00012.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00013.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00013.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00014.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00014.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00015.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00015.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00016.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00016.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00017.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/out/A01/00017.JPG[0m
+Output folder is: [33m./ff[0m
+[31mReading options from provided file[0m
+[33mProcessing of:: [0m./ff/00000.JPG[33mProcessing of:: [33mProcessing of:: [0m./ff/00003.JPG[33mProcessing of:: [0m./ff/00002.JPG[0m./ff/00001.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00003.JPG[0m
+[33mProcessing of:: [0m./ff/00004.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00001.JPG[0m
+[33mProcessing of:: [0m./ff/00005.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00000.JPG[0m
+[33mProcessing of:: [0m./ff/00006.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00002.JPG[0m
+[33mProcessing of:: [0m./ff/00007.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00004.JPG[0m
+[33mProcessing of:: [0m./ff/00008.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00006.JPG[0m
+[33mProcessing of:: [0m./ff/00009.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00005.JPG[0m
+[33mProcessing of:: [0m./ff/00010.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00008.JPG[0m
+[33mProcessing of:: [0m./ff/00011.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00007.JPG[0m
+[33mProcessing of:: [0m./ff/00012.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00009.JPG[0m
+[33mProcessing of:: [0m./ff/00013.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00010.JPG[0m
+[33mProcessing of:: [0m./ff/00014.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00011.JPG[0m
+[33mProcessing of:: [0m./ff/00015.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00012.JPG[0m
+[33mProcessing of:: [0m./ff/00016.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00013.JPG[0m
+[33mProcessing of:: [0m./ff/00017.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00014.JPG[0m
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00016.JPG[0m
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00015.JPG[0m
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00017.JPG[0m
 ***************************************
 *            !!SUCCESS!!              *
 *       ALL OPERATIONS COMPLEATED     *                  

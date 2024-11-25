@@ -79,10 +79,10 @@ class Transformations: public BasicTransofrmations{
             message += ker1;
             message += " While the range is <int>[1, 7]\n";
         }
-        if(ker2 <= 0 || ker2 >= 8){
+        if(ker2 < 0 || ker2 >= 8){
             message += "* Kernel_size_dilation_second: ";
             message += ker2;
-            message += " While the range is <int>[1, 7]\n";
+            message += " While the range is <int>[0, 7]\n";
         }
         if(inp <= 0 || inp >= 8){
             message += "* inpaint_size: ";

@@ -124,5 +124,22 @@ namespace Entites{
                 }
                 return file_name;
         }
+
+        static void write_to_file(const char *file_path, std::string line, char separator=';',bool newline = true){
+            std::string new_text = line + separator;
+            std::FILE* out_file;
+            out_file = std::fopen(file_path,"a");
+            std::fprintf(out_file,new_text.c_str());
+            if(newline){
+                std::fprintf(out_file,"\n");
+            }
+            std::fclose(out_file);
+        }
+
+        static void clear_file(const char *file_path){
+            std::FILE* out_file;
+            out_file = std::fopen(file_path,"w");
+            std::fclose(out_file);
+        }
     };
 }
