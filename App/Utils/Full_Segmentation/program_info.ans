@@ -1,0 +1,44 @@
+[102m[0m-------------------------------------------------- 
+Reading input files, note that this process will end in infinite loop if provided array does not end with "]"! 
+Image_0 [35m./ff/00000.JPG[0m
+Image_1 [35m./ff/00001.JPG[0m
+Image_2 [35m./ff/00002.JPG[0m
+Image_3 [35m./ff/00003.JPG[0m
+Detected 4 files to convert in total 
+Output folder is: [33m./ff/Full_Segmentation[0m
+[31mReading options from provided file[0m
+[102m[0m-------------------------------------------------- 
+Reading input files, note that this process will end in infinite loop if provided array does not end with "]"! 
+Image_0 [35m./ff/00000.JPG[0m
+Image_1 [35m./ff/00001.JPG[0m
+Image_2 [35m./ff/00002.JPG[0m
+Image_3 [35m./ff/00003.JPG[0m
+Detected 4 files to convert in total 
+Output folder is: [33m./ff/Full_Segmentation[0m
+Directory created successfully: ./ff/Full_Segmentation
+[31mReading options from provided file[0m
+[33mProcessing of:: [0m./ff/00000.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/Full_Segmentation/00000.JPG[0m
+[33mProcessing of:: [0m./ff/00001.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/Full_Segmentation/00001.JPG[0m
+[33mProcessing of:: [0m./ff/00002.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/Full_Segmentation/00002.JPG[0m
+[33mProcessing of:: [0m./ff/00003.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/Full_Segmentation/00003.JPG[0m
+***************************************
+*            !!SUCCESS!!              *
+*       ALL OPERATIONS COMPLEATED     *                  
+***************************************
+All operations finished, process will end with zero
+
+[102m[0m-------------------------------------------------- 
+Reading input files, note that this process will end in infinite loop if provided array does not end with "]"! 
+Image_0 [35m./ff/00000.JPG[0m
+Image_1 [35m./ff/00003.JPG[0m
+Detected 2 files to convert in total 
+Output folder is: [33m./ff/Full_Segmentation[0m
+[31mReading options from provided file[0m
+[33mProcessing of:: [0m./ff/00000.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/Full_Segmentation/00000.JPG[0m
+[33mProcessing of:: [0m./ff/00003.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/Full_Segmentation/00003.JPG[0m
+***************************************
+*            !!SUCCESS!!              *
+*       ALL OPERATIONS COMPLEATED     *                  
+***************************************
+All operations finished, process will end with zero
+

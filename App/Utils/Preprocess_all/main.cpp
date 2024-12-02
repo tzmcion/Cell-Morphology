@@ -68,6 +68,9 @@ int main(int argc, char** argv){
             _input += images[x];
         }
         _input += "] " + std::string(OUT_FOLDER);
+        if(reader.original){
+            _input += '/' + reader.get_folder_name();
+        }
         _input += " >> ./program_info.ans";
         std::cout << Colors::YELLOW << "[COMMAND:] " << Colors::RESET << _input << std::endl;
         system(_input.c_str());

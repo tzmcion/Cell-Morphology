@@ -5,44 +5,7 @@ Image_0 [35m./ff/00000.JPG[0m
 Image_1 [35m./ff/00001.JPG[0m
 Image_2 [35m./ff/00002.JPG[0m
 Image_3 [35m./ff/00003.JPG[0m
-Image_4 [35m./ff/00004.JPG[0m
-Image_5 [35m./ff/00005.JPG[0m
-Image_6 [35m./ff/00006.JPG[0m
-Image_7 [35m./ff/00007.JPG[0m
-Image_8 [35m./ff/00008.JPG[0m
-Image_9 [35m./ff/00009.JPG[0m
-Image_10 [35m./ff/00010.JPG[0m
-Image_11 [35m./ff/00011.JPG[0m
-Image_12 [35m./ff/00012.JPG[0m
-Image_13 [35m./ff/00013.JPG[0m
-Image_14 [35m./ff/00014.JPG[0m
-Image_15 [35m./ff/00015.JPG[0m
-Image_16 [35m./ff/00016.JPG[0m
-Image_17 [35m./ff/00017.JPG[0m
-Detected 18 files to convert in total 
-Output folder is: [33m./ff[0m
+Detected 4 files to convert in total 
+Output folder is: [33m./ff/Full_Segmentation[0m
 [31mReading options from provided file[0m
-[33mProcessing of:: [0m./ff/00000.JPG[33mProcessing of:: [33mProcessing of:: [0m./ff/00003.JPG[33mProcessing of:: [0m./ff/00002.JPG[0m./ff/00001.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00003.JPG[0m
-[33mProcessing of:: [0m./ff/00004.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00001.JPG[0m
-[33mProcessing of:: [0m./ff/00005.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00000.JPG[0m
-[33mProcessing of:: [0m./ff/00006.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00002.JPG[0m
-[33mProcessing of:: [0m./ff/00007.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00004.JPG[0m
-[33mProcessing of:: [0m./ff/00008.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00006.JPG[0m
-[33mProcessing of:: [0m./ff/00009.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00005.JPG[0m
-[33mProcessing of:: [0m./ff/00010.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00008.JPG[0m
-[33mProcessing of:: [0m./ff/00011.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00007.JPG[0m
-[33mProcessing of:: [0m./ff/00012.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00009.JPG[0m
-[33mProcessing of:: [0m./ff/00013.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00010.JPG[0m
-[33mProcessing of:: [0m./ff/00014.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00011.JPG[0m
-[33mProcessing of:: [0m./ff/00015.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00012.JPG[0m
-[33mProcessing of:: [0m./ff/00016.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00013.JPG[0m
-[33mProcessing of:: [0m./ff/00017.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00014.JPG[0m
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00016.JPG[0m
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00015.JPG[0m
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./ff/00017.JPG[0m
-***************************************
-*            !!SUCCESS!!              *
-*       ALL OPERATIONS COMPLEATED     *                  
-***************************************
-All operations finished, process will end with zero
-
+[33mProcessing of:: [0m./ff/00000.JPG

@@ -36,6 +36,8 @@ class ReadOptions{
 
     bool next_run();
 
+    bool original;
+
     private:
 
     /**

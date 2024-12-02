@@ -36,7 +36,7 @@ int main(int argc, char** argv){
     std::cout << "Output folder is: " << Colors::YELLOW <<  OUT_FOLDER << Colors::RESET << std::endl;
     Entites::FILES::folder_create(OUT_FOLDER);
     std::cout << Colors::RED << "Reading options from provided file" << Colors::RESET << std::endl;
-    const std::string out_file = std::string(OUT_FOLDER) + "/DATA.csv";
+    const std::string out_file = std::string(OUT_FOLDER) + "/DATA" + "_COUNT" + ".csv";
     Entites::FILES::clear_file(out_file.c_str());
     //TODO
     //NOW DO FOR DEFAULT VALUES

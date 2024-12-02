@@ -142,4 +142,80 @@ namespace Entites{
             std::fclose(out_file);
         }
     };
+
+    class watMarkers{
+        public:
+        watMarkers(){
+            fields.clear();
+        }
+        
+        void add_value(int field_id){
+            //Find the index
+            size_t index = 1000000;
+            for(size_t x = 0; x < fields.size(); x++){
+                if(fields[x].index == field_id){
+                    index = x;
+                }
+            }
+            //After having an index
+            if(index == 1000000){
+                field new_object;
+                new_object.count = 1;
+                new_object.index = field_id;
+                fields.emplace_back(new_object);
+                return;
+            }
+            fields[index].count += 1;
+        }
+
+        //The distribution (histogram) should be simillar to normal distribution, therefore
+        //We shall use 3SD rule to exclude borderline cases
+        double get_mean(){
+            double mean;
+            mean = 0;
+            for(size_t x = 0; x < fields.size(); x++){
+                mean += fields[x].count; 
+            }
+            return mean /fields.size();
+        }
+        //SD
+        double get_SD(){
+            long double SD = 0, mean = this->get_mean();
+            for(size_t x = 0; x < fields.size(); x++){
+                SD += pow(double(fields[x].count) - mean,2);
+            }
+            return sqrt(abs(SD)/double(fields.size()));
+        }
+        //Excluding 3sigma rule, here will be 2sigma rule :)
+        void exclude_borderline_cases(){
+            double SD= this->get_SD();
+            double mean= this->get_mean();
+            std::vector<field> new_fields;
+            for(size_t x=0; x < fields.size(); x++){
+                const int value = fields[x].count;
+                if(abs(mean - value) < 2*abs(SD) && value > 100){
+                    new_fields.emplace_back(fields[x]);
+                }
+            }
+            fields = new_fields;
+        }
+        //Find if index is present in fields
+        bool is_present(int field_id){
+            for(size_t x = 0; x < fields.size(); x++){
+                if(fields[x].index == field_id){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private:
+
+        struct field{
+            int index;
+            int count;
+        };
+        std::vector<field> fields;
+
+    };
 }

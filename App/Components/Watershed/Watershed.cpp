@@ -29,11 +29,11 @@ void Watershed::background_mask(cv::Mat &src, cv::Mat &dst_mask, int SD_kernel, 
 //
 void Watershed::foreground_regions(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &bg_mask){
     const int blur_kernel = 3;
-    const int morph_opening_kernel = 3;
-    const double clache_force = 2.0;
+    const int morph_opening_kernel = 5;
+    const double clache_force = 5.0;
     const int second_blur_kernel = 3;
-    const double minima_threshold = 0.95;
-    const int minima_kernel = 1;
+    const double minima_threshold = 0.8;
+    const int minima_kernel = 3;
     Watershed::foreground_regions(src,dst_mask,bg_mask,blur_kernel,morph_opening_kernel,clache_force,second_blur_kernel,minima_threshold,minima_kernel);
 }
 //
@@ -204,7 +204,8 @@ void Watershed::Standard_deviation(cv::Mat &src, cv::Mat &dst, int kernel){
 void Watershed::clache(cv:: Mat &src, cv::Mat &dst, double clache_limit){
     cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE();
     clahe->setClipLimit(clache_limit); // Adjust clip limit for different effects
-    cv::Mat image = src;
+    cv::Mat image;
+    src.copyTo(image);
     clahe->apply(src, image);
     dst = image;
 }
@@ -332,20 +333,24 @@ cv::Mat Watershed::GaussianKernel(int size, double sigma){
 
     return kernel;
 }
+
 //
 //
 //
-cv::Mat Watershed::createRingMatchedFilter(int size, double s1, double s2){
+cv::Mat Watershed::createRingMatchedFilter(int size, double s1, double s2, bool reverse){
     // Create two Gaussian kernels G1 and G2
     cv::Mat G1 = Watershed::GaussianKernel(size, s1);
     cv::Mat G2 = Watershed::GaussianKernel(size, s2);
-
     // Construct the ring filter based on the condition
     cv::Mat ringFilter(size, size, CV_32F);
 
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             // Apply condition: if G1(x) < G2(x), keep G1(x), otherwise set to 0
+            if(reverse){
+                ringFilter.at<float>(i, j) = G1.at<float>(i, j) > G2.at<float>(i,j) ? G2.at<float>(i,j) : 0.0f;
+                continue;
+            }
             ringFilter.at<float>(i, j) = G1.at<float>(i, j) < G2.at<float>(i,j) ? G1.at<float>(i,j) : 0.0f;
         }
     }

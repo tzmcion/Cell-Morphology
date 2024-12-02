@@ -1,6 +1,7 @@
 #include "../../Components/Watershed/Watershed.h"
 #include "../../Components/Structures/Colors.h"
 #include "../../Components/Transformations/Transformations.h"
+#include "../../Components/Structures/Structures.h"
 
 /**
  *  Component Created by Tymoteusz Apriasz
@@ -35,7 +36,7 @@ int main(int argc, char** argv){
     std::cout << "Output folder is: " << Colors::YELLOW <<  OUT_FOLDER << Colors::RESET << std::endl;
     Entites::FILES::folder_create(OUT_FOLDER);
     std::cout << Colors::RED << "Reading options from provided file" << Colors::RESET << std::endl;
-    const std::string out_file = std::string(OUT_FOLDER) + "/DATA" +"_SURFACE" + ".csv";
+    const std::string out_file = std::string(OUT_FOLDER) + "/DATA" +"_WATERSHED" + ".csv";
     Entites::FILES::clear_file(out_file.c_str());
     //TODO
     //NOW DO FOR DEFAULT VALUES
@@ -48,55 +49,60 @@ int main(int argc, char** argv){
         //
         //ALGORYTHM
         //
-        cv::Mat background_mask, foreground_mask;
+        cv::Mat background_mask, foreground_mask, foreground_regions,markers;
         Watershed::background_mask(image,background_mask);
-        Watershed::foreground_regions(image,foreground_mask,background_mask);
-        foreground_mask *=2;    //Foreground mask regions is 2
-        cv::Mat markers = foreground_mask.clone();
+        Watershed::foreground_regions(image,foreground_regions,background_mask);
+        Watershed::foreground_mask(image,foreground_mask,foreground_regions,background_mask);
+        cv::connectedComponents(foreground_mask,markers);
         markers.setTo(1, background_mask == 0); // Ensure background is labeled as 1
         markers.setTo(0, (background_mask != 0) & (foreground_mask == 0)); // Unknown regions are 0
-        cv::Mat image_blured,image_watershed, result,watershed_markers;
-        Transformations::opening(image_blured,image,'O',3);
-        Watershed::clache(image_blured,image_blured,2.0);
-        cv::medianBlur(image_blured,image_blured,3);
-        cv::cvtColor(image_blured, image_watershed, cv::COLOR_GRAY2BGR);
+        cv::Mat to_wat;
+        image.copyTo(to_wat);
+        cv::Mat image_watershed, result, watershed_markers;
+        Transformations::opening(to_wat,to_wat,'O',3);
+        Transformations::double_blur(to_wat,to_wat,3,3);
+        Watershed::clache(to_wat,to_wat,3.0);
+        cv::medianBlur(to_wat,to_wat,3);
+        cv::cvtColor(to_wat, image_watershed, cv::COLOR_GRAY2BGR);
         markers.convertTo(watershed_markers,CV_32S);
         cv::watershed(image_watershed,watershed_markers);
         cv::cvtColor(image,result,cv::COLOR_GRAY2RGB);
-        int count_green = 0;
+        //I have markers, now I need to somehow get all the unique ones
+        Entites::watMarkers markers_counter;
         for (int i = 0; i < markers.rows; i++) {
             for (int j = 0; j < markers.cols; j++) {
-                if(foreground_mask.at<uchar>(i,j) != 0){
-                    //cv::circle(result, cv::Point(j, i), 1, cv::Scalar(255,0,255), -1);
-                }
                 int markerValue = watershed_markers.at<int>(i, j);
-                if (markerValue == -1) {
-                    result.at<Vec3b>(i, j) = Vec3b(0, 255, 0); // Red for watershed boundaries
-                }
-                else if (markerValue == 1) {
-                    result.at<Vec3b>(i, j) = Vec3b(2, 0, 255); // Blue for background
-                }
-                else if (markerValue >= 2) {
-                    count_green += 1;
-                    result.at<Vec3b>(i, j) = Vec3b(0,255,0);
+                if(markerValue >= 2) {
+                    markers_counter.add_value(markerValue);
                 }
             }
         }
+        //Now I need to get all the unique markers, find the average area size
+        markers_counter.exclude_borderline_cases();
+        for (int i = 0; i < markers.rows; i++) {
+            for (int j = 0; j < markers.cols; j++) {
+                int markerValue = watershed_markers.at<int>(i, j);
+                if (markers_counter.is_present(markerValue)) {
+                    result.at<Vec3b>(i, j) = Vec3b(markerValue*50 +50,200,markerValue*25 + 100);
+                }
+                else{
+                    result.at<Vec3b>(i, j) = Vec3b(0, 0, 0); // Blue for background
+                }
+            }
+        }
+
         Mat imageBGRA;
         cvtColor(image, imageBGRA, COLOR_BGR2RGB);
 
-        // Blend the watershed result with the original image using 20% opacity for the result
         Mat blended;
-        addWeighted(imageBGRA, 0.9, result, 0.1, 0, blended); // 80% original + 20% overlay
+        addWeighted(imageBGRA, 0.80, result, 0.20, 0, blended);
+        // cv::imshow("DD",blended);
+        // cv::waitKey(0);
+        std::string mean_str = std::to_string(markers_counter.get_mean());
 
-        // Display the result
-        // imshow("Original Image", image);
-        // imshow("Watershed Segmentation with Opacity Overlay", blended);
-        // waitKey(1);
-
-        std::string Ratio = std::to_string(count_green*100 / double(image.rows*image.cols));
         Entites::FILES::write_to_file(out_file.c_str(),PATH, ';',false);
-        Entites::FILES::write_to_file(out_file.c_str(),Ratio);
+        Entites::FILES::write_to_file(out_file.c_str(),std::to_string(markers_counter.get_mean()),';',false);
+        Entites::FILES::write_to_file(out_file.c_str(),std::to_string(markers_counter.get_SD()),';');
         //
         //END OF ALGORYTHM
         //

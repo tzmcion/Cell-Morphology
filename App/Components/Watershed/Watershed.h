@@ -107,7 +107,7 @@ class Watershed{
     //*************
     //** PRIVATE **
     //*************
-    private: 
+    // private: 
 
         /**
          * Function peformes standatd deviation on an image, with given kernel
@@ -179,7 +179,7 @@ class Watershed{
          * @param s1 sigma value of first gaussian distribution
          * @param s2 sigma value of second gaussian distribution
          * */
-        static cv::Mat createRingMatchedFilter(int size, double s1, double s2);
+        static cv::Mat createRingMatchedFilter(int size, double s1, double s2, bool reverse=false);
 
         /**
          *  Function creates a gaussian kernel, with set SD

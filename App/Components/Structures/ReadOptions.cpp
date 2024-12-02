@@ -1,6 +1,7 @@
 #include "./ReadOptions.h"
 
 ReadOptions::ReadOptions(const char* options_path){
+    original = false;
     std::vector<std::string> lines;
     std::ifstream file(options_path);
     
@@ -24,6 +25,10 @@ ReadOptions::ReadOptions(const char* options_path){
         //Get the line task
         if(line.empty())continue;
         std::string task = line[0];
+        if(task == "!ORG"){
+            original = true;
+            continue;
+        }
         if(task == "ID"){
             if(raw != nullptr) {
                 if(!raw->is_ready()){

@@ -43,7 +43,8 @@ void Transformations::alter_brightnes(cv::Mat &img, double brightnes){
 //
 void Transformations::opening(cv::Mat &image,cv::Mat src, char operation, int kernelSize){
     int flag_operation = 0;
-    cv::Mat o_img = src;
+    cv::Mat o_img;
+    src.copyTo(o_img);
     Transformations::is_image(o_img);
     switch (operation)
     {
