@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 accepted_types = ['.jpg', '.JPG', '.png', '.PNG']
-current_folder = ["./out/B07"]
+current_folder = ["./out/D02"]
 print('[', end='')
 paths = [f.path for f in os.scandir("./out") if f.is_dir()]
 

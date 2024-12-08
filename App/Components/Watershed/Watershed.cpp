@@ -8,8 +8,8 @@ void Watershed::background_mask(cv::Mat &src, cv::Mat &dst_mask){
     const int SD_kernel = 3;
     const int as_iterations = 3;
     const double as_time = 0.1;
-    const int hs_min = 15;
-    const int hs_max = 65;
+    const int hs_min = 20;
+    const int hs_max = 70;
     const int hs_min_area = 0;
     const int max_hole_size = int(src.cols/3);
     const int erosion_size = 1;
@@ -71,7 +71,7 @@ void Watershed::foreground_mask(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &foregr
     const int cell_radius = 21;
     const int filter_kernel_size = 3;
     const int good_features_max_corners = 5000;
-    const double good_features_quality = 0.05;
+    const double good_features_quality = 0.06;
     const int cell_radius_multiplier = 1;
     Watershed::foreground_mask(src,dst_mask,foreground_regions,sure_background,blur_size,dil_er_size,SD_kernel_size,iterations,sigma_min,sigma_max,sigma_iterator,sigma_multiplier,cell_radius,filter_kernel_size,good_features_max_corners,good_features_quality,cell_radius_multiplier);
 }

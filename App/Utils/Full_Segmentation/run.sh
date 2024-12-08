@@ -35,4 +35,3 @@ echo "Cleaning up object files..."
 rm -f $OBJS
 
 echo "Build complete. Executable: $TARGET"
-./main.out def [./ff/00000.JPG,./ff/00003.JPG] ./ff/Full_Segmentation

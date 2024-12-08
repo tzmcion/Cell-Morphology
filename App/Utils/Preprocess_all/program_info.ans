@@ -1,11 +1,166 @@
 OUTPUT
 [102m[0m-------------------------------------------------- 
 Reading input files, note that this process will end in infinite loop if provided array does not end with "]"! 
-Image_0 [35m./ff/00000.JPG[0m
-Image_1 [35m./ff/00001.JPG[0m
-Image_2 [35m./ff/00002.JPG[0m
-Image_3 [35m./ff/00003.JPG[0m
-Detected 4 files to convert in total 
-Output folder is: [33m./ff/Full_Segmentation[0m
+Image_0 [35m./f2/00000.JPG[0m
+Image_1 [35m./f2/00001.JPG[0m
+Image_2 [35m./f2/00002.JPG[0m
+Image_3 [35m./f2/00003.JPG[0m
+Image_4 [35m./f2/00004.JPG[0m
+Image_5 [35m./f2/00005.JPG[0m
+Image_6 [35m./f2/00006.JPG[0m
+Image_7 [35m./f2/00007.JPG[0m
+Image_8 [35m./f2/00008.JPG[0m
+Image_9 [35m./f2/00009.JPG[0m
+Image_10 [35m./f2/00010.JPG[0m
+Image_11 [35m./f2/00011.JPG[0m
+Image_12 [35m./f2/00012.JPG[0m
+Image_13 [35m./f2/00013.JPG[0m
+Image_14 [35m./f2/00014.JPG[0m
+Image_15 [35m./f2/00015.JPG[0m
+Image_16 [35m./f2/00016.JPG[0m
+Image_17 [35m./f2/00017.JPG[0m
+Detected 18 files to convert in total 
+Output folder is: [33m./f2/Count_Cells[0m
 [31mReading options from provided file[0m
-[33mProcessing of:: [0m./ff/00000.JPG
+[33mProcessing of:: [0m./f2/00000.JPG[33mProcessing of:: [0m./f2/00003.JPG[33mProcessing of:: [0m./f2/00002.JPG[33mProcessing of:: [0m./f2/00001.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Cells/00000.JPG[0m
+[33mProcessing of:: [0m./f2/00004.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Cells/00001.JPG[0m
+[33mProcessing of:: [0m./f2/00005.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Cells/00002.JPG[0m
+[33mProcessing of:: [0m./f2/00006.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Cells/00003.JPG[0m
+[33mProcessing of:: [0m./f2/00007.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Cells/00004.JPG[0m
+[33mProcessing of:: [0m./f2/00008.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Cells/00005.JPG[0m
+[33mProcessing of:: [0m./f2/00009.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Cells/00006.JPG[0m
+[33mProcessing of:: [0m./f2/00010.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Cells/00007.JPG[0m
+[33mProcessing of:: [0m./f2/00011.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Cells/00008.JPG[0m
+[33mProcessing of:: [0m./f2/00012.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Cells/00009.JPG[0m
+[33mProcessing of:: [0m./f2/00013.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Cells/00010.JPG[0m
+[33mProcessing of:: [0m./f2/00014.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Cells/00011.JPG[0m
+[33mProcessing of:: [0m./f2/00015.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Cells/00012.JPG[0m
+[33mProcessing of:: [0m./f2/00016.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Cells/00013.JPG[0m
+[33mProcessing of:: [0m./f2/00017.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Cells/00015.JPG[0m
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Cells/00014.JPG[0m
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Cells/00016.JPG[0m
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Cells/00017.JPG[0m
+***************************************
+*            !!SUCCESS!!              *
+*       ALL OPERATIONS COMPLEATED     *                  
+***************************************
+All operations finished, process will end with zero
+
+[102m[0m-------------------------------------------------- 
+Reading input files, note that this process will end in infinite loop if provided array does not end with "]"! 
+Image_0 [35m./f2/00000.JPG[0m
+Image_1 [35m./f2/00001.JPG[0m
+Image_2 [35m./f2/00002.JPG[0m
+Image_3 [35m./f2/00003.JPG[0m
+Image_4 [35m./f2/00004.JPG[0m
+Image_5 [35m./f2/00005.JPG[0m
+Image_6 [35m./f2/00006.JPG[0m
+Image_7 [35m./f2/00007.JPG[0m
+Image_8 [35m./f2/00008.JPG[0m
+Image_9 [35m./f2/00009.JPG[0m
+Image_10 [35m./f2/00010.JPG[0m
+Image_11 [35m./f2/00011.JPG[0m
+Image_12 [35m./f2/00012.JPG[0m
+Image_13 [35m./f2/00013.JPG[0m
+Image_14 [35m./f2/00014.JPG[0m
+Image_15 [35m./f2/00015.JPG[0m
+Image_16 [35m./f2/00016.JPG[0m
+Image_17 [35m./f2/00017.JPG[0m
+Detected 18 files to convert in total 
+Output folder is: [33m./f2/Count_Surface[0m
+[31mReading options from provided file[0m
+[33mProcessing of:: [0m./f2/00000.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Surface/00000.JPG[0m
+[33mProcessing of:: [0m./f2/00001.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Surface/00001.JPG[0m
+[33mProcessing of:: [0m./f2/00002.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Surface/00002.JPG[0m
+[33mProcessing of:: [0m./f2/00003.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Surface/00003.JPG[0m
+[33mProcessing of:: [0m./f2/00004.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Surface/00004.JPG[0m
+[33mProcessing of:: [0m./f2/00005.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Surface/00005.JPG[0m
+[33mProcessing of:: [0m./f2/00006.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Surface/00006.JPG[0m
+[33mProcessing of:: [0m./f2/00007.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Surface/00007.JPG[0m
+[33mProcessing of:: [0m./f2/00008.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Surface/00008.JPG[0m
+[33mProcessing of:: [0m./f2/00009.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Surface/00009.JPG[0m
+[33mProcessing of:: [0m./f2/00010.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Surface/00010.JPG[0m
+[33mProcessing of:: [0m./f2/00011.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Surface/00011.JPG[0m
+[33mProcessing of:: [0m./f2/00012.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Surface/00012.JPG[0m
+[33mProcessing of:: [0m./f2/00013.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Surface/00013.JPG[0m
+[33mProcessing of:: [0m./f2/00014.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Surface/00014.JPG[0m
+[33mProcessing of:: [0m./f2/00015.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Surface/00015.JPG[0m
+[33mProcessing of:: [0m./f2/00016.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Surface/00016.JPG[0m
+[33mProcessing of:: [0m./f2/00017.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Count_Surface/00017.JPG[0m
+***************************************
+*            !!SUCCESS!!              *
+*       ALL OPERATIONS COMPLEATED     *                  
+***************************************
+All operations finished, process will end with zero
+
+[102m[0m-------------------------------------------------- 
+Reading input files, note that this process will end in infinite loop if provided array does not end with "]"! 
+Image_0 [35m./f2/00000.JPG[0m
+Image_1 [35m./f2/00001.JPG[0m
+Image_2 [35m./f2/00002.JPG[0m
+Image_3 [35m./f2/00003.JPG[0m
+Image_4 [35m./f2/00004.JPG[0m
+Image_5 [35m./f2/00005.JPG[0m
+Image_6 [35m./f2/00006.JPG[0m
+Image_7 [35m./f2/00007.JPG[0m
+Image_8 [35m./f2/00008.JPG[0m
+Image_9 [35m./f2/00009.JPG[0m
+Image_10 [35m./f2/00010.JPG[0m
+Image_11 [35m./f2/00011.JPG[0m
+Image_12 [35m./f2/00012.JPG[0m
+Image_13 [35m./f2/00013.JPG[0m
+Image_14 [35m./f2/00014.JPG[0m
+Image_15 [35m./f2/00015.JPG[0m
+Image_16 [35m./f2/00016.JPG[0m
+Image_17 [35m./f2/00017.JPG[0m
+Detected 18 files to convert in total 
+Output folder is: [33m./f2/Full_Segmentation[0m
+[31mReading options from provided file[0m
+[33mProcessing of:: [0m./f2/00000.JPG[33mProcessing of:: [0m./f2/00001.JPG[33mProcessing of:: [0m./f2/00003.JPG***************************************
+*            !!SUCCESS!!              *
+*       ALL OPERATIONS COMPLEATED     *                  
+***************************************
+All operations finished, process will end with zero
+
+[33mProcessing of:: [0m./f2/00002.JPGPATH: 00000
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Full_Segmentation/00000.JPG[0m
+[33mProcessing of:: [0m./f2/00004.JPGPATH: 00001
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Full_Segmentation/00001.JPG[0m
+[33mProcessing of:: [0m./f2/00005.JPGPATH: 00002
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Full_Segmentation/00002.JPG[0m
+[33mProcessing of:: [0m./f2/00006.JPGPATH: 00003
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Full_Segmentation/00003.JPG[0m
+[33mProcessing of:: [0m./f2/00007.JPGPATH: 00004
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Full_Segmentation/00004.JPG[0m
+[33mProcessing of:: [0m./f2/00008.JPGPATH: 00005
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Full_Segmentation/00005.JPG[0m
+[33mProcessing of:: [0m./f2/00009.JPGPATH: 00006
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Full_Segmentation/00006.JPG[0m
+[33mProcessing of:: [0m./f2/00010.JPGPATH: 00007
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Full_Segmentation/00007.JPG[0m
+[33mProcessing of:: [0m./f2/00011.JPGPATH: 00008
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Full_Segmentation/00008.JPG[0m
+[33mProcessing of:: [0m./f2/00012.JPGPATH: 00009
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Full_Segmentation/00009.JPG[0m
+[33mProcessing of:: [0m./f2/00013.JPGPATH: 00010
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Full_Segmentation/00010.JPG[0m
+[33mProcessing of:: [0m./f2/00014.JPGPATH: 00011
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Full_Segmentation/00011.JPG[0m
+[33mProcessing of:: [0m./f2/00015.JPGPATH: 00012
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Full_Segmentation/00012.JPG[0m
+[33mProcessing of:: [0m./f2/00016.JPGPATH: 00013
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Full_Segmentation/00013.JPG[0m
+[33mProcessing of:: [0m./f2/00017.JPGPATH: 00014
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Full_Segmentation/00014.JPG[0m
+PATH: 00015
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Full_Segmentation/00015.JPG[0m
+PATH: 00016
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Full_Segmentation/00016.JPG[0m
+PATH: 00017
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m./f2/Full_Segmentation/00017.JPG[0m
+***************************************
+*            !!SUCCESS!!              *
+*       ALL OPERATIONS COMPLEATED     *                  
+***************************************
+All operations finished, process will end with zero
+
