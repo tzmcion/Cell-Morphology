@@ -38,6 +38,8 @@ def load_paths():
             dpg.delete_item("SHOW_PATHS")
         with dpg.window(width=1000, height=400, id="SHOW_PATHS", pos=(0,400)):
             dpg.add_text(default_value=(str("Total Images found: ") + str(len(list))))
+            dpg.add_button(label="Continue with following Images:", width=250, height=50,id="APP")
+            dpg.bind_item_handler_registry("APP","APP_HANDLER") #FROM ENGINE.APP
             for path in list:
                 dpg.add_text(path,color=(255,155,0))
 
