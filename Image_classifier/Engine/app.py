@@ -76,30 +76,34 @@ def render_image(path):
 def copy_file_to(inp,dst,idx):
     extension = '.jpg'
     if(os.path.exists(dst)):
-        shutil.copyfile(inp, dst + '/' + str(idx) + extension)
+        shutil.move(inp, dst + '/' + str(idx) + extension)
         return
     os.mkdir(dst)
-    shutil.copyfile(inp, dst + '/' + str(idx) + extension)
+    shutil.move(inp, dst + '/' + str(idx) + extension)
 
 def image_key_press_handler(sender,value):
     PATHS = get_paths()
     COPY_PATH = G.OUTPUT
     INP_PATH = dpg.get_value("Image_Path")
+    print(INP_PATH)
     ADD_P = "None"
     key = 0
+    iterator = 0
     if(value == 524):
         key = -1
     else:
         key = value - 536
-    for bind in G.BINDERS:
-        # print(str(bind.key) + "   " + str(key))
-        if str(bind.key) == str(key):
-            ADD_P = bind.name
+    for index in range(0,len(G.BINDERS)):
+        if str(G.BINDERS[index].key) == str(key):
+            ADD_P = G.BINDERS[index].name
+            iterator = G.BINDERS[index].iterator
+            G.BINDERS[index].iterator += 1
     if(ADD_P == "None"):
         return
     IDX = int(dpg.get_value("INDEX_IMG"))
-    copy_file_to(INP_PATH, COPY_PATH + '/' + ADD_P,str(IDX))
+    copy_file_to(INP_PATH, COPY_PATH + '/' + ADD_P,str(str(IDX) + "_" + str(iterator)))
     dpg.set_value("INDEX_IMG",str(IDX+1))
+    dpg.set_value("Image_Path",PATHS[IDX+1])
     render_image(PATHS[IDX+1])
 
 
