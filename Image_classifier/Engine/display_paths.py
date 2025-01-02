@@ -15,6 +15,7 @@ def get_paths_rec(path):
     accepted_types = G.ACCEPTED
     current_folder = G.PATH
     files_path = [f.path for f in os.scandir(path) if not f.is_dir()]
+    files_path = sorted(files_path)
     folders_paths = [f.path for f in os.scandir(path) if f.is_dir()]
     for file_path in files_path:
         extension = file_path[len(file_path)-4:len(file_path)]
@@ -26,7 +27,8 @@ def get_paths_rec(path):
 
 def get_paths():
     current_folder = G.PATH
-    get_paths_rec(current_folder)
+    if(len(paths_list)) == 0:
+        get_paths_rec(current_folder)
     return paths_list
 
 def load_paths():

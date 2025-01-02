@@ -40,7 +40,7 @@ def app():
 
     with dpg.window(no_move=True,no_collapse=True,no_close=True,id="Images",pos=(100,150),label="Display Images",width=800,height=800):
         with dpg.group(horizontal=False):
-            dpg.add_text("0", id="INDEX_IMG")
+            dpg.add_text("1", id="INDEX_IMG")
             IDX = int(dpg.get_value("INDEX_IMG"))
             dpg.add_text(PATHS[IDX], id="Image_Path")
             dpg.add_text(str("MODE: "))
@@ -65,6 +65,8 @@ def change_bind_key(sender,value):
 def render_image(path):
     if(dpg.does_item_exist("img_txt")):
         dpg.delete_item("img_txt")
+    if(dpg.does_item_exist("image_texture")):
+        dpg.delete_item("image_texture")
     if(dpg.does_item_exist("texture")):
         dpg.delete_item("texture")
     with dpg.texture_registry(show=False, id="texture"):
@@ -76,16 +78,15 @@ def render_image(path):
 def copy_file_to(inp,dst,idx):
     extension = '.jpg'
     if(os.path.exists(dst)):
-        shutil.move(inp, dst + '/' + str(idx) + extension)
+        shutil.copyfile(inp, dst + '/' + str(idx) + extension)
         return
     os.mkdir(dst)
-    shutil.move(inp, dst + '/' + str(idx) + extension)
+    shutil.copyfile(inp, dst + '/' + str(idx) + extension)
 
 def image_key_press_handler(sender,value):
     PATHS = get_paths()
     COPY_PATH = G.OUTPUT
     INP_PATH = dpg.get_value("Image_Path")
-    print(INP_PATH)
     ADD_P = "None"
     key = 0
     iterator = 0
