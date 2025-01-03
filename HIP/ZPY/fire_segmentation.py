@@ -17,12 +17,13 @@ OUT_DIR = FOLDER + '/segm_out'
 
 #EXCLUDED FOLDERS!!!
 #! NOT EXCLUDED A10
-EXCLUDED_FOLDERS = []
+EXCLUDED_FOLDERS = ["E01", "E04", "E05", "E06", "E07", "E08", "E09", "E10", "E11"]
 
 
 for index in range(0,len(EXCLUDED_FOLDERS)):
     EXCLUDED_FOLDERS[index] = IMAGES + '/' + EXCLUDED_FOLDERS[index]
 
+EXCLUDED_FOLDERS += ["A", "B", "D","G","H","Z"]
 
 def get_paths(folder:str):
     result = ""
@@ -47,7 +48,7 @@ def get_paths(folder:str):
 paths = [f.path for f in os.scandir(IMAGES) if f.is_dir()]
 IMG_PATH = FOLDER + "/temp_path.txt"
 for path in paths:
-    if path in EXCLUDED_FOLDERS:
+    if (path in EXCLUDED_FOLDERS) or (path[-3:-2].strip() in EXCLUDED_FOLDERS):
         continue
     deep_paths = [f.path for f in os.scandir(path)]
     OUT_DD = OUT_DIR + '/' + path[len(path)-3:len(path)]

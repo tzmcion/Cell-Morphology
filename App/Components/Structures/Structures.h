@@ -69,7 +69,7 @@ namespace Entites{
             }
         }
 
-        static std::string text_file_to_string(const char* path){
+        static std::string text_file_to_string(const char* path, bool line_sep=true){
             std::string result;
             std::ifstream file(path);
             
@@ -79,7 +79,12 @@ namespace Entites{
                 
                 // Read the file line by line
                 while (std::getline(file, line)) {
-                    result += line + "\n";
+                    if(line != "" && line != " "){
+                        result += line;
+                        if(line_sep){
+                            result += '\n';
+                        }
+                    }
                 }
                 
                 // Close the file

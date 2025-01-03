@@ -1,46 +1,45 @@
 OUTPUT
 [102m[0m-------------------------------------------------- 
 Reading input files, note that this process will end in infinite loop if provided array does not end with "]"! 
-Image_0 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00000.JPG[0m
-Image_1 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00001.JPG[0m
-Image_2 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00002.JPG[0m
-Image_3 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00003.JPG[0m
-Image_4 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00004.JPG[0m
-Image_5 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00005.JPG[0m
-Image_6 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00006.JPG[0m
-Image_7 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00007.JPG[0m
-Image_8 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00008.JPG[0m
-Image_9 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00009.JPG[0m
-Image_10 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00010.JPG[0m
-Image_11 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00011.JPG[0m
-Image_12 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00012.JPG[0m
-Image_13 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00013.JPG[0m
-Image_14 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00014.JPG[0m
-Image_15 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00015.JPG[0m
-Image_16 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00016.JPG[0m
-Image_17 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00017.JPG[0m
+Image_0 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00000.JPG[0m
+Image_1 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00001.JPG[0m
+Image_2 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00002.JPG[0m
+Image_3 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00003.JPG[0m
+Image_4 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00004.JPG[0m
+Image_5 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00005.JPG[0m
+Image_6 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00006.JPG[0m
+Image_7 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00007.JPG[0m
+Image_8 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00008.JPG[0m
+Image_9 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00009.JPG[0m
+Image_10 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00010.JPG[0m
+Image_11 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00011.JPG[0m
+Image_12 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00012.JPG[0m
+Image_13 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00013.JPG[0m
+Image_14 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00014.JPG[0m
+Image_15 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00015.JPG[0m
+Image_16 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00016.JPG[0m
+Image_17 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00017.JPG[0m
 Detected 18 files to convert in total 
-Output folder is: [33m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Cells[0m
-Directory created successfully: /home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Cells
+Output folder is: [33m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Cells[0m
 [31mReading options from provided file[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00000.JPG[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00002.JPG[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00001.JPG[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00003.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Cells/00000.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00004.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Cells/00001.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00005.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Cells/00003.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00006.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Cells/00002.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00007.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Cells/00004.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00008.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Cells/00005.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00009.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Cells/00007.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00010.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Cells/00006.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00011.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Cells/00011.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00012.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Cells/00008.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00013.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Cells/00009.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00014.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Cells/00010.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00015.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Cells/00012.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00016.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Cells/00014.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00017.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Cells/00015.JPG[0m
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Cells/00013.JPG[0m
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Cells/00016.JPG[0m
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Cells/00017.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00000.JPG[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00001.JPG[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00002.JPG[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00003.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Cells/00000.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00004.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Cells/00002.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00005.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Cells/00001.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00006.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Cells/00003.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00007.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Cells/00004.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00008.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Cells/00005.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00009.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Cells/00006.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00010.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Cells/00007.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00011.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Cells/00008.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00012.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Cells/00009.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00013.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Cells/00010.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00014.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Cells/00012.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00015.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Cells/00011.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00016.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Cells/00013.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00017.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Cells/00014.JPG[0m
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Cells/00016.JPG[0m
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Cells/00015.JPG[0m
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Cells/00017.JPG[0m
 ***************************************
 *            !!SUCCESS!!              *
 *       ALL OPERATIONS COMPLEATED     *                  
@@ -49,46 +48,45 @@ All operations finished, process will end with zero
 
 [102m[0m-------------------------------------------------- 
 Reading input files, note that this process will end in infinite loop if provided array does not end with "]"! 
-Image_0 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00000.JPG[0m
-Image_1 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00001.JPG[0m
-Image_2 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00002.JPG[0m
-Image_3 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00003.JPG[0m
-Image_4 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00004.JPG[0m
-Image_5 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00005.JPG[0m
-Image_6 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00006.JPG[0m
-Image_7 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00007.JPG[0m
-Image_8 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00008.JPG[0m
-Image_9 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00009.JPG[0m
-Image_10 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00010.JPG[0m
-Image_11 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00011.JPG[0m
-Image_12 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00012.JPG[0m
-Image_13 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00013.JPG[0m
-Image_14 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00014.JPG[0m
-Image_15 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00015.JPG[0m
-Image_16 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00016.JPG[0m
-Image_17 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00017.JPG[0m
+Image_0 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00000.JPG[0m
+Image_1 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00001.JPG[0m
+Image_2 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00002.JPG[0m
+Image_3 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00003.JPG[0m
+Image_4 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00004.JPG[0m
+Image_5 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00005.JPG[0m
+Image_6 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00006.JPG[0m
+Image_7 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00007.JPG[0m
+Image_8 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00008.JPG[0m
+Image_9 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00009.JPG[0m
+Image_10 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00010.JPG[0m
+Image_11 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00011.JPG[0m
+Image_12 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00012.JPG[0m
+Image_13 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00013.JPG[0m
+Image_14 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00014.JPG[0m
+Image_15 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00015.JPG[0m
+Image_16 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00016.JPG[0m
+Image_17 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00017.JPG[0m
 Detected 18 files to convert in total 
-Output folder is: [33m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Surface[0m
-Directory created successfully: /home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Surface
+Output folder is: [33m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Surface[0m
 [31mReading options from provided file[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00000.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Surface/00000.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00001.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Surface/00001.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00002.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Surface/00002.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00003.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Surface/00003.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00004.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Surface/00004.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00005.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Surface/00005.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00006.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Surface/00006.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00007.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Surface/00007.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00008.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Surface/00008.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00009.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Surface/00009.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00010.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Surface/00010.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00011.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Surface/00011.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00012.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Surface/00012.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00013.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Surface/00013.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00014.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Surface/00014.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00015.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Surface/00015.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00016.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Surface/00016.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00017.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Count_Surface/00017.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00000.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Surface/00000.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00001.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Surface/00001.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00002.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Surface/00002.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00003.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Surface/00003.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00004.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Surface/00004.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00005.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Surface/00005.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00006.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Surface/00006.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00007.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Surface/00007.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00008.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Surface/00008.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00009.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Surface/00009.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00010.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Surface/00010.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00011.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Surface/00011.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00012.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Surface/00012.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00013.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Surface/00013.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00014.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Surface/00014.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00015.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Surface/00015.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00016.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Surface/00016.JPG[0m
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00017.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Count_Surface/00017.JPG[0m
 ***************************************
 *            !!SUCCESS!!              *
 *       ALL OPERATIONS COMPLEATED     *                  
@@ -97,91 +95,50 @@ All operations finished, process will end with zero
 
 [102m[0m-------------------------------------------------- 
 Reading input files, note that this process will end in infinite loop if provided array does not end with "]"! 
-Image_0 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00000.JPG[0m
-Image_1 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00001.JPG[0m
-Image_2 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00002.JPG[0m
-Image_3 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00003.JPG[0m
-Image_4 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00004.JPG[0m
-Image_5 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00005.JPG[0m
-Image_6 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00006.JPG[0m
-Image_7 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00007.JPG[0m
-Image_8 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00008.JPG[0m
-Image_9 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00009.JPG[0m
-Image_10 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00010.JPG[0m
-Image_11 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00011.JPG[0m
-Image_12 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00012.JPG[0m
-Image_13 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00013.JPG[0m
-Image_14 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00014.JPG[0m
-Image_15 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00015.JPG[0m
-Image_16 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00016.JPG[0m
-Image_17 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00017.JPG[0m
+Image_0 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00000.JPG[0m
+Image_1 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00001.JPG[0m
+Image_2 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00002.JPG[0m
+Image_3 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00003.JPG[0m
+Image_4 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00004.JPG[0m
+Image_5 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00005.JPG[0m
+Image_6 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00006.JPG[0m
+Image_7 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00007.JPG[0m
+Image_8 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00008.JPG[0m
+Image_9 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00009.JPG[0m
+Image_10 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00010.JPG[0m
+Image_11 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00011.JPG[0m
+Image_12 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00012.JPG[0m
+Image_13 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00013.JPG[0m
+Image_14 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00014.JPG[0m
+Image_15 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00015.JPG[0m
+Image_16 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00016.JPG[0m
+Image_17 [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00017.JPG[0m
 Detected 18 files to convert in total 
-Output folder is: [33m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation[0m
-Directory created successfully: /home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation
+Output folder is: [33m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Full_Segmentation[0m
 [31mReading options from provided file[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00000.JPG[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00002.JPG***************************************
-*            !!SUCCESS!!              *
-*       ALL OPERATIONS COMPLEATED     *                  
-***************************************
-All operations finished, process will end with zero
-
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00003.JPG[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00001.JPGPATH: 00000
-Directory created successfully: /home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/segmented00000
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/00000.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00004.JPGPATH: 00001
-Directory created successfully: /home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/segmented00001
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/00001.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00005.JPGPATH: 00003
-Directory created successfully: /home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/segmented00003
-PATH: 00002
-Directory created successfully: /home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/segmented00002
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/00003.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00006.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/00002.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00007.JPGPATH: 00005
-Directory created successfully: /home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/segmented00005
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/00005.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00008.JPGPATH: 00004
-Directory created successfully: /home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/segmented00004
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/00004.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00009.JPGPATH: 00006
-Directory created successfully: /home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/segmented00006
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/00006.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00010.JPGPATH: 00007
-Directory created successfully: /home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/segmented00007
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/00007.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00011.JPGPATH: 00008
-Directory created successfully: /home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/segmented00008
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/00008.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00012.JPGPATH: 00011
-Directory created successfully: /home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/segmented00011
-PATH: 00009
-Directory created successfully: /home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/segmented00009
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/00011.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00013.JPG[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/00009.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00014.JPGPATH: 00010
-Directory created successfully: /home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/segmented00010
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/00010.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00015.JPGPATH: 00012
-Directory created successfully: /home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/segmented00012
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/00012.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00016.JPGPATH: 00014
-Directory created successfully: /home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/segmented00014
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/00014.JPG[0m
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/00017.JPGPATH: 00013
-Directory created successfully: /home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/segmented00013
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/00013.JPG[0m
-PATH: 00015
-Directory created successfully: /home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/segmented00015
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/00015.JPG[0m
-PATH: 00016
-Directory created successfully: /home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/segmented00016
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/00016.JPG[0m
-PATH: 00017
-Directory created successfully: /home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/segmented00017
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/H12/Full_Segmentation/00017.JPG[0m
-***************************************
-*            !!SUCCESS!!              *
-*       ALL OPERATIONS COMPLEATED     *                  
-***************************************
-All operations finished, process will end with zero
-
+0
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00000.JPGPATH: 00000
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Full_Segmentation/00000.JPG[0m
+1
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00001.JPGPATH: 00001
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Full_Segmentation/00001.JPG[0m
+2
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00002.JPGPATH: 00002
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Full_Segmentation/00002.JPG[0m
+3
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00003.JPGPATH: 00003
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Full_Segmentation/00003.JPG[0m
+4
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00004.JPGPATH: 00004
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Full_Segmentation/00004.JPG[0m
+5
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00005.JPGPATH: 00005
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Full_Segmentation/00005.JPG[0m
+6
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00006.JPGPATH: 00006
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Full_Segmentation/00006.JPG[0m
+7
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00007.JPGPATH: 00007
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/Full_Segmentation/00007.JPG[0m
+8
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/HIP/ZPY/segm_out/E02/00008.JPGPATH: 00008
