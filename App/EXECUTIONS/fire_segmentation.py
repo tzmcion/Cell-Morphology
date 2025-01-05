@@ -3,7 +3,7 @@ import subprocess
 
 FOLDER = str(os.getcwd())
 #Define where the images are for segmentation
-IMAGES = FOLDER + "/preprocessed"
+IMAGES = FOLDER + "/NOR_out"
 
 os.chdir('../')
 
@@ -14,18 +14,18 @@ PREPROCESS = APP_PATH + '/Utils/Preprocess_all'
 #path to file with options
 OPTIONS = FOLDER + '/segment.option'
 
-#Path to out directory
-OUT_DIR = FOLDER + '/segm_out'
+#Path to out directory, it must exist
+OUT_DIR = FOLDER + '/NOR_seg_out'
 
 #EXCLUDED FOLDERS BY NAME AND ID
-EXCLUDED_FOLDERS = ["E01", "E04", "E05", "E06", "E07", "E08", "E09", "E10", "E11"]
+EXCLUDED_FOLDERS = []
 
 
 for index in range(0,len(EXCLUDED_FOLDERS)):
     EXCLUDED_FOLDERS[index] = IMAGES + '/' + EXCLUDED_FOLDERS[index]
 
 #Excluded only by one character characterisitic for a folder
-EXCLUDED_FOLDERS += ["A", "B", "D","G","H","Z"]
+EXCLUDED_FOLDERS += []
 
 def get_paths(folder:str):
     result = ""

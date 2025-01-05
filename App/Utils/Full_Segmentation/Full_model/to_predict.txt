@@ -1,1 +1,1 @@
-/home/tymoteuszapriasz/KM/App/EXECUTIONS/segm_out/E02/Full_Segmentation/segmented00002/IMG137.JPG 
+/home/tymoteuszapriasz/KM/App/EXECUTIONS/NOR_seg_out/B01/Full_Segmentation/segmented00009/IMG69.JPG 
