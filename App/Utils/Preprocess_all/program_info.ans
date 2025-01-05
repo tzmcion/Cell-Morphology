@@ -1544,3 +1544,12 @@ Output folder is: [33m/home/tymoteuszapriasz/KM/App/EXECUTIONS/NOR_seg_out/B01/
 [1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 95ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 108ms/step
 [1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 89ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 102ms/step
 [1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 94ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 107ms/step
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/App/EXECUTIONS/NOR_seg_out/B01/Full_Segmentation/00009.JPG[0m
+10
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/App/EXECUTIONS/NOR_seg_out/B01/00010.JPGPATH: 00010
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/App/EXECUTIONS/NOR_seg_out/B01/Full_Segmentation/00010.JPG[0m
+11
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/App/EXECUTIONS/NOR_seg_out/B01/00011.JPGPATH: 00011
+[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/App/EXECUTIONS/NOR_seg_out/B01/Full_Segmentation/00011.JPG[0m
+12
+[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/App/EXECUTIONS/NOR_seg_out/B01/00012.JPGPATH: 00012
