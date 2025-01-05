@@ -12,3 +12,5 @@
 **/*.xlsx
 ./notatki.txt
 .vscode
+./.vscode
+/.vscode
