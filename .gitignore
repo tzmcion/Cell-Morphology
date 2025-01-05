@@ -13,4 +13,5 @@
 ./notatki.txt
 .vscode
 ./.vscode
-/.vscode
+**/.vscode
+**/*.txt
