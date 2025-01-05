@@ -1,9 +1,13 @@
+/**
+ * Compilation file for "Structures/ReadOptions.h"
+ * */
+
 #include "./ReadOptions.h"
 
 ReadOptions::ReadOptions(const char* options_path){
-    original = false;
+    original = false;   //set original to false by default
     std::vector<std::string> lines;
-    std::ifstream file(options_path);
+    std::ifstream file(options_path);   //load the file
     
     //Read the file and copy lines to a vector
     if (file.is_open()) {
@@ -17,7 +21,6 @@ ReadOptions::ReadOptions(const char* options_path){
     }
 
     //Read the vector and process the lines
-    std::cout << "Preparing the file! \n";
     run_file *raw = nullptr;
     for(size_t x = 0; x < lines.size(); x++){
         //clear the line to get raw input
@@ -25,6 +28,7 @@ ReadOptions::ReadOptions(const char* options_path){
         //Get the line task
         if(line.empty())continue;
         std::string task = line[0];
+        //Check what type of line
         if(task == "!ORG"){
             original = true;
             continue;
@@ -69,6 +73,7 @@ ReadOptions::ReadOptions(const char* options_path){
     data.push_back(raw);
 }
 
+//Free the memory
 ReadOptions::~ReadOptions(){
     for(size_t x = 0; x < data.size(); x++){
         delete data[x];
@@ -100,6 +105,7 @@ bool ReadOptions::next_run(){
 
 //PRIV
 
+//Clear line from comments writen after '#' symbol
 std::string ReadOptions::clear_line(std::string l){
     std::string line = l,segment;
     std::replace( line.begin(), line.end(), ':', ' ');
@@ -112,6 +118,7 @@ std::string ReadOptions::clear_line(std::string l){
     return line;
 }
 
+//Split the string into segments
 std::vector<std::string> ReadOptions::split_string(std::string s, char spliter){
     std::stringstream str(s);
     std::vector<std::string> out;

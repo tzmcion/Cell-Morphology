@@ -1,8 +1,12 @@
+/*
+*   This file defines colors for terminal output
+**/
+
 #pragma once
 
 namespace Colors {
     // Foreground (Text) Colors
-    constexpr const char* RESET      = "\e[0m";    // Reset to default
+    constexpr const char* RESET      = "\e[0m";
     constexpr const char* BLACK      = "\e[30m";
     constexpr const char* RED        = "\e[31m";
     constexpr const char* GREEN      = "\e[32m";

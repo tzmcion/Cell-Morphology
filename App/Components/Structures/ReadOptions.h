@@ -1,3 +1,9 @@
+/**
+ * This file is used by "Preprocess_all" Util
+ * It defines how .option file is being read
+ * It stores the operations in vector which is then iterated by next_run()
+ * */
+
 #pragma once
 #include "../Includes/includes.h"
 #include "../Structures/Colors.h"
@@ -27,15 +33,26 @@ class ReadOptions{
     }
 
     /**
-     * Function returns number of total operations which will run
+     * Function returns number of total operations which will be executed
      * */
     int get_total_operations(size_t idx = 0){
         if(idx >= data.size())return 0;
         return data[idx]->iterations + get_total_operations(idx+1);
     }
 
+    /**
+     * Function fires next iteration of queue (in shape of vector),
+     * returns true if next operation exists, and false if next operation does not exist
+     * */
     bool next_run();
 
+    /**
+     * Variable used if needed not to alter the files between operations.
+     * By default, the "Preprocess_all" Util for which this program was made
+     * copies file to the specified directory, and alters them consequently with each
+     * specified program in options file. If set to false, program creates copies of the images with
+     * every iteration, therefore preserving original files for each iteration
+     * */
     bool original;
 
     private:
@@ -44,6 +61,7 @@ class ReadOptions{
      * Function clears the line from comments and ":"
      * */
     std::string clear_line(std::string l);
+
     /**
      * Function splits the string
      * */

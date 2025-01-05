@@ -1,7 +1,9 @@
 #include "./Watershed.h"
 
 /*
+    ****************************
     Public functions
+    ****************************
 */
 
 void Watershed::background_mask(cv::Mat &src, cv::Mat &dst_mask){
@@ -167,7 +169,9 @@ void Watershed::foreground_mask(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &foregr
 }
 
 /*
+    ***********************
     Private functions
+    ***********************
 */
 
 void Watershed::Anisotropic(cv::Mat &src, cv::Mat &dst, int as_iterations,double as_time){
@@ -310,6 +314,8 @@ void Watershed::white_inpaint_holes(cv::Mat &src, cv::Mat &dst, int max_area){
 //
 //
 double Watershed::avg_radius_from_mask(cv::Mat &src, int sure_min_radius, int sure_maximum_radius){
+    //!TODO, FUNCTION NOT READY!//
+    std::invalid_argument("Usage of Function Watershed::avg_radius_from_mask(), which is not ready for applications, and returns const value of 2.2");
     return 2.2;
 }
 //

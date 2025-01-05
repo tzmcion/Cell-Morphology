@@ -1,3 +1,7 @@
+/*
+*   This file collects include libraries used by many hpp files.
+**/
+
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui.hpp>

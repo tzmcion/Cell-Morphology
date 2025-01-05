@@ -21,7 +21,8 @@ bool containsSubstring(const std::string& str, const std::string& substring) {
 }
 
 void runPythonScript(){
-    system("python ../Full_Segmentation/Full_model/Full_model.py > /dev/null 2>&1");
+    system("python -W ignore ../Full_Segmentation/Full_model/Full_model.py");
+    // system("python ../Full_Segmentation/Full_model/Full_model.py");
 }
 
 int main(int argc, char** argv){
@@ -55,7 +56,6 @@ int main(int argc, char** argv){
     const std::string model_result_file = MODEL_PATH + "prediction_result.txt";
     //The script will wait for this file_path to change to make a prediction
     Entites::FILES::clear_file(model_file_name.c_str());
-    Entites::FILES::write_to_file(model_file_name.c_str(),"",' ',false);
     std::thread model_script(runPythonScript);
     //Wait until the file is ready
     Threading::await_file_change(model_result_file);
@@ -155,9 +155,8 @@ int main(int argc, char** argv){
             std::string file_name = "/IMG" + std::to_string(label) + ".JPG";
             file_name = Entites::FILES::save_to_folder(file_name,OUT_FOLDER_SEG,result);
             //Update the info and wait for model to make a prediction
-            Entites::FILES::clear_file(model_file_name.c_str());
-            Entites::FILES::write_to_file(model_file_name.c_str(),file_name,' ',false);
-            Threading::await_file_change(model_result_file);
+            Entites::FILES::write_to_file(model_file_name.c_str(),file_name,' ',false,true);
+            Threading::await_file_change(model_result_file,1000);
             //Wait for model to make a prediction
             std::string out_rer = Entites::Convert::text_file_to_string(model_result_file.c_str(),false);
             if(containsSubstring(out_rer, "Blob")){

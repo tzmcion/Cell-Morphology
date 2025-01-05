@@ -7,7 +7,7 @@ using namespace std;
 class BasicTransofrmations{
     public:
         /**
-         * TO DESCRIBE
+         * Performs opencv dilation
          * */
         static void dilation(Mat &inp, Mat &out, int size, int elem = 2, int iterations = 1){
             cv::Mat src;
@@ -21,7 +21,7 @@ class BasicTransofrmations{
         }
 
         /**
-         *  TO DESCRIBE
+         *  Performs opencv erosion
          * */
         static void erosion(Mat &inp, Mat &out, int size, int erosion_elem, int iterations){
             // if(BasicTransofrmations::is_null<int>(inp,out,size))return;
@@ -34,7 +34,8 @@ class BasicTransofrmations{
         }
 
         /**
-         *  TO DESCRIBE
+         *  Applies a clache transformation on the image
+         *  Clache makes the details on the image more highlighted
          * */
         static void clahe(Mat &inp, Mat &out, double force){
             if(BasicTransofrmations::is_null<double>(inp,out,force))return;
@@ -45,7 +46,7 @@ class BasicTransofrmations{
         }
 
         /**
-         *  TO DESCRIBE
+         *  Fires Gaussian blur on the image, then median Blur on the image
          * */
         static void double_blur(Mat &inp, Mat &out, int blur_force, int mean_force){
             BasicTransofrmations::is_image(inp);
@@ -59,16 +60,10 @@ class BasicTransofrmations{
                 cv::medianBlur(inp,out,mean_force);
         }
 
-        /**
-         *  TO DESCRIBE
-         * */
-        static void resize(Mat &inp, Mat &out, int new_size){
-
-        }
-
     private:
     /**
-     *  Check if size is zero
+     *  Check if provided value is 0
+     *  If is 0, then sets output to input and quits
      * */
     template <typename T>
     static bool is_null(Mat &inp, Mat &out, T check_val){

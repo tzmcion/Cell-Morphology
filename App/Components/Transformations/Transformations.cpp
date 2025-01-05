@@ -1,5 +1,187 @@
 #include "./Transformations.h"
 
+
+//
+//
+//************************
+//********PRIVATE*********
+//************************
+//
+//
+void Transformations::data_validation_dots_remove(int threshold_black, int threshold_size, int ker1, int ker2, int inp, int type){
+            std::string message = "ERROR for algorithm of dots_remove provided value(s): ";
+        std::string check = message;
+        if(threshold_black <= 0 || threshold_black > 50){
+            message += "* Threshold: ";
+            message += threshold_black;
+            message += " While the range is <int>[1, 50] \n";
+        }
+        if(threshold_size <= 0){
+            message += "* area_size: ";
+            message += threshold_size;
+            message += " While the range is <int>[1, +inf)\n";
+        }
+        if(ker1 <= 0 || ker1 >= 8){
+            message += "* Kernel_size_dilation_initial: ";
+            message += ker1;
+            message += " While the range is <int>[1, 7]\n";
+        }
+        if(ker2 < 0 || ker2 >= 8){
+            message += "* Kernel_size_dilation_second: ";
+            message += ker2;
+            message += " While the range is <int>[0, 7]\n";
+        }
+        if(inp <= 0 || inp >= 8){
+            message += "* inpaint_size: ";
+            message += inp;
+            message += " While the range is <int>[1,7]\n";
+        }
+        if(type != 0 && type != 1){
+            message += "* inpaint_type: ";
+            message += type;
+            message += " While this value is binarry <int>[0,1]";
+        }
+        if(check != message){
+            throw std::invalid_argument(message);
+        }
+}
+//
+//
+//
+//
+//
+//
+double Transformations::get_mean_of_circle(cv::Mat &img, cv::Point center, int radius){
+            //literally the same code as in alter_ without altering
+        const int rows=img.rows, cols=img.cols;
+        const int x_max = std::min(rows,center.x + radius);
+        const int x_min = std::max(0,center.x - radius);
+        const int y_max = std::min(cols,center.y + radius);
+        const int y_min = std::max(0,center.y - radius);
+        //Now, in a lop calculate distance
+        //If distance from the center is less than radius, then the pixel is a part of the wheel
+        //And will be altered
+        int count = 0;
+        double sum = 0;
+        for(int x = x_min; x < x_max; x++){
+            for(int y = y_min; y < y_max; y++){
+                const int distance = std::floor(std::sqrt(std::pow(x - center.x,2) + std::pow(y - center.y,2)));
+                if(distance <= radius){
+                    sum += img.at<cv::uint8_t>(x,y);
+                    count += 1;
+                }
+            }
+        }
+        return sum/count;
+}
+//
+//
+//
+//
+//
+//
+void Transformations::alter_mean_of_circle(cv::Mat &img, cv::Point center, int goal_brightness, int radius, int threshold_val){
+      //First, calculate boundries
+        const int rows=img.rows, cols=img.cols;
+        const int x_max = std::min(rows,center.x + radius);
+        const int x_min = std::max(0,center.x - radius);
+        const int y_max = std::min(cols,center.y + radius);
+        const int y_min = std::max(0,center.y - radius);
+        //Now, in a lop calculate distance
+        //If distance from the center is less than radius, then the pixel is a part of the wheel
+        //And will be altered
+        int count = 0;
+        double sum = 0;
+        std::vector<cv::Point> points;
+        std::vector<double> influence;
+        for(int x = x_min; x < x_max; x++){
+            for(int y = y_min; y < y_max; y++){
+                const int distance = std::floor(std::sqrt(std::pow(x - center.x,2) + std::pow(y - center.y,2)));
+                if(distance < radius){
+                    if(abs(goal_brightness - img.at<float>(x,y)) > threshold_val){
+                        cv::Point ap_point(x,y);
+                        influence.push_back(double(radius - distance) / radius);
+                        points.push_back(ap_point);
+                        continue;
+                    }
+                    sum += img.at<float>(x,y);
+                    count += 1;
+                    cv::Point ap_point(x,y);
+                    influence.push_back(double(radius - distance) / radius);
+                    points.push_back(ap_point);
+                }
+            }
+        }
+        double ajd_mean = goal_brightness - sum/count;
+        if(!(sum > 0) )return;
+        //Influence size must be same size as points
+        for(size_t i = 0; i < points.size(); i++){
+            const int x = points[i].x;
+            const int y = points[i].y;
+            img.at<float>(x,y) += ajd_mean*influence[i];
+        }
+        //Should work :)
+}
+//
+//
+//
+//
+//
+//
+void Transformations::dijkstra_mean_alter(cv::Mat &img_o,cv::Point start_point, int brightnes,int radius, int alter_radius, int threshold){
+    Entites::Queue<Transformations::dijkstra_point> queue;
+        cv::Mat img;
+        img_o.convertTo(img, CV_32F);
+        cv::waitKey(0);
+        //The algorithm goes 4 ways, because 8ways dijkstra here is too computationally expensive
+        std::vector<cv::Point> visited_right;
+        std::vector<cv::Point> visited_left;
+        std::vector<cv::Point> visited_top;
+        std::vector<cv::Point> visited_bottom;
+        
+        //variables to get from queue
+        std::vector<cv::Point> *visited;
+        cv::Point center = start_point;
+
+        //Initial queue:, the algorithm adds self to queue in 4 ways.
+        queue.append(dijkstra_point(cv::Point(center.x + radius, center.y),&visited_right));
+        queue.append(dijkstra_point(cv::Point(center.x, center.y + radius),&visited_top));
+        queue.append(dijkstra_point(cv::Point(center.x - radius, center.y),&visited_left));
+        queue.append(dijkstra_point(cv::Point(center.x, center.y - radius),&visited_bottom));
+
+        alter_mean_of_circle(img,center,brightnes,alter_radius);
+
+        //Now the algorithm is taking itself from the queue and just going around
+        while(!queue.empty()){
+            const dijkstra_point p = queue.pop();
+            visited = p.visited;
+            center = p.center;
+            if(center.x < 0 || center.x > img.rows || center.y < 0 || center.y > img.cols){
+                //If center is out of bonds, continue
+                //TODO:
+                //change continue to be on the bonds (on the border)
+                continue;
+            }
+            if(std::find(visited->begin(), visited->end(), center) != visited->end()){
+                continue;
+            }
+            alter_mean_of_circle(img,center,brightnes,alter_radius,threshold);
+            visited->push_back(cv::Point(center));  //Save this point was visited
+            //Adding to queue here to alter all 4 ways simoultanously
+            queue.append(dijkstra_point(cv::Point(center.x + radius, center.y),visited));
+            queue.append(dijkstra_point(cv::Point(center.x, center.y + radius),visited));
+            queue.append(dijkstra_point(cv::Point(center.x - radius, center.y),visited));
+            queue.append(dijkstra_point(cv::Point(center.x, center.y - radius),visited));
+        }
+        img.convertTo(img_o,CV_8U);
+}
+//
+//
+//*******************
+//******PUBLIC*******
+//*******************
+//
+
 double Transformations::image_brightnes(cv::Mat &img){
     Transformations::is_image(img);
     cv::Scalar mean_val = cv::mean(img);
@@ -96,6 +278,7 @@ void Transformations::dots_remove(cv::Mat &img, int threshold_black, int thresho
     corrective_brightnes /= qt;
     cv::threshold(img,binary_image,(brightnes/25*threshold_black),255,cv::THRESH_BINARY_INV);
     if(corrective_brightnes != 0){
+        //!! HERE DEFINED THE COLOR TO WHICH THE AREA WILL BE PAINTED TO!!
         brightnes = brightnes*8/10 + corrective_brightnes*2/10;
     }
     cv::Mat labels,stats,centroids;

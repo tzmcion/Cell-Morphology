@@ -53,6 +53,9 @@ while last_content != "!STOP!":
         if(extension not in accepted_types):
             continue
         result = make_prediction(model,last_content)
+        if result is None:
+            print("\e[31m IMG WAS NOT LOADED \e[0m")
+            continue
         pr_result = open(result_path, 'w')
         ud = str(uuid.uuid4())
         if(str(result[0]) == "0"):

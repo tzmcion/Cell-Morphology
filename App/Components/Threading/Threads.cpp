@@ -1,3 +1,7 @@
+/**
+ * .cpp files for "Structures/Threading.h"
+ * */
+
 #include "./Threads.h"
 
 Threading::Threading(size_t number_of_threads){
