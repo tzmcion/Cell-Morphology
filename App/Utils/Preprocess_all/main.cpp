@@ -34,6 +34,12 @@ int main(int argc, char** argv){
         std::cout << "Image_" << x << ' ' << Colors::MAGENTA << images[x] << Colors::RESET << std::endl;
     }
     std::cout << "Detected " << images.size() << " files to convert in total \n";
+    std::cout << "Copying files to temp folder "<< OUT_FOLDER << std::endl;
+    for(size_t x = 0; x < images.size(); x++){
+        cv::Mat img = cv::imread(images[x]);
+        std::cout << Colors::YELLOW << " [...] COPY: " << Colors::RESET << images[x] << " to: " << OUT_FOLDER << std::endl;
+        images[x] = Entites::FILES::save_to_folder(images[x],OUT_FOLDER,img);
+    }
     std::cout << "Output folder is: " << Colors::YELLOW <<  OUT_FOLDER << Colors::RESET << std::endl;
     Entites::FILES::folder_create(OUT_FOLDER);
     //Must also read options
@@ -47,17 +53,11 @@ int main(int argc, char** argv){
     ReadOptions reader(OPTIONS);
     std::cout << Colors::BRIGHT_BLUE << "    [...] INFO" << Colors::RESET << " Total number of programs to run: " << reader.get_data_size() << std::endl;
     std::cout << Colors::BRIGHT_BLUE << "    [...] INFO" << Colors::RESET << " Total nr of iterations: " << reader.get_total_operations() << std::endl;
-    std::cout << "Copying files to temp folder "<< OUT_FOLDER << std::endl;
-    for(size_t x = 0; x < images.size(); x++){
-        cv::Mat img = cv::imread(images[x]);
-        std::cout << Colors::YELLOW << " [...] COPY: " << Colors::RESET << images[x] << " to: " << OUT_FOLDER << std::endl;
-        images[x] = Entites::FILES::save_to_folder(images[x],OUT_FOLDER,img);
-    }
     std::cout << "Starting iterations: " << std::endl;
     system("echo \"OUTPUT\" > ./program_info.ans");
     system("gnome-terminal --geometry=120x30 -- bash -c 'tail -f ./program_info.ans; exec bash'");
     do{
-        std::cout << Colors::MAGENTA << "  [...] PROCESSMENT: " << Colors::RESET << reader.get_folder_name() << std::endl;
+        std::cout << Colors::MAGENTA << " [...] PROCESSMENT: " << Colors::RESET << reader.get_folder_name() << std::endl;
         std::cout << " [...] Current arguments: " << reader.get_arguments() << std::endl;
         std::string _input = "";
         _input += "../" + reader.get_folder_name() + "/main.out";
@@ -72,7 +72,9 @@ int main(int argc, char** argv){
             _input += '/' + reader.get_folder_name();
         }
         _input += " >> ./program_info.ans";
-        std::cout << Colors::YELLOW << "[COMMAND:] " << Colors::RESET << _input << std::endl;
+        std::cout << Colors::YELLOW << "[PROGRAM]  " << Colors::RESET << reader.get_folder_name() 
+        << Colors::GREEN << "[QUANTITY]  " << Colors::RESET << images.size() << " images"
+        << Colors::RED << "[THREADS_TO_OCCUPY]  " << Colors::RESET << std::thread::hardware_concurrency() << std::endl;
         system(_input.c_str());
         std::cout << "Command sucessfully finished! \n";
     }

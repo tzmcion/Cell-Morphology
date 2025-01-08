@@ -3,7 +3,7 @@ import subprocess
 
 FOLDER = str(os.getcwd())
 #Define where the images are for segmentation
-IMAGES = FOLDER + "/NOR_out"
+IMAGES = FOLDER + "/NOR_preprocessed"
 
 os.chdir('../')
 
@@ -50,7 +50,7 @@ def get_paths(folder:str):
 paths = [f.path for f in os.scandir(IMAGES) if f.is_dir()]
 IMG_PATH = FOLDER + "/temp_path.txt"
 for path in paths:
-    if (path in EXCLUDED_FOLDERS) or (path[-3:-2].strip() in EXCLUDED_FOLDERS):
+    if (path in EXCLUDED_FOLDERS) or (path[-3:-2].strip() in EXCLUDED_FOLDERS) or (path[-2:].strip() in EXCLUDED_FOLDERS):
         continue
     deep_paths = [f.path for f in os.scandir(path)]
     OUT_DD = OUT_DIR + '/' + path[len(path)-3:len(path)]
