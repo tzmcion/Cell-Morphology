@@ -52,8 +52,8 @@ int main(int argc, char** argv){
     //
     //Start the model in background
     const std::string MODEL_PATH = "../Full_Segmentation/Full_model/";
-    const std::string model_file_name = MODEL_PATH + "to_predict.txt";
-    const std::string model_result_file = MODEL_PATH + "prediction_result.txt";
+    const std::string model_file_name = MODEL_PATH + "to_predict.umsg";
+    const std::string model_result_file = MODEL_PATH + "prediction_result.umsg";
     //The script will wait for this file_path to change to make a prediction
     Entites::FILES::clear_file(model_file_name.c_str());
     std::thread model_script(runPythonScript);
@@ -220,7 +220,7 @@ int main(int argc, char** argv){
         std::string out_name = Entites::FILES::save_to_folder(PATH,OUT_FOLDER,blended);
         std::cout << Colors::GREEN <<" [...DONE! ]" << Colors::RESET << " Succesfully saved to: " << Colors::MAGENTA << out_name << Colors::RESET << std::endl;
     }
-    std::string out_data = Entites::Convert::text_file_to_string("../SUCCES.txt");
+    std::string out_data = Entites::Convert::text_file_to_string("../SUCCES.umsg");
     std::cout << out_data << "All operations finished, process will end with zero" << std::endl << std::endl;
     Entites::FILES::clear_file(model_file_name.c_str());
     Entites::FILES::write_to_file(model_file_name.c_str(),"!STOP!",' ',false);

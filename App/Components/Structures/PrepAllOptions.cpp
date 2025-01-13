@@ -2,9 +2,10 @@
  * Compilation file for "Structures/ReadOptions.h"
  * */
 
-#include "./ReadOptions.h"
+#include "./PrepAllOptions.h"
 
 ReadOptions::ReadOptions(const char* options_path){
+    if(strcmp(options_path, "NULL") == 0)return;
     original = false;   //set original to false by default
     std::vector<std::string> lines;
     std::ifstream file(options_path);   //load the file

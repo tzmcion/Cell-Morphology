@@ -2,7 +2,6 @@ import tensorflow as tf
 import cv2
 import numpy as np
 import time
-import uuid
 # Load the Keras model
 model = tf.keras.models.load_model('../Full_Segmentation/Full_model/avg.keras')
 
@@ -36,12 +35,14 @@ def make_prediction(model, image_path):
 #         pr_class = make_prediction(model,image_path)
 #         print(pr_class)
 accepted_types = ['.jpg', '.JPG', '.png', '.PNG']
-path = "../Full_Segmentation/Full_model/to_predict.txt"
-result_path = "../Full_Segmentation/Full_model/prediction_result.txt"
+path = "../Full_Segmentation/Full_model/to_predict.umsg"
+result_path = "../Full_Segmentation/Full_model/prediction_result.umsg"
 last_content = ""
 pr_result = open(result_path, 'w')
 pr_result.write("script ready") 
 pr_result.close()
+#To ensure file is always changing
+file_iterator = 0
 while last_content != "!STOP!":
     file = open(path, 'r')
     content = file.read().strip()
@@ -57,7 +58,9 @@ while last_content != "!STOP!":
             print("\e[31m IMG WAS NOT LOADED \e[0m")
             continue
         pr_result = open(result_path, 'w')
-        ud = str(uuid.uuid4())
+        #enshuring file always changes
+        file_iterator+=1
+        ud = str(file_iterator)
         if(str(result[0]) == "0"):
             pr_result.write(str("Blob " + ud))
         if(str(result[0]) == "1"):

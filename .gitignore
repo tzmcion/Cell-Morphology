@@ -5,6 +5,11 @@
 **/*.png
 **/*.gif
 **/*.csv
+**/*.XML
+**/*.osl
+**/*.log
+**/*.xlsx
+**/*.ans
 *.o
 *.out
 *.exe

@@ -1,11 +1,11 @@
 # For now all argumnets of this algorithms must be def, as it is not yet supported for more
 !ORG
-#ID: Count_Cells
-#    iterations: 1
-#    arguments [def]
-#ID: Count_Surface
-#    iterations: 1
-#    arguments: [def]
+ID: Count_Cells
+    iterations: 1
+    arguments [def]
+ID: Count_Surface
+    iterations: 1
+    arguments: [def]
 ID: Full_Segmentation
     iterations: 1
     arguments: [def]

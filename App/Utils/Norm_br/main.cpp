@@ -42,7 +42,7 @@ int main(int argc, char** argv){
     //MULTITHREAD
     size_t cores = std::thread::hardware_concurrency();
     if(cores == 0){
-        cores = 3;
+        cores = 1;
     }
     Threading threads(cores);
     //MULTITHREAD
@@ -61,7 +61,7 @@ int main(int argc, char** argv){
             std::cout << Colors::GREEN <<" [...DONE! ]" << Colors::RESET << " Succesfully saved to: " << Colors::MAGENTA << out_name << Colors::RESET << std::endl;
         });
     }
-    // std::string out_data = Entites::Convert::text_file_to_string("../SUCCES.txt");
-    // std::cout << out_data << "All operations finished, process will end with zero" << std::endl << std::endl;
+    std::string out_data = Entites::Convert::text_file_to_string("../SUCCES.umsg");
+    std::cout << out_data << "All operations finished, process will end with zero" << std::endl << std::endl;
     return 0;
 }

@@ -55,7 +55,7 @@ class ReadOptions{
      * */
     bool original;
 
-    private:
+    protected:
 
     /**
      * Function clears the line from comments and ":"

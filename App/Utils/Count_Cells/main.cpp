@@ -2,6 +2,7 @@
 #include "../../Components/Structures/Colors.h"
 #include "../../Components/Transformations/Transformations.h"
 #include "../../Components/Threading/Threads.h"
+#include "../../Components/Structures/AlgorithmOptions.h"
 
 /**
  *  Component Created by Tymoteusz Apriasz
@@ -17,6 +18,7 @@
 
 int main(int argc, char** argv){
     cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_SILENT);
+    AlgorithmOptions options("./default.option");
     if(argc != 4){
         throw std::invalid_argument("Number of argumnets is invalid, required is 3");
     }

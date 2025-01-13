@@ -47,7 +47,7 @@ int main(int argc, char** argv){
         std::string out_name = Entites::FILES::save_to_folder(PATH,OUT_FOLDER,img);
         std::cout << Colors::GREEN <<" [...DONE! ]" << Colors::RESET << " Succesfully saved to: " << Colors::MAGENTA << out_name << Colors::RESET << std::endl;
     }
-    std::string out_data = Entites::Convert::text_file_to_string("../SUCCES.txt");
+    std::string out_data = Entites::Convert::text_file_to_string("../SUCCES.umsg");
     std::cout << out_data << "All operations finished, process will end with zero" << std::endl << std::endl;
     return 0;
     return 0;
