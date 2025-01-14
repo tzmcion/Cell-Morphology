@@ -15,19 +15,25 @@ AlgorithmOptions::AlgorithmOptions(const char* path_to_file) : ReadOptions("NULL
     } else {
         std::cerr << "Unable to open the file!" << std::endl;
     }
-    std::cout << "HELLO \n";
     //Assuming the file got opened and red
+    optionObject *object = nullptr;
     for(size_t x = 0; x < lines.size(); x++){
         std::string line = this->clear_line(lines[x]);
         //Check if line is empty
-        optionObject *object;
         if(line == "" || line==" "){continue;}
         //Check if first character of line declares it is a name
         if(line[0] == '-'){
+            if(object != nullptr){
+                options.emplace_back(object);
+            }
             object = new optionObject();
             line = line.substr(1, line.size());
             object->name=line;
             continue;
+        }
+        if(object == nullptr){
+            //Throw error for mallfunction of .option file
+            this->error_message(path_to_file,line,static_cast<int>(x));
         }
         std::vector<std::string> part_lines = this->split_string(line, ' ');
         char var_type = 'i'; // Default type is int
@@ -35,7 +41,6 @@ AlgorithmOptions::AlgorithmOptions(const char* path_to_file) : ReadOptions("NULL
         if(letter != nullptr){
             var_type = std::string(letter + 1)[0];
         }
-        std::cout << var_type << std::endl; //Type of variable stored here
         if(var_type == 'i'){
             //integer, apply maximum value to second of vector data
             int value = std::stoi(part_lines[1].c_str());
@@ -47,6 +52,9 @@ AlgorithmOptions::AlgorithmOptions(const char* path_to_file) : ReadOptions("NULL
             object->data.emplace_back(std::make_pair(std::numeric_limits<int>::max(),value));
         }
     }
+    //End of loop, add what was there
+    options.emplace_back(object);
+    //End of this file
 }
 
 AlgorithmOptions::~AlgorithmOptions(){
@@ -56,13 +64,37 @@ AlgorithmOptions::~AlgorithmOptions(){
 }
 
 int AlgorithmOptions::get_int_var(size_t index, std::string name){
-
+    size_t idx_opt = get_name_index(name);
+    if(idx_opt == this->max_value){
+        throw std::invalid_argument("Provided name for algorithm does not match name in .option file provided");
+    }
+    return options[idx_opt]->data[index].first;
 }
 
 double AlgorithmOptions::get_db_var(size_t index, std::string name){
-
+    size_t idx_opt = get_name_index(name);
+    if(idx_opt == this->max_value){
+        throw std::invalid_argument("Provided name for algorithm does not match name in .option file provided");
+    }
+    return options[idx_opt]->data[index].second;
 }
 
-bool AlgorithmOptions::was_name_found(std::string name){
-    
+int AlgorithmOptions::options_size_by_name(std::string name){
+    size_t idx_opt = get_name_index(name);
+    if(idx_opt == this->max_value){
+        throw std::invalid_argument("Provided name for algorithm does not match name in .option file provided");
+    }
+    return options[idx_opt]->data.size();
+}
+
+/**
+ *  !MUST BE THE SAME SIZE uppercase or lowercase or whatever
+ * */
+size_t AlgorithmOptions::get_name_index(std::string name){
+    for(size_t x = 0; x < options.size(); x++){
+        if(name == options[x]->name){
+            return x;
+        }
+    }
+    return this->max_value;
 }

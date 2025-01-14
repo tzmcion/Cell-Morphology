@@ -131,3 +131,23 @@ std::vector<std::string> ReadOptions::split_string(std::string s, char spliter){
     }
     return out;
 }
+//
+
+/**
+ *  Function Throws a Formatted Error for options file.
+ *  It is important to do a good error message here, as .option file is the one
+ *  with which user should integrate the most
+ *  @param path Optional to nullptr. IF no path, type nullptr
+ *  @param line Optional to "". IF no line type ""
+ *  @param line_index Optional to -1. IF no line_index, type -1
+ * */
+void ReadOptions::error_message(const char* path, std::string line,int line_index){
+    //First, handle when path to file is not defined
+    std::string file_path = (path == NULL || path == nullptr) ? std::string(std::filesystem::canonical("/proc/self/exe")) : std::string(path);
+    std::string err_message = std::string(Colors::RED) + "\n[ERROR]" + std::string(Colors::RESET) + " Options for algorithm " + file_path;
+    if(line != ""){
+        std::string line_nr = line_index == -1 ? "" : std::to_string(line_index);
+        err_message += std::string(Colors::CYAN) + "\n[LINE] " + std::string(Colors::RESET)+ line_nr + " : \"" + line + "\"";
+    }
+    throw std::invalid_argument(err_message.c_str());
+}

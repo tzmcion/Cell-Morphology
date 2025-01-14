@@ -2,9 +2,6 @@
 #include "../Includes/includes.h"
 #include "./PrepAllOptions.h"
 
-#define DOUBLE_MAX = 9999.9
-#define INT_MAX = 99999     //Assuming nobody would use such huuge arguments
-
 class AlgorithmOptions: private ReadOptions{
     public:
     AlgorithmOptions(const char* path_to_file);
@@ -13,7 +10,9 @@ class AlgorithmOptions: private ReadOptions{
     int get_int_var(size_t index, std::string name);
     double get_db_var(size_t index, std::string name);
 
-    bool was_name_found(std::string name);
+    int options_size_by_name(std::string name);
+
+    size_t get_name_index(std::string name);
 
     private:
 
@@ -23,4 +22,5 @@ class AlgorithmOptions: private ReadOptions{
         std::vector<std::pair<int,double>> data;
     };
     std::vector<optionObject*> options;
+    size_t max_value = std::numeric_limits<size_t>::max();
 };

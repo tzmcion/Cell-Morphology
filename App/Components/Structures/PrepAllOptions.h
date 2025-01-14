@@ -82,4 +82,6 @@ class ReadOptions{
     size_t index = 0;
     size_t subindex = 0;
     std::vector<run_file*> data;
+
+    void error_message(const char* path = nullptr, std::string line = "", int line_index = -1);
 };

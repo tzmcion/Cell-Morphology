@@ -19,6 +19,7 @@
 int main(int argc, char** argv){
     cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_SILENT);
     AlgorithmOptions options("./default.option");
+    std::cout << options.options_size_by_name("BACKGROUND_MASK") << std::endl;
     if(argc != 4){
         throw std::invalid_argument("Number of argumnets is invalid, required is 3");
     }
