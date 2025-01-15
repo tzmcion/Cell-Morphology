@@ -87,6 +87,30 @@ int AlgorithmOptions::options_size_by_name(std::string name){
     return options[idx_opt]->data.size();
 }
 
+double AlgorithmOptions::get_next_db(std::string name){
+    if(name == ""){
+        name = this->curr_name;
+    }
+    size_t idx_opt = get_name_index(name);
+    if(idx_opt == this->max_value){
+        throw std::invalid_argument("Provided name for algorithm does not match name in .option file provided");
+    }
+    options[idx_opt]->iterator += 1;
+    return options[idx_opt]->data[options[idx_opt]->iterator-1].second;
+}
+
+int AlgorithmOptions::get_next_int(std::string name){
+    if(name == ""){
+        name = this->curr_name;
+    }
+    size_t idx_opt = get_name_index(name);
+    if(idx_opt == this->max_value){
+        throw std::invalid_argument("Provided name for algorithm does not match name in .option file provided");
+    }
+    options[idx_opt]->iterator += 1;
+    return options[idx_opt]->data[options[idx_opt]->iterator-1].first;
+}
+
 /**
  *  !MUST BE THE SAME SIZE uppercase or lowercase or whatever
  * */

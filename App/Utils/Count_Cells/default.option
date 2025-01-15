@@ -2,6 +2,12 @@
 # the only thing that matters is the order of variables
 # !!! THIS METHOD IS NOT YET READY FOR DEPLOYEMENT !!!
 
+#Future, add option "auto" for specific type of option
+#example, in FOREGROUND_MASK: cell_radius: auto
+
+#DO NOT CHANGE THIS FILE
+#IF NECESSARY, MAKE COPY, BUT DO NOT ALTER DEFAULT VALUES
+
 -BACKGROUND_MASK
     SD_kernel<int>: 3
     as_iterations<int>: 3
@@ -18,7 +24,7 @@
     second_blur_kernel<int>: 3
     minima_threshold<double>: 0.92
     minima_kernel<int>: 1
--FOREGOUND_MASK (kernels)
+-FOREGOUND_MASK
     blur_kernel<int>: 3
     dil_er_size<int>: 2
     SD_kernel_size<int>: 5

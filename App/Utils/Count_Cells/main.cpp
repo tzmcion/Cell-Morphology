@@ -18,18 +18,19 @@
 
 int main(int argc, char** argv){
     cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_SILENT);
-    AlgorithmOptions options("./default.option");
-    std::cout << options.options_size_by_name("BACKGROUND_MASK") << std::endl;
     if(argc != 4){
         throw std::invalid_argument("Number of argumnets is invalid, required is 3");
     }
-    const char* OPTIONS_PATH = argv[1];
+    const char* OPTIONS_PATH = std::string(argv[1]) == "def" ? "./default.option" : argv[1];
     const char* PATHS = argv[2];
     const char* OUT_FOLDER = argv[3];
     const std::string INP_DATA = Entites::Convert::text_file_to_string("../Count_Cells/README.md");
     std::cout << Colors::BG_BRIGHT_GREEN << INP_DATA << Colors::RESET;
     std::cout << "-------------------------------------------------- \n";
     std::cout << "Reading input files, note that this process will end in infinite loop if provided array does not end with \"]\"! \n";
+    //Reading options for algorithms
+    AlgorithmOptions *options = new AlgorithmOptions(argv[1]);
+    //NOW DO FOR DEFAULT VALUES
     std::vector<std::string> images;
     Entites::Convert::c_char_to_string(images,PATHS);
     for(size_t x = 0; x < images.size(); x++){
@@ -41,27 +42,31 @@ int main(int argc, char** argv){
     std::cout << Colors::RED << "Reading options from provided file" << Colors::RESET << std::endl;
     const std::string out_file = std::string(OUT_FOLDER) + "/DATA" + "_COUNT" + ".csv";
     Entites::FILES::clear_file(out_file.c_str());
-    //TODO
-    //NOW DO FOR DEFAULT VALUES
     size_t cores = std::thread::hardware_concurrency();
     if(cores == 0){
         cores = 3;
     }
     Threading threads(cores);
     for(size_t x = 0; x < images.size(); x++){
-        threads.enqueueTask([x,OUT_FOLDER,out_file,images](){
+        threads.enqueueTask([x,OUT_FOLDER,out_file,images, options](){
             const std::string PATH = images[x];
-            std::cout << Colors::YELLOW << "Processing of:: " << Colors::RESET << PATH;
-            std::cout << std::flush;
-            cv::Mat image;
-            image = cv::imread(PATH, cv::IMREAD_GRAYSCALE);
+            std::cout << Colors::YELLOW << "Processing of:: " << Colors::RESET << PATH << std::flush;
+            cv::Mat image = cv::imread(PATH, cv::IMREAD_GRAYSCALE);
             //
             //ALGORYTHM
             //
             cv::Mat background_mask, foreground_regions, foreground_mask, labels, blended;
-            Watershed::background_mask(image,background_mask);
-            Watershed::foreground_regions(image,foreground_regions,background_mask);
-            Watershed::foreground_mask(image,foreground_mask,foreground_regions,background_mask);
+            //Read from options file (which is a pain in thi ass)
+            options->set_name_for_iterations("BACKGROUND_MASK");
+            //This will be very long...
+            Watershed::background_mask(image,background_mask,options->get_next_int(),options->get_next_int(),options->get_next_db(),options->get_next_int(), options->get_next_int(), options->get_next_int(), options->get_next_db(), options->get_next_int());
+            options->set_name_for_iterations("FOREGROUND_REGIONS");
+            //This will be even longer
+            Watershed::foreground_regions(image,foreground_regions,background_mask, options->get_next_int(), options->get_next_int(), options->get_next_db(), options->get_next_int(), options->get_next_db(), options->get_next_int());
+            options->set_name_for_iterations("FOREGOUND_MASK");
+            //And thiss will be the longest
+            Watershed::foreground_mask(image,foreground_mask,foreground_regions,background_mask,options->get_next_int(), options->get_next_int(), options->get_next_int(), options->get_next_int(), options->get_next_db(), options->get_next_db(), options->get_next_db(), options->get_next_db(), options->get_next_int(), options->get_next_int(), options->get_next_int(), options->get_next_db(), options->get_next_int());
+            //Applied nhere WOW
             const int cells = cv::connectedComponents(foreground_mask,labels);
             cv::cvtColor(image,blended,COLOR_GRAY2BGR);
             for(int x = 0; x < image.rows; x++){
@@ -82,5 +87,6 @@ int main(int argc, char** argv){
             std::cout << Colors::GREEN <<" [...DONE! ]" << Colors::RESET << " Succesfully saved to: " << Colors::MAGENTA << out_name << Colors::RESET << std::endl;
         });
     }
+    delete options;
     return 0;
 }
