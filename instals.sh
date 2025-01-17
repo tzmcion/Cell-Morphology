@@ -15,53 +15,31 @@ else
     exit 1
 fi
 
-# Install dependencies and packages
+# Install packages
 if [[ "$DISTRO" == "ubuntu" ]]; then
     echo "Detected Ubuntu. Installing packages..."
     apt update && apt upgrade -y
 
-    # Install OpenCV dependencies
-    apt install -y build-essential cmake git libgtk-3-dev libboost-all-dev \
-        libjpeg-dev libpng-dev libtiff-dev libopenexr-dev libwebp-dev libtbb-dev \
-        libatlas-base-dev gfortran python3-dev
+    # Install CMake, g++, TensorFlow, and OpenCV
+    apt install -y cmake g++ python3-pip libopencv-dev libopencv-contrib-dev
 
-    # Install TensorFlow dependencies
-    apt install -y python3-pip
+    # Install TensorFlow
     pip3 install --upgrade pip tensorflow
 
 elif [[ "$DISTRO" == "fedora" ]]; then
     echo "Detected Fedora. Installing packages..."
     dnf update -y
 
-    # Install OpenCV dependencies
-    dnf install -y gcc-c++ cmake git gtk3-devel boost-devel \
-        libjpeg-devel libpng-devel libtiff-devel openexr-devel \
-        tbb-devel atlas-devel gcc-gfortran python3-devel
+    # Install CMake, g++, TensorFlow, and OpenCV
+    dnf install -y cmake gcc-c++ python3-pip opencv opencv-devel opencv-contrib
 
-    # Install TensorFlow dependencies
-    dnf install -y python3-pip
-    pip3 install --upgrade pip tensorflow
+    # Install TensorFlow
+    pip3 install --upgrade pip tensorflow opencv-python-headless
 
 else
     echo "Unsupported distribution: $DISTRO. Exiting."
     exit 1
 fi
-
-# Build and install OpenCV
-OPENCV_VERSION="4.8.0"
-mkdir -p /opt/opencv_build && cd /opt/opencv_build
-
-git clone https://github.com/opencv/opencv.git -b $OPENCV_VERSION
-cd opencv
-mkdir build && cd build
-
-cmake -D CMAKE_BUILD_TYPE=Release \
-      -D CMAKE_INSTALL_PREFIX=/usr/local \
-      -D BUILD_EXAMPLES=ON \
-      ..
-make -j$(nproc)
-make install
-ldconfig
 
 # Confirm installations
 python3 -c "import tensorflow as tf; print('TensorFlow version:', tf.__version__)"

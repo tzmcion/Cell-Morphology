@@ -1,6 +1,7 @@
 #include "../../Components/Watershed/Watershed.h"
 #include "../../Components/Structures/Colors.h"
 #include "../../Components/Transformations/Transformations.h"
+#include "../../Components/Structures/AlgorithmOptions.h"
 
 /**
  *  Component Created by Tymoteusz Apriasz
@@ -19,13 +20,16 @@ int main(int argc, char** argv){
     if(argc != 4){
         throw std::invalid_argument("Number of argumnets is invalid, required is 3");
     }
-    const char* OPTIONS_PATH = argv[1];
+    const char* OPTIONS_PATH = std::string(argv[1]) == "def" ? "../algorithm_default.option" : argv[1];
     const char* PATHS = argv[2];
     const char* OUT_FOLDER = argv[3];
     const std::string INP_DATA = Entites::Convert::text_file_to_string("../Count_Surface/README.md");
     std::cout << Colors::BG_BRIGHT_GREEN << INP_DATA << Colors::RESET;
     std::cout << "-------------------------------------------------- \n";
     std::cout << "Reading input files, note that this process will end in infinite loop if provided array does not end with \"]\"! \n";
+    //Options
+    AlgorithmOptions options(OPTIONS_PATH);
+    //
     std::vector<std::string> images;
     Entites::Convert::c_char_to_string(images,PATHS);
     for(size_t x = 0; x < images.size(); x++){
@@ -49,8 +53,9 @@ int main(int argc, char** argv){
         //ALGORYTHM
         //
         cv::Mat background_mask, foreground_mask;
-        Watershed::background_mask(image,background_mask);
-        Watershed::foreground_regions(image,foreground_mask,background_mask);
+        Watershed::background_mask(image,background_mask,options.get_int_var(0,"BACKGROUND_MASK"),options.get_int_var(1,"BACKGROUND_MASK"),options.get_db_var(2,"BACKGROUND_MASK"),options.get_int_var(3,"BACKGROUND_MASK"),options.get_int_var(4,"BACKGROUND_MASK"),options.get_int_var(5,"BACKGROUND_MASK"),options.get_db_var(6,"BACKGROUND_MASK"),options.get_int_var(7,"BACKGROUND_MASK"));
+            // //This will be even longer
+        Watershed::foreground_regions(image,foreground_mask,background_mask,options.get_int_var(0,"FOREGROUND_REGIONS"),options.get_int_var(1,"FOREGROUND_REGIONS"),options.get_db_var(2,"FOREGROUND_REGIONS"),options.get_int_var(3,"FOREGROUND_REGIONS"),options.get_db_var(4,"FOREGROUND_REGIONS"),options.get_int_var(5,"FOREGROUND_REGIONS"));
         foreground_mask *=2;    //Foreground mask regions is 2
         cv::Mat markers = foreground_mask.clone();
         markers.setTo(1, background_mask == 0); // Ensure background is labeled as 1

@@ -24,7 +24,7 @@
     second_blur_kernel<int>: 3
     minima_threshold<double>: 0.92
     minima_kernel<int>: 1
--FOREGOUND_MASK
+-FOREGROUND_MASK
     blur_kernel<int>: 3
     dil_er_size<int>: 2
     SD_kernel_size<int>: 5

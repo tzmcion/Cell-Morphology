@@ -4,7 +4,7 @@
 CXX=g++
 
 # Compiler flags (add the components folder to the include path)
-CXXFLAGS="-std=c++11 -Wall `pkg-config --cflags opencv4` -I./components"
+CXXFLAGS="-std=c++17 -Wall `pkg-config --cflags opencv4` -I./components"
 
 # Linker flags (OpenCV libraries)
 LDFLAGS="`pkg-config --libs opencv4`"

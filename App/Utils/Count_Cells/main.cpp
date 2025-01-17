@@ -21,7 +21,7 @@ int main(int argc, char** argv){
     if(argc != 4){
         throw std::invalid_argument("Number of argumnets is invalid, required is 3");
     }
-    const char* OPTIONS_PATH = std::string(argv[1]) == "def" ? "./default.option" : argv[1];
+    const char* OPTIONS_PATH = std::string(argv[1]) == "def" ? "./algorithm_default.option" : argv[1];
     const char* PATHS = argv[2];
     const char* OUT_FOLDER = argv[3];
     const std::string INP_DATA = Entites::Convert::text_file_to_string("../Count_Cells/README.md");
@@ -29,7 +29,7 @@ int main(int argc, char** argv){
     std::cout << "-------------------------------------------------- \n";
     std::cout << "Reading input files, note that this process will end in infinite loop if provided array does not end with \"]\"! \n";
     //Reading options for algorithms
-    AlgorithmOptions *options = new AlgorithmOptions(argv[1]);
+    AlgorithmOptions options(OPTIONS_PATH);
     //NOW DO FOR DEFAULT VALUES
     std::vector<std::string> images;
     Entites::Convert::c_char_to_string(images,PATHS);
@@ -48,7 +48,7 @@ int main(int argc, char** argv){
     }
     Threading threads(cores);
     for(size_t x = 0; x < images.size(); x++){
-        threads.enqueueTask([x,OUT_FOLDER,out_file,images, options](){
+        threads.enqueueTask([x,OUT_FOLDER,out_file,images, &options](){
             const std::string PATH = images[x];
             std::cout << Colors::YELLOW << "Processing of:: " << Colors::RESET << PATH << std::flush;
             cv::Mat image = cv::imread(PATH, cv::IMREAD_GRAYSCALE);
@@ -57,16 +57,13 @@ int main(int argc, char** argv){
             //
             cv::Mat background_mask, foreground_regions, foreground_mask, labels, blended;
             //Read from options file (which is a pain in thi ass)
-            options->set_name_for_iterations("BACKGROUND_MASK");
             //This will be very long...
-            Watershed::background_mask(image,background_mask,options->get_next_int(),options->get_next_int(),options->get_next_db(),options->get_next_int(), options->get_next_int(), options->get_next_int(), options->get_next_db(), options->get_next_int());
-            options->set_name_for_iterations("FOREGROUND_REGIONS");
-            //This will be even longer
-            Watershed::foreground_regions(image,foreground_regions,background_mask, options->get_next_int(), options->get_next_int(), options->get_next_db(), options->get_next_int(), options->get_next_db(), options->get_next_int());
-            options->set_name_for_iterations("FOREGOUND_MASK");
-            //And thiss will be the longest
-            Watershed::foreground_mask(image,foreground_mask,foreground_regions,background_mask,options->get_next_int(), options->get_next_int(), options->get_next_int(), options->get_next_int(), options->get_next_db(), options->get_next_db(), options->get_next_db(), options->get_next_db(), options->get_next_int(), options->get_next_int(), options->get_next_int(), options->get_next_db(), options->get_next_int());
-            //Applied nhere WOW
+            Watershed::background_mask(image,background_mask,options.get_int_var(0,"BACKGROUND_MASK"),options.get_int_var(1,"BACKGROUND_MASK"),options.get_db_var(2,"BACKGROUND_MASK"),options.get_int_var(3,"BACKGROUND_MASK"),options.get_int_var(4,"BACKGROUND_MASK"),options.get_int_var(5,"BACKGROUND_MASK"),options.get_db_var(6,"BACKGROUND_MASK"),options.get_int_var(7,"BACKGROUND_MASK"));
+            // //This will be even longer
+            Watershed::foreground_regions(image,foreground_regions,background_mask,options.get_int_var(0,"FOREGROUND_REGIONS"),options.get_int_var(1,"FOREGROUND_REGIONS"),options.get_db_var(2,"FOREGROUND_REGIONS"),options.get_int_var(3,"FOREGROUND_REGIONS"),options.get_db_var(4,"FOREGROUND_REGIONS"),options.get_int_var(5,"FOREGROUND_REGIONS"));
+            // //And thiss will be the longest
+            Watershed::foreground_mask(image,foreground_mask,foreground_regions,background_mask,options.get_int_var(0,"FOREGROUND_MASK"), options.get_int_var(1,"FOREGROUND_MASK"), options.get_int_var(2,"FOREGROUND_MASK"), options.get_int_var(3,"FOREGROUND_MASK"), options.get_db_var(4,"FOREGROUND_MASK"), options.get_db_var(5,"FOREGROUND_MASK"),options.get_db_var(6,"FOREGROUND_MASK"), options.get_db_var(7,"FOREGROUND_MASK"), options.get_int_var(8,"FOREGROUND_MASK"), options.get_int_var(9,"FOREGROUND_MASK"), options.get_int_var(10,"FOREGROUND_MASK"), options.get_db_var(11,"FOREGROUND_MASK"), options.get_int_var(12,"FOREGROUND_MASK"));
+            // //Applied nhere WOW
             const int cells = cv::connectedComponents(foreground_mask,labels);
             cv::cvtColor(image,blended,COLOR_GRAY2BGR);
             for(int x = 0; x < image.rows; x++){
@@ -87,6 +84,5 @@ int main(int argc, char** argv){
             std::cout << Colors::GREEN <<" [...DONE! ]" << Colors::RESET << " Succesfully saved to: " << Colors::MAGENTA << out_name << Colors::RESET << std::endl;
         });
     }
-    delete options;
     return 0;
 }

@@ -4,7 +4,7 @@
 AlgorithmOptions::AlgorithmOptions(const char* path_to_file) : ReadOptions("NULL"){
     std::vector<std::string> lines;
     std::ifstream file(path_to_file);   //load the file
-    
+    std::cout << "READING: " << path_to_file << std::endl;
     //Read the file and copy lines to a vector
     if (file.is_open()) {
         std::string line;
@@ -13,7 +13,7 @@ AlgorithmOptions::AlgorithmOptions(const char* path_to_file) : ReadOptions("NULL
         }
         file.close();
     } else {
-        std::cerr << "Unable to open the file!" << std::endl;
+        std::cerr << "Unable to open the file: " << path_to_file << std::endl;
     }
     //Assuming the file got opened and red
     optionObject *object = nullptr;
@@ -24,7 +24,7 @@ AlgorithmOptions::AlgorithmOptions(const char* path_to_file) : ReadOptions("NULL
         //Check if first character of line declares it is a name
         if(line[0] == '-'){
             if(object != nullptr){
-                options.emplace_back(object);
+                options.push_back(object);
             }
             object = new optionObject();
             line = line.substr(1, line.size());
@@ -44,16 +44,16 @@ AlgorithmOptions::AlgorithmOptions(const char* path_to_file) : ReadOptions("NULL
         if(var_type == 'i'){
             //integer, apply maximum value to second of vector data
             int value = std::stoi(part_lines[1].c_str());
-            object->data.emplace_back(std::make_pair(value,std::numeric_limits<double>::max()));
+            object->data.push_back(std::make_pair(value,std::numeric_limits<double>::max()));
         }
         else{
             //double, apply maximum value to first of vector data
             double value = std::atof(part_lines[1].c_str());
-            object->data.emplace_back(std::make_pair(std::numeric_limits<int>::max(),value));
+            object->data.push_back(std::make_pair(std::numeric_limits<int>::max(),value));
         }
     }
     //End of loop, add what was there
-    options.emplace_back(object);
+    options.push_back(object);
     //End of this file
 }
 
@@ -61,6 +61,18 @@ AlgorithmOptions::~AlgorithmOptions(){
     for(size_t x = 0; x < options.size(); x++){
         delete options[x];
     }
+}
+
+/**
+ *  !MUST BE THE SAME SIZE uppercase or lowercase or whatever
+ * */
+size_t AlgorithmOptions::get_name_index(std::string name){
+    for(size_t x = 0; x < options.size(); x++){
+        if(name == options[x]->name){
+            return x;
+        }
+    }
+    return this->max_value;
 }
 
 int AlgorithmOptions::get_int_var(size_t index, std::string name){
@@ -88,10 +100,8 @@ int AlgorithmOptions::options_size_by_name(std::string name){
 }
 
 double AlgorithmOptions::get_next_db(std::string name){
-    if(name == ""){
-        name = this->curr_name;
-    }
-    size_t idx_opt = get_name_index(name);
+    std::string c_name = name == "" ? curr_name : name;
+    size_t idx_opt = this->get_name_index(c_name);
     if(idx_opt == this->max_value){
         throw std::invalid_argument("Provided name for algorithm does not match name in .option file provided");
     }
@@ -100,25 +110,11 @@ double AlgorithmOptions::get_next_db(std::string name){
 }
 
 int AlgorithmOptions::get_next_int(std::string name){
-    if(name == ""){
-        name = this->curr_name;
-    }
-    size_t idx_opt = get_name_index(name);
+    std::string c_name = name == "" ? curr_name : name;
+    size_t idx_opt = this->get_name_index(c_name);
     if(idx_opt == this->max_value){
         throw std::invalid_argument("Provided name for algorithm does not match name in .option file provided");
     }
     options[idx_opt]->iterator += 1;
     return options[idx_opt]->data[options[idx_opt]->iterator-1].first;
-}
-
-/**
- *  !MUST BE THE SAME SIZE uppercase or lowercase or whatever
- * */
-size_t AlgorithmOptions::get_name_index(std::string name){
-    for(size_t x = 0; x < options.size(); x++){
-        if(name == options[x]->name){
-            return x;
-        }
-    }
-    return this->max_value;
 }

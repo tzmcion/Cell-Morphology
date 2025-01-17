@@ -18,7 +18,7 @@ ReadOptions::ReadOptions(const char* options_path){
         }
         file.close();
     } else {
-        std::cerr << "Unable to open the file!" << std::endl;
+        std::cerr << "Unable to open the file: " << options_path << std::endl;
     }
 
     //Read the vector and process the lines
