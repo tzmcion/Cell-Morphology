@@ -15,6 +15,21 @@ class AlgorithmOptions: private ReadOptions{
     double get_next_db(std::string name = "");
     int get_next_int(std::string name = "");
 
+    //For Editing of the options
+
+    /**
+     * TODO: Function will allow altering of double option
+     */
+    void new_db_value(size_t index, std::string name, double new_value){};
+    /**
+     * TODO: Function will allow altering of integer option
+     */
+    void new_int_value(size_t index, std::string name, int new_value){};
+    /**
+     * TODO: Function will generate the output .option file
+     */
+    void save_options_to_file(const char* file_path){};
+
     void set_name_for_iterations(std::string new_name){
         this->curr_name = new_name;
     }

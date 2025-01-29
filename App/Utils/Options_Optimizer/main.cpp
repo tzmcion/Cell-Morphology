@@ -27,15 +27,41 @@ Each parameter will go minus and plus in a diverse ways, iterating over max 50 a
 Will se how it goes
 */
 
+/**
+ * The goal is to create both manual and automated options optimizers
+ * So the segmentation process can be as precise as possible
+ */
+
 int main(int argc, char **argv){
+    std::srand(time(NULL)); //Using random in this process
     cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_SILENT);
     if(argc != 4){
         throw std::invalid_argument("Number of argumnets is invalid, required is 3");
     }
     const char* OPTIONS_PATH = std::string(argv[1]) == "def" ? "../optimizer_temp.option" : argv[1];
-    const char* PATHS = argv[2];
+    std::string PATHS = Entites::Convert::text_file_to_string(argv[2]);
     const char* OUT_FOLDER = argv[3];
-    const std::string INP_DATA = Entites::Convert::text_file_to_string("../Options_Optimizer/README.md");
-
+    const std::string INP_DATA = Entites::Convert::text_file_to_string("../Options_Optimizer/README.md");\
+    std::vector<std::string> images;
+    Entites::Convert::c_char_to_string(images,PATHS.c_str());
+    for(size_t x = 0; x < images.size(); x++){
+        std::cout << "Image_" << x << ' ' << Colors::MAGENTA << images[x] << Colors::RESET << std::endl;
+    }
+    std::cout << "Detected " << images.size() << " files to convert in total \n";
+    std::cout << "Output folder is: " << Colors::YELLOW <<  OUT_FOLDER << Colors::RESET << std::endl;
+    std::cout << Colors::BRIGHT_BLUE << "[INFO] " << Colors::RESET << "The output options will be saved to the output folder \n";
+    //Select random image and crop/cut out 300x300 image
+    const std::string image_to_crop = images[rand() % images.size()];
+    const int CROP_SIZE = 300;
+    //Select random area on the image
+    cv::Mat image = cv::imread(image_to_crop,cv::IMREAD_GRAYSCALE);
+    int begin_x = rand() % (image.cols - CROP_SIZE);
+    int begin_y = rand() % (image.rows - CROP_SIZE);
+    //define region of interest
+    cv::Rect roi(begin_x,begin_y,CROP_SIZE,CROP_SIZE);
+    cv::Mat cropped = image(roi);
+    //Image is cropped to size 300x300
+    //Now save it or display it in an interactive way with user
+    //Probably I will use SDL to let user draw the "mask" which will be used to auto optimize
     //REST TODO I GO TO SLEEP
 }

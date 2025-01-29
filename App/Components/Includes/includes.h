@@ -15,3 +15,6 @@
 #include <thread>
 #include <chrono>
 #include <cstdio>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
