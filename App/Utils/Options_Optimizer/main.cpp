@@ -63,5 +63,6 @@ int main(int argc, char **argv){
     //Image is cropped to size 300x300
     //Now save it or display it in an interactive way with user
     //Probably I will use SDL to let user draw the "mask" which will be used to auto optimize
+    //TEST CHANGE COMMIT TO GITHUB
     //REST TODO I GO TO SLEEP
 }
