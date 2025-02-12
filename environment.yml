@@ -8,5 +8,7 @@ dependencies:
   - pandas
   - flake8
   - pytest
-  - dearpygui
-  - opencv  # Add other dependencies as needed
+  - opencv
+  - pip 
+  - pip:
+      - dearpygui
