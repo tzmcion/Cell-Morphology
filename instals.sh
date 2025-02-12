@@ -24,7 +24,7 @@ if [[ "$DISTRO" == "ubuntu" ]]; then
     apt install -y cmake g++ python3-pip libopencv-dev libopencv-contrib-dev
 
     # Install TensorFlow
-    pip3 install --upgrade pip tensorflow
+    pip3 install --upgrade pip tensorflow opencv-python-headless dearpygui
 
 elif [[ "$DISTRO" == "fedora" ]]; then
     echo "Detected Fedora. Installing packages..."
@@ -34,7 +34,7 @@ elif [[ "$DISTRO" == "fedora" ]]; then
     dnf install -y cmake gcc-c++ python3-pip opencv opencv-devel opencv-contrib
 
     # Install TensorFlow
-    pip3 install --upgrade pip tensorflow opencv-python-headless
+    pip3 install --upgrade pip tensorflow opencv-python-headless dearpygui
 
 else
     echo "Unsupported distribution: $DISTRO. Exiting."

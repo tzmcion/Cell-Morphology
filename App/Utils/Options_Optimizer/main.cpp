@@ -60,8 +60,12 @@ int main(int argc, char **argv){
     //define region of interest
     cv::Rect roi(begin_x,begin_y,CROP_SIZE,CROP_SIZE);
     cv::Mat cropped = image(roi);
-    //Image is cropped to size 300x300
-    //Now save it or display it in an interactive way with user
-    //Probably I will use SDL to let user draw the "mask" which will be used to auto optimize
-    //REST TODO I GO TO SLEEP
+    //Save the image 
+    cv::imwrite("../temp_img.jpg",cropped);
+    //Await changes in  mask file, with high limit
+    Threading::await_file_change("../user_mask.jpg",10000,100);
+    //Now, the program will try to adapt the options to provided mask, starting from provided options
+    AlgorithmOptions options(OPTIONS_PATH);
+    
+    return 0;
 }
