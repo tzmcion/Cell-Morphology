@@ -1,4 +1,5 @@
 import dearpygui.dearpygui as dpg
+from optimization.Algorithm_option import Algorithm_Option
 
 """
 File for handling options optimization, therefore here will be displaying of the options
@@ -8,7 +9,6 @@ And possibility of creating example mask and try to fit the options to best cove
 class OptionsHandler:
     def __init__(self):
         self.setup_options()
-        
         pass
     
     
@@ -25,3 +25,9 @@ class OptionsHandler:
                 dpg.add_button(label="Please select path to folder", callback=None)
             with dpg.group(horizontal=True):
                 dpg.add_checkbox(label="Please check if needed is separate .option file for each subdirectory, or one .option file for all images in specified directory")
+                
+    def current_options(self):
+        pass
+        
+    def display_single_option(self,parent:str, option:Algorithm_Option) -> None:
+        pass

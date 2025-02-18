@@ -1,14 +1,15 @@
-#FILE GENERATED AUTOMATICALLY
-# AVNT OPTIMIZER @2025 
- 
+# TESTING PURPOSES only
+# TEST CASE 1, no commented line:
+
 -BACKGROUND_MASK
     SD_kernel<int>: 3
-    as_iterations<int>: 3
+    as_iterations<int>: 3   RANDOM ASS TEXT HERE
     as_time<double>: 0.1
+    RANDOM ASS TEXT HERE
     hs_min<int>: 25
-    hs_max<int>: 80
+    hs_max<int>: 80     #use -1 for otsu threshold
     hs_min_area<int>: 0
-    max_hole_size<double>: 0.33
+    max_hole_size<double>: 0.33      #percentage of image width
     erosion_size<int>: 1
 -FOREGROUND_REGIONS
     blur_kernel<int>: 3
@@ -19,15 +20,16 @@
     minima_kernel<int>: 1
 -FOREGROUND_MASK
     blur_kernel<int>: 3
-    dil_er_size<int>: 15
+    dil_er_size<int>: 2
     SD_kernel_size<int>: 5
     iterations<int>: 3
     sigma_min<double>: 4.0
     sigma_max<double>: 5.0
-    sigma_iterator<double>: 1.0
-    sigma_multiplier<double>: 2.0
+    sigma_iterator<double>: 1
+    sigma_multiplier<double>: 2        #Value will be in sqrt 
     cell_radius<int>: 14
-    filter_kernel_size_multiplier<int>: 3
+    filter_kernel_size_multiplier<int>: 3   #Multiplier cell radius
     gftt_corners<int>: 3000
     gftt_quality<double>: 0.05
-    cell_radius_multiplier<int>: 2
+    cell_radius_multiplier<int>: 2      #multiplier for cell size
+
