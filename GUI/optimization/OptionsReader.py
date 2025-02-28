@@ -45,6 +45,34 @@ class OptionsReader():
     def _delete_comments(self, line:str) -> str:
         return line[0:line.find('#')]   #much simpler than in c++...
     
+    
+    def hard_read_options(self,opt_path:str) -> None:
+        """Method reads the options from the file, overriding current ones"""
+        self.opts_array:list[Algorithm_Option] = []
+        self.iterate_idx = 0
+        self.initialized = [True,-1]
+        current_class = ""
+        idx = 0
+        with open(opt_path,"r") as file:
+            for line in file:
+                line_raw = self._delete_comments(line).strip()
+                if(len(line_raw) <= 0):
+                    continue
+                if(line_raw[0] == "-"):
+                    current_class = line_raw[1:len(line_raw)]
+                    continue
+                if(current_class == ""):
+                    #File truncated (incorrect format - no class specified before option)
+                    self.initialized = [False, idx]
+                    break
+                self.opts_array.append(Algorithm_Option(line_raw,current_class,idx))
+                if(self.opts_array[len(self.opts_array)-1].initialized == False):
+                    #File truncated (incorrect in format - incorrect line format)
+                    self.initialized = [False, idx]
+                    break
+                idx+=1
+            file.close()
+    
     def iterate_options(self, reset = False)-> Algorithm_Option | None:
         """Method is an iterator, returns next option, pass argument False to reset the index from zero"""
         if(reset):

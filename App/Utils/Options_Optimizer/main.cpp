@@ -61,9 +61,10 @@ int main(int argc, char **argv){
     cv::Rect roi(begin_x,begin_y,CROP_SIZE,CROP_SIZE);
     cv::Mat cropped = image(roi);
     //Save the image 
-    cv::imwrite("../temp_img.jpg",cropped);
+    std::cout << std::string(OUT_FOLDER) + std::string("/temp/cropped_bg.jpg") << std::endl;
+    cv::imwrite(std::string(std::string(OUT_FOLDER) + std::string("/temp/cropped_bg.jpg")).c_str(),cropped);
     //Await changes in  mask file, with high limit
-    Threading::await_file_change("../user_mask.jpg",10000,100);
+    Threading::await_file_change("../Options_Optimizer/run_temp/user_mask.jpg",10000,100);
     //Now, the program will try to adapt the options to provided mask, starting from provided options
     AlgorithmOptions options(OPTIONS_PATH);
     
