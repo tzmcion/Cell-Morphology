@@ -1,7 +1,6 @@
 import os
 import subprocess
 import time
-import signal
 import dearpygui.dearpygui as dpg
 from optimization.OptionsReader import OptionsReader
 
@@ -25,8 +24,26 @@ class ModuleIntegration:
         #Return back
         os.chdir("../../")
     
-    def await_file_change(self,path:str) -> None:
+    def await_file_change(self,path:str, max_iterations = 1000) -> bool:
         """Method waits for file to change, """
+        is_done = False
+        last_state = ""
+        if(os.path.exists(path)):
+            with open(path,'r') as f:
+                last_state = f.read()
+        while is_done == False:
+            max_iterations -= 1
+            if(os.path.exists(path)):
+                with open(path,'r') as f:
+                    if(last_state != f.read):
+                        is_done = True
+                        break
+            if(max_iterations < 0):
+                break
+            time.sleep(0.02) 
+        if(is_done):
+            return True
+        return False
         pass
     
     def read_from_file_and_display(self, path:str, tag:str) -> None:
@@ -41,7 +58,7 @@ class ModuleIntegration:
         width, height, channels, data = dpg.load_image(path)
         with dpg.texture_registry(id="subprocess_textures"):
             dpg.add_static_texture(width,height,data,tag="sp_image")
-        dpg.draw_image("sd_image",(0,0),parent=tag)
+        dpg.draw_image("sp_image",(0,0),(600, 600), uv_min=(0, 0), uv_max=(1, 1),parent=tag)
         
     def save_current_options(self, reader:OptionsReader) -> None:
         """Method saves current options in integrated module path"""

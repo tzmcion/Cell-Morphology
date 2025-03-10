@@ -1,7 +1,9 @@
 import dearpygui.dearpygui as dpg
 from optimization.Algorithm_option import Algorithm_Option
 from optimization.OptionsReader import OptionsReader
-from Display.path_selector import ask_folder_path, study_path
+from Display.path_selector import ask_folder_path, study_path, get_all_images
+from Display.handle_user_mask_draw import userDraw
+import os
 
 """
 File for handling options optimization, therefore here will be displaying of the options
@@ -12,6 +14,7 @@ class OptionsHandler:
     def __init__(self):
         self.setup_options()
         self.reader = None
+        self.integrator = None
         pass
     
     
@@ -67,7 +70,7 @@ class OptionsHandler:
         #then user will be prompted to draw the goal boundaries
         #Options_Optimizer from App/Utils is ready to recieve a mask
         dpg.set_item_pos("options_display",(1440-600,0))
-        with dpg.window(label="Get Necessary data",pos=(25,25),width=1440-650,height=900):
+        with dpg.window(label="Get Necessary data",pos=(25,25),width=1440-650,height=900,id="mask_drawer", no_move=True, no_resize=True):
             with dpg.group(horizontal=True):
                 dpg.add_text("Please insert the number of iterations")
                 dpg.add_input_int(default_value=1000, width=200)
@@ -78,9 +81,9 @@ class OptionsHandler:
                 dpg.add_button(label="Draw/Get different sample")
                 dpg.add_button(label="Save mask and draw on next sample")
                 dpg.add_button(label="Save mask and start")
-            with dpg.drawlist(600,600,label="Drawing canvas", id="Image_Canvas",pos=(150,150)):
-                dpg.add_draw_layer(tag="Image_Canvas_Layer_one")
-        pass
+        all_paths = get_all_images(dpg.get_value("Autofit_path"))
+        self.integrator = userDraw("mask_drawer",str(os.getcwd() + "/GUI/temp"),self.reader,all_paths)
+        
     
     
     def add_window_with_options(self):

@@ -23,9 +23,10 @@ Bright jest, ma zdjęcie robione co 4h, konkretnego miejsca na płytce są konre
 
 W hipoksji 
 
-Hakaty (Keratynocyty) - komórki naskórka 28h
+Hacaty (Keratynocyty) - komórki naskórka 28h
 Komórki A375 - Komórki czerniaka z przerzutu 20h
 Komórki Wm266.4 - Komórki czerniaka ze skóry 24h
+Komórki Mnt1 - Komórki czerniaka jest pigmentująca 
 Od dołków 9-12 pyły zawieszone
 
 A1-B12 tak samo
@@ -33,6 +34,10 @@ A1-B12 tak samo
 04-06 0,5mg ml
 07-09 1mg /ml
 09-12 5mg/ml
+
+AB - A375
+DE - Hakaty
+GH - Wm
 
 Stężenie pyłów zawiesze ^^
 
@@ -63,3 +68,5 @@ PLAN!
 ZROBIC OPERACJE MORFOLOGICZNA, KTORA CELOWO BEDZIE ZNAJDYWALA JADRA W ZLYCH MIEJSCACH
 NASTEPNIE ZROBIC AUTOMATYCZNA KOREKCJE OPERACJI MORFOLOGICZNYCH
 TE KTORE BEDA MIALY NAJWIEKSZE POLE POW JADER, ORAZ NAJMNIEJ POKRYWANIA Z CELOWO ZLYM, BEDA UZYTE
+
+Tymoteusz Apriasz, Seminarium Licencjackie sL. 24/25 06/03/2025

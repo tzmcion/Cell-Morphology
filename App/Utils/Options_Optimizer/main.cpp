@@ -2,8 +2,6 @@
 #include "../../Components/Structures/Colors.h"
 #include "../../Components/Transformations/Transformations.h"
 #include "../../Components/Structures/Structures.h"
-#include "../../Components/Threading/Threads.h"
-#include "../../Components/Structures/AlgorithmOptions.h"
 
 /**
  * This file aims to optimize the options for Full segmentation_ being
@@ -52,7 +50,7 @@ int main(int argc, char **argv){
     std::cout << Colors::BRIGHT_BLUE << "[INFO] " << Colors::RESET << "The output options will be saved to the output folder \n";
     //Select random image and crop/cut out 300x300 image
     const std::string image_to_crop = images[rand() % images.size()];
-    const int CROP_SIZE = 300;
+    const int CROP_SIZE = 200;
     //Select random area on the image
     cv::Mat image = cv::imread(image_to_crop,cv::IMREAD_GRAYSCALE);
     int begin_x = rand() % (image.cols - CROP_SIZE);
@@ -60,13 +58,13 @@ int main(int argc, char **argv){
     //define region of interest
     cv::Rect roi(begin_x,begin_y,CROP_SIZE,CROP_SIZE);
     cv::Mat cropped = image(roi);
+    Transformations::square_and_resize(cropped,600);
     //Save the image 
-    std::cout << std::string(OUT_FOLDER) + std::string("/temp/cropped_bg.jpg") << std::endl;
-    cv::imwrite(std::string(std::string(OUT_FOLDER) + std::string("/temp/cropped_bg.jpg")).c_str(),cropped);
+    //The folder must exist (this "temp" folder)
+    cv::imwrite(std::string(std::string(OUT_FOLDER) + std::string("/cropped_bg.jpg")).c_str(),cropped);
+    Entites::FILES::write_to_file(std::string(std::string(OUT_FOLDER) + std::string("/info.txt")).c_str(),"CREATED");
     //Await changes in  mask file, with high limit
-    Threading::await_file_change("../Options_Optimizer/run_temp/user_mask.jpg",10000,100);
-    //Now, the program will try to adapt the options to provided mask, starting from provided options
-    AlgorithmOptions options(OPTIONS_PATH);
+    
     
     return 0;
 }

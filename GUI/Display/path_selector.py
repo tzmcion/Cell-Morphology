@@ -39,6 +39,21 @@ def get_all_images(path:str)-> list[str]:
     for root, dirs, files in os.walk("."):
         for file in files:
             if file.endswith((".jpg",".png",".jpeg",".JPG",".PNG",".JPEG")):
-                IMAGES.append(file)
+                raw = (os.path.join(root,file)[1:])
+                IMAGES.append(path+raw)
     os.chdir(DIR)
     return IMAGES
+
+def save_paths_to_file(paths:list[str], path_to_save:str) -> None:
+    with open(path_to_save,'w') as file:
+        file.write('[')
+        is_first = True
+        for path in paths:
+            if(is_first == False):
+                file.write(',')
+            if(is_first == True):
+                is_first = False
+            file.write(path)
+        file.write(']')
+        file.close
+    return
