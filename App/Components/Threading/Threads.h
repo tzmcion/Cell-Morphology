@@ -26,7 +26,7 @@ class Threading{
         * Function waits until the file changes. If it iterates for more than 5000 times (10 sec), the wait is abandoned
         * @param path_to_monitor a path to the file, which changes are monitored 
         * **/
-        static void await_file_change(std::string path_to_monitor, int limit=5000, int span=2){
+        static std::string await_file_change(std::string path_to_monitor, int limit=5000, int span=2){
             std::chrono::milliseconds timespan(span);
             //Read content of the file
             std::string content = Entites::Convert::text_file_to_string(path_to_monitor.c_str());
@@ -36,8 +36,9 @@ class Threading{
                 std::this_thread::sleep_for(timespan);
                 counter++;
                 if(Entites::Convert::text_file_to_string(path_to_monitor.c_str()) != content)
-                    return;
+                    return Entites::Convert::text_file_to_string(path_to_monitor.c_str());
             }
+            return NULL;
         }
         
     private:

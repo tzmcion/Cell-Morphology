@@ -67,3 +67,9 @@ class ModuleIntegration:
     def read_new_options(self, reader:OptionsReader) -> None:
         """Method reads the options from the integrated module"""
         reader.hard_read_options(str(self.module_path + "/run_temp/alg_options.option"))
+        
+    def write_to_file(self,path:str, data:str):
+        with open(path,'w') as f:
+            f.write(data)
+            f.close()
+        return

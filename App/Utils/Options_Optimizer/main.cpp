@@ -2,6 +2,8 @@
 #include "../../Components/Structures/Colors.h"
 #include "../../Components/Transformations/Transformations.h"
 #include "../../Components/Structures/Structures.h"
+#include "../../Components/Optimalization/Optimaliation.h"
+#include "../../Components/Threading/Threads.h"
 
 /**
  * This file aims to optimize the options for Full segmentation_ being
@@ -49,20 +51,20 @@ int main(int argc, char **argv){
     std::cout << "Output folder is: " << Colors::YELLOW <<  OUT_FOLDER << Colors::RESET << std::endl;
     std::cout << Colors::BRIGHT_BLUE << "[INFO] " << Colors::RESET << "The output options will be saved to the output folder \n";
     //Select random image and crop/cut out 300x300 image
-    const std::string image_to_crop = images[rand() % images.size()];
-    const int CROP_SIZE = 200;
-    //Select random area on the image
-    cv::Mat image = cv::imread(image_to_crop,cv::IMREAD_GRAYSCALE);
-    int begin_x = rand() % (image.cols - CROP_SIZE);
-    int begin_y = rand() % (image.rows - CROP_SIZE);
-    //define region of interest
-    cv::Rect roi(begin_x,begin_y,CROP_SIZE,CROP_SIZE);
-    cv::Mat cropped = image(roi);
-    Transformations::square_and_resize(cropped,600);
+    Optimalization *opt = new Optimalization();
+    cv::Mat cropped;
+    opt->crop_save_image_sample(cropped,images,std::string(std::string(OUT_FOLDER) + std::string("/cropped_bg.jpg")));
+    std::string comm_file = std::string(std::string(OUT_FOLDER) + std::string("/info.txt"));
+    std::cout << comm_file;
     //Save the image 
     //The folder must exist (this "temp" folder)
-    cv::imwrite(std::string(std::string(OUT_FOLDER) + std::string("/cropped_bg.jpg")).c_str(),cropped);
-    Entites::FILES::write_to_file(std::string(std::string(OUT_FOLDER) + std::string("/info.txt")).c_str(),"CREATED");
+    Entites::FILES::write_to_file(comm_file.c_str(),"CREATED");
+    while(1){
+        std::string msg = Threading::await_file_change(comm_file.c_str(),500000,2);
+        opt->crop_save_image_sample(cropped,images,std::string(std::string(OUT_FOLDER) + std::string("/cropped_bg.jpg")));
+        Entites::FILES::write_to_file(comm_file.c_str(),"NEW_SAMPLE",' ',false,true);
+    }
+
     //Await changes in  mask file, with high limit
     
     

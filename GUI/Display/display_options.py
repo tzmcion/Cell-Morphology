@@ -77,10 +77,6 @@ class OptionsHandler:
             with dpg.group(horizontal=True):
                 dpg.add_text("Please insert the number of threads which you wish to use")
                 dpg.add_input_int(default_value=2, width=200)
-            with dpg.group(horizontal=True):
-                dpg.add_button(label="Draw/Get different sample")
-                dpg.add_button(label="Save mask and draw on next sample")
-                dpg.add_button(label="Save mask and start")
         all_paths = get_all_images(dpg.get_value("Autofit_path"))
         self.integrator = userDraw("mask_drawer",str(os.getcwd() + "/GUI/temp"),self.reader,all_paths)
         
