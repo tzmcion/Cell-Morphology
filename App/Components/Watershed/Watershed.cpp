@@ -167,6 +167,57 @@ void Watershed::foreground_mask(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &foregr
     }
     dst_mask = center_mask;
 }
+//
+//
+//
+void Watershed::watershed_with_masks(cv::Mat &src, cv::Mat &dst, cv::Mat &background, cv::Mat &foreground, int opening_force, int blur_force, int mean_median_force, double clache_force, int med_blur_second){
+    cv::Mat markers;
+    cv::connectedComponents(foreground,markers);
+    markers.setTo(1, background == 0); // Ensure background is labeled as 1
+    markers.setTo(0, (background != 0) & (foreground == 0)); // Unknown regions are 0
+    cv::Mat to_wat;
+    src.copyTo(to_wat);
+    cv::Mat image_watershed, result, watershed_markers;
+    Transformations::opening(to_wat,to_wat,'O',opening_force);
+    Transformations::double_blur(to_wat,to_wat,blur_force,mean_median_force);
+    Watershed::clache(to_wat,to_wat,clache_force);
+    cv::medianBlur(to_wat,to_wat,med_blur_second);
+    cv::cvtColor(to_wat, image_watershed, cv::COLOR_GRAY2BGR);
+    markers.convertTo(watershed_markers,CV_32S);
+    cv::watershed(image_watershed,watershed_markers);
+    watershed_markers.copyTo(dst);
+}
+//
+//
+//
+void Watershed::draw_watershed_lines(cv::Mat &src, cv::Mat &dst, cv::Mat &watershed_mask){
+    cv::Mat result;
+    cv::cvtColor(src,result,cv::COLOR_GRAY2RGB);
+    int count_green = 0;
+    for (int i = 0; i < watershed_mask.rows; i++) {
+        for (int j = 0; j < watershed_mask.cols; j++) {
+            int markerValue = watershed_mask.at<int>(i, j);
+            if (markerValue == -1) {
+                result.at<Vec3b>(i, j) = Vec3b((markerValue*10)%255, 105, 0); // Red for watershed boundaries
+            }
+            else if (markerValue == 1) {
+                result.at<Vec3b>(i, j) = Vec3b(150, 150, 150); // Blue for background
+            }
+            else if (markerValue >= 2) {
+                count_green += 1;
+                result.at<Vec3b>(i, j) = Vec3b((markerValue*10)%255,(markerValue*10)%255,(markerValue*25)%255);
+            }
+        }
+    }
+    Mat imageBGRA;
+    cvtColor(src, imageBGRA, COLOR_BGR2RGB);
+
+    // Blend the watershed result with the original image using 20% opacity for the result
+    Mat blended;
+    addWeighted(imageBGRA, 0.7, result, 0.3, 0, blended); // 80% original + 20% overlay
+    blended.copyTo(dst);
+}
+
 
 /*
     ***********************

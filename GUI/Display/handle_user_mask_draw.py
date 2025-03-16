@@ -4,9 +4,11 @@ This file handles the user mask drawing
 from optimization.OptionsReader import OptionsReader
 from optimization.ModuleIntegration import ModuleIntegration
 from Display.path_selector import save_paths_to_file
+from Display.results_display import resultsDisplay
 import dearpygui.dearpygui as dpg
 import os
 import numpy as np
+import cv2
 
 class userDraw:
     
@@ -220,14 +222,20 @@ class userDraw:
     def get_diff_sample(self):
         self.module_integrator.write_to_file(self.temp_path + "/info.txt","!NEW_SAMPLE")
         if(os.path.exists(self.temp_path + "/cropped_bg.jpg")):
-            os.remove(self.temp_path + "/cropped_bg.jpg")   
+            os.remove(self.temp_path + "/cropped_bg.jpg")
         self.module_integrator.await_file_change(self.temp_path + "/info.txt")
-        dpg.delete_item("Image_Canvas",children_only=True)   
+        dpg.delete_item("Image_Canvas",children_only=True)
+        width = height = 600
+        self.draw_axis = np.zeros((height, width), dtype=np.uint8) 
+        self.module_integrator.await_file_create(self.temp_path + "/cropped_bg.jpg")
         self.module_integrator.read_from_file_and_display(self.temp_path + "/cropped_bg.jpg","Image_Canvas")
         pass
     
     def start_optimization(self):
         #Save current mask and proceed to new window/module
+        cv2.imwrite(self.temp_path + "/generated_mask.bmp",self.draw_axis*10)
+        self.module_integrator.write_to_file(self.temp_path + "/info.txt", "!MASK_CREATED")
+        self.results = resultsDisplay("Image_Canvas",self.options)
         pass
         
     

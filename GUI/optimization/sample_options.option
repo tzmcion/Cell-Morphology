@@ -1,5 +1,6 @@
 # name of the variables and their type are purely for information for the user
 # the only thing that matters is the order of variables
+# !!! THIS METHOD IS NOT YET READY FOR DEPLOYEMENT !!!
 
 #Future, add option "auto" for specific type of option
 #example, in FOREGROUND_MASK: cell_radius: auto
@@ -37,4 +38,10 @@
     gftt_corners<int>: 3000
     gftt_quality<double>: 0.05
     cell_radius_multiplier<int>: 2      #multiplier for cell size
+-WATERSHED
+    opening_force<int>: 3
+    blur_force<int>: 3
+    mean_median_force<int>: 3
+    clache_force<double>: 3.0
+    med_blur_second<int>: 3
 

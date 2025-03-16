@@ -31,3 +31,9 @@
     gftt_corners<int>: 3000
     gftt_quality<double>: 0.05
     cell_radius_multiplier<int>: 2
+-WATERSHED
+    opening_force<int>: 3
+    blur_force<int>: 3
+    mean_median_force<int>: 3
+    clache_force<double>: 3.0
+    med_blur_second<int>: 3

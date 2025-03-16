@@ -1,3 +1,4 @@
+#pragma once
 /**
  * This file is used for options optimalization
  * For handlign the integration between the modules
@@ -17,20 +18,7 @@
          * Function crops the image and saves it to the temp folder in provided name
          * @param scale Parameter to define the scale of the saving
         */
-        void crop_save_image_sample(cv::Mat &out_img,std::vector<std::string> &images, std::string save_path,int scale=3){
-            const std::string image_to_crop = images[rand() % images.size()];
-            const int CROP_SIZE = 200;
-            //Select random area on the image
-            cv::Mat image = cv::imread(image_to_crop,cv::IMREAD_GRAYSCALE);
-            int begin_x = rand() % (image.cols - CROP_SIZE);
-            int begin_y = rand() % (image.rows - CROP_SIZE);
-            //define region of interest
-            cv::Rect roi(begin_x,begin_y,CROP_SIZE,CROP_SIZE);
-            cv::Mat cropped = image(roi);
-            Transformations::square_and_resize(cropped,CROP_SIZE*scale);
-            cv::imwrite(save_path.c_str(),cropped);
-            out_img = cropped;
-        }
+        void crop_save_image_sample(cv::Mat &out_img,std::vector<std::string> &images, std::string save_path,int scale=3);
 
         /**
          * Function aims to sequentially change single option to find the best match for user image
@@ -40,7 +28,28 @@
         /**
          * Function reads the mask saved in image and saves it in variable
          */
-        void read_user_mask(){};
+        void read_user_mask(std::string path_to_mask);
+
+        /**
+         * Function compares user mask to the material mask specified
+         */
+        double calculate_intersection_over_union(cv::Mat &image);
+
+    private:
+        
+        //Function finds unique values in matrix and stores it in a vector
+        void find_unique_values(cv::Mat &matrix, std::vector<int> &storage);
+
+        //Function adds one, or creates a new record with a certain object_id
+        void sum_up_storage(std::map<int,int> &storage, int object_value);
+
+        /**
+         * This function calculates maximum intersection over union on object (because many objects can overlap the user matrix)
+         * returns pair, with first being max IoU, and second is the size of the object
+         * @param object_id object id in USER MASK
+         * @param matrix image/mask given to compare with USER MASK
+         */
+        std::pair<double,int> calc_intersection_over_union_per_object(int object_id, cv::Mat &matrix);
 
         cv::Mat user_mask_matrix; //OpenCV like connected components matrix for user mask
         AlgorithmOptions *options;  //Algorithm options

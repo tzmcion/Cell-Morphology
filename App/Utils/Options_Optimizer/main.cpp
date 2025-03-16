@@ -61,12 +61,15 @@ int main(int argc, char **argv){
     Entites::FILES::write_to_file(comm_file.c_str(),"CREATED");
     while(1){
         std::string msg = Threading::await_file_change(comm_file.c_str(),500000,2);
-        opt->crop_save_image_sample(cropped,images,std::string(std::string(OUT_FOLDER) + std::string("/cropped_bg.jpg")));
-        Entites::FILES::write_to_file(comm_file.c_str(),"NEW_SAMPLE",' ',false,true);
+        std::cout << msg << std::endl;
+        if(msg == "!NEW_SAMPLE"){
+            opt->crop_save_image_sample(cropped,images,std::string(std::string(OUT_FOLDER) + std::string("/cropped_bg.jpg")));
+            Entites::FILES::write_to_file(comm_file.c_str(),"$NEW_SAMPLE",' ',false,true);
+        }
     }
-
+    
     //Await changes in  mask file, with high limit
     
-    
+    delete opt;
     return 0;
 }

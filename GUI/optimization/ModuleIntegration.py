@@ -44,7 +44,21 @@ class ModuleIntegration:
         if(is_done):
             return True
         return False
-        pass
+    
+    def await_file_create(self,path:str,max_iterations = 1000) ->bool:
+        """Method waits for file to exist"""
+        is_done = False
+        while is_done == False:
+            max_iterations -= 1
+            if(os.path.exists(path)):
+                is_done = True
+                break
+            if(max_iterations < 0):
+                break
+            time.sleep(0.02) 
+        if(is_done):
+            return True
+        return False
     
     def read_from_file_and_display(self, path:str, tag:str) -> None:
         """Function reads from the image and displays into specified tag of dpg"""

@@ -98,12 +98,37 @@ class Watershed{
 
 
         /**
+         * Function performes watershed with given background mask and foreground mask
+         * @return watershed markers
+         * @param src
+         * @param dst
+         * @param background
+         * @param foreground
+         * @param opening_force
+         * @param blur_force
+         * @param mean_median_force
+         * @param clache_force
+         * @param med_blur_second
+         */
+
+         static void watershed_with_masks(cv::Mat &src, cv::Mat &dst, cv::Mat &background, cv::Mat &foreground, int opening_force, int blur_force, int mean_median_force, double clache_force, int med_blur_second);
+
+                 /**
          * Functions uses other technique, clacheIMG and medianblur to do first preprocessing of the image
          * @param src source image
          * @param dst destination image
          * @param clache_limit a force of clache filter
          * */
         static void clache(cv:: Mat &src, cv::Mat &dst, double clache_limit=4.0);
+
+        /**
+         * Function draws the line on the image, making it visually distinguishable
+         * @param src
+         * @param dst
+         * @param watershed_mask
+         */
+        static void draw_watershed_lines(cv::Mat &src, cv::Mat &dst, cv::Mat &watershed_mask);
+
     //*************
     //** PRIVATE **
     //*************

@@ -5,6 +5,7 @@ GUI will handle all the executions, and optimization of the algorithms.
 Especially, It will display all the options.
 """
 import dearpygui.dearpygui as dpg
+import config
 from Display.display_options import OptionsHandler
 
 #Define global Variables
@@ -29,7 +30,14 @@ def __main__():
     opt = OptionsHandler()
     ###
     dpg.show_viewport()
-    dpg.start_dearpygui()
+    # dpg.start_dearpygui()
+    while dpg.is_dearpygui_running():
+        #Main Loop
+        #Literally anything can go here
+        #Halleluja!
+        for function in config.frame_functions:
+            function()
+        dpg.render_dearpygui_frame()
     dpg.destroy_context()
     
 
