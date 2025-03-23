@@ -8,6 +8,7 @@
  #include "../Includes/includes.h"
  #include "../Structures/AlgorithmOptions.h"
  #include "../Transformations/Transformations.h"
+ #include "../Watershed/Watershed.h"
 
  class Optimalization{
     //Class for handling Optimalization
@@ -23,7 +24,7 @@
         /**
          * Function aims to sequentially change single option to find the best match for user image
          */
-        void single_option_optimization(){};
+        void single_option_optimization(cv::Mat &img, AlgorithmOptions &options, std::string option_class, size_t option_index, bool uneven = false, int max_iterations=50, double resolution = 0.2);
 
         /**
          * Function reads the mask saved in image and saves it in variable
@@ -42,6 +43,9 @@
 
         //Function adds one, or creates a new record with a certain object_id
         void sum_up_storage(std::map<int,int> &storage, int object_value);
+
+        //Function runs the watershed segmentation with given options and returns a mask
+        void simulate_watershed(cv::Mat &img, cv::Mat &out, AlgorithmOptions &options);
 
         /**
          * This function calculates maximum intersection over union on object (because many objects can overlap the user matrix)

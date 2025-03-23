@@ -20,15 +20,15 @@ class AlgorithmOptions: private ReadOptions{
     /**
      * TODO: Function will allow altering of double option
      */
-    void new_db_value(size_t index, std::string name, double new_value){};
+    void set_db_value(size_t index, std::string name, double new_value);
     /**
      * TODO: Function will allow altering of integer option
      */
-    void new_int_value(size_t index, std::string name, int new_value){};
+    void set_int_value(size_t index, std::string name, int new_value);
     /**
      * TODO: Function will generate the output .option file
      */
-    void save_options_to_file(const char* file_path){};
+    void save_options_to_file(const char* file_path);
 
     void set_name_for_iterations(std::string new_name){
         this->curr_name = new_name;
@@ -36,7 +36,13 @@ class AlgorithmOptions: private ReadOptions{
 
     int options_size_by_name(std::string name);
 
+    /*For class of option*/
     size_t get_name_index(std::string name);
+    /*For subclass*/
+    size_t get_option_index(std::string class_name, std::string searched_name);
+
+    static constexpr double MAX_DB = std::numeric_limits<double>::max();
+    static constexpr int MAX_INT = std::numeric_limits<int>::max();
 
     private:
 

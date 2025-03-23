@@ -118,3 +118,28 @@ int AlgorithmOptions::get_next_int(std::string name){
     options[idx_opt]->iterator += 1;
     return options[idx_opt]->data[options[idx_opt]->iterator-1].first;
 }
+
+void AlgorithmOptions::set_int_value(size_t index, std::string name, int new_value){
+    size_t idx_opt = get_name_index(name);
+    if(idx_opt == this->max_value){
+        throw std::invalid_argument("Provided name for algorithm does not match name in .option file provided");
+    }
+    options[idx_opt]->data[index].first = new_value;
+}
+
+void AlgorithmOptions::set_db_value(size_t index, std::string name, double new_value){
+    size_t idx_opt = get_name_index(name);
+    if(idx_opt == this->max_value){
+        throw std::invalid_argument("Provided name for algorithm does not match name in .option file provided");
+    }
+    options[idx_opt]->data[index].second = new_value;
+}
+
+void AlgorithmOptions::save_options_to_file(const char* file_name){
+    //TODO
+}
+
+size_t AlgorithmOptions::get_option_index(std::string class_name, std::string searched_name){
+    //Currently not supported
+    return 0;
+}

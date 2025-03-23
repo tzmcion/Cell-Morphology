@@ -18,8 +18,47 @@ void Optimalization::crop_save_image_sample(cv::Mat &out_img,std::vector<std::st
 
 void Optimalization::read_user_mask(std::string path_to_mask){
     cv::Mat mask = cv::imread(path_to_mask,cv::IMREAD_GRAYSCALE);
+    const double resolution = 0.2;
+    Transformations::square_and_resize(mask,int(resolution*mask.cols));
     mask.convertTo(this->user_mask_matrix, CV_32S);
     //I don't think I need to normalize it
+
+}
+
+void Optimalization::single_option_optimization(cv::Mat &img, AlgorithmOptions &options, std::string option_class, size_t option_index,bool uneven,int max_iterations, double resolution){
+    //Rescale the image to given ratio
+    const int opt_size = int(img.cols * resolution);   //Material should be a square
+    cv::Mat image, result;
+    img.copyTo(image);
+    Transformations::square_and_resize(image,opt_size);
+    double precision = 1;
+    int best_val = 0;
+    //get the value of the option, and define max and minimum values.
+    if(options.get_db_var(option_index,option_class) == AlgorithmOptions::MAX_DB){
+        //Then we work with integers
+        //With integers it is easier, just iterate over every value from 0 to 10
+        simulate_watershed(image,result,options);
+        precision = calculate_intersection_over_union(result);
+        std::cout << "PREC: " << precision << std::endl;
+        best_val = options.get_int_var(option_index, option_class);
+        for(int x = 1; x < max_iterations; x++){
+            if(uneven && x !=1){
+                x+=1;
+            }
+            // options.set_int_value(option_index, option_class, x);
+            simulate_watershed(image,result,options);
+            double new_precision = calculate_intersection_over_union(result);
+            if(new_precision > precision){
+                precision = new_precision;
+                std:: cout << "Found new best value for " << option_index << " : " << x << "  || Precision: " << precision << std::endl;
+                best_val = x;
+            }
+        }
+        //options.set_int_value(option_index, option_class, best_val);
+    }
+    else{
+
+    }
 
 }
 
@@ -119,4 +158,15 @@ std::pair<double,int> Optimalization::calc_intersection_over_union_per_object(in
         }
     }
     return std::pair<double,int>(max_val,overall_matrix);
+}
+
+void Optimalization::simulate_watershed(cv::Mat &img, cv::Mat &out, AlgorithmOptions &options){
+    cv::Mat background_mask, foreground_mask, foreground_regions;
+    Watershed::background_mask(img,background_mask,options.get_int_var(0,"BACKGROUND_MASK"),options.get_int_var(1,"BACKGROUND_MASK"),options.get_db_var(2,"BACKGROUND_MASK"),options.get_int_var(3,"BACKGROUND_MASK"),options.get_int_var(4,"BACKGROUND_MASK"),options.get_int_var(5,"BACKGROUND_MASK"),options.get_db_var(6,"BACKGROUND_MASK"),options.get_int_var(7,"BACKGROUND_MASK"));
+    // //This will be even longer
+    Watershed::foreground_regions(img,foreground_regions,background_mask,options.get_int_var(0,"FOREGROUND_REGIONS"),options.get_int_var(1,"FOREGROUND_REGIONS"),options.get_db_var(2,"FOREGROUND_REGIONS"),options.get_int_var(3,"FOREGROUND_REGIONS"),options.get_db_var(4,"FOREGROUND_REGIONS"),options.get_int_var(5,"FOREGROUND_REGIONS"));
+    // //And thiss will be the longest
+    Watershed::foreground_mask(img,foreground_mask,foreground_regions,background_mask,options.get_int_var(0,"FOREGROUND_MASK"), options.get_int_var(1,"FOREGROUND_MASK"), options.get_int_var(2,"FOREGROUND_MASK"), options.get_int_var(3,"FOREGROUND_MASK"), options.get_db_var(4,"FOREGROUND_MASK"), options.get_db_var(5,"FOREGROUND_MASK"),options.get_db_var(6,"FOREGROUND_MASK"), options.get_db_var(7,"FOREGROUND_MASK"), options.get_int_var(8,"FOREGROUND_MASK"), options.get_int_var(9,"FOREGROUND_MASK"), options.get_int_var(10,"FOREGROUND_MASK"), options.get_db_var(11,"FOREGROUND_MASK"), options.get_int_var(12,"FOREGROUND_MASK"));
+    //And apply the watershed with masks and options
+    Watershed::watershed_with_masks(img,out,background_mask,foreground_mask,options.get_int_var(0,"WATERSHED"),options.get_int_var(1,"WATERSHED"),options.get_int_var(2,"WATERSHED"),options.get_db_var(3,"WATERSHED"),options.get_int_var(4,"WATERSHED"));
 }
