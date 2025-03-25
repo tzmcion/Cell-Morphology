@@ -214,7 +214,7 @@ void Watershed::draw_watershed_lines(cv::Mat &src, cv::Mat &dst, cv::Mat &waters
 
     // Blend the watershed result with the original image using 20% opacity for the result
     Mat blended;
-    addWeighted(imageBGRA, 0.7, result, 0.3, 0, blended); // 80% original + 20% overlay
+    addWeighted(imageBGRA, 0.5, result, 0.5, 0, blended); // 80% original + 20% overlay
     blended.copyTo(dst);
 }
 
