@@ -24,7 +24,7 @@
         /**
          * Function aims to sequentially change single option to find the best match for user image
          */
-        void single_option_optimization(cv::Mat &img, AlgorithmOptions &options, std::string option_class, size_t option_index, bool uneven = false, int max_iterations=50, int min_start = 1, double resolution = 0.2);
+        double single_option_optimization(cv::Mat &img, AlgorithmOptions &options, std::string option_class, size_t option_index, bool uneven = false, int max_iterations=50, int min_start = 1, double resolution = 0.2);
 
         /**
          * Function reads the mask saved in image and saves it in variable

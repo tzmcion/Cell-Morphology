@@ -3,7 +3,7 @@ import subprocess
 
 FOLDER = str(os.getcwd())
 #Define where the images are for segmentation
-IMAGES = FOLDER + "/NOR_preprocessed"
+IMAGES = FOLDER + "/TEST"
 
 os.chdir('../')
 
@@ -15,7 +15,7 @@ PREPROCESS = APP_PATH + '/Utils/Preprocess_all'
 OPTIONS = FOLDER + '/segment.option'
 
 #Path to out directory, it must exist
-OUT_DIR = FOLDER + '/NOR_seg_out'
+OUT_DIR = FOLDER + '/OUT'
 
 #EXCLUDED FOLDERS BY NAME AND ID
 EXCLUDED_FOLDERS = []
@@ -53,7 +53,7 @@ for path in paths:
     if (path in EXCLUDED_FOLDERS) or (path[-3:-2].strip() in EXCLUDED_FOLDERS) or (path[-2:].strip() in EXCLUDED_FOLDERS):
         continue
     deep_paths = [f.path for f in os.scandir(path)]
-    OUT_DD = OUT_DIR + '/' + path[len(path)-3:len(path)]
+    OUT_DD = OUT_DIR + path[len(path)-3:len(path)]
     f = open(IMG_PATH, "w")
     f.write(get_paths(path))
     f.close()

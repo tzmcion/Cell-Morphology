@@ -18,19 +18,20 @@ void Optimalization::crop_save_image_sample(cv::Mat &out_img,std::vector<std::st
 
 void Optimalization::read_user_mask(std::string path_to_mask){
     cv::Mat mask = cv::imread(path_to_mask,cv::IMREAD_GRAYSCALE);
-    const double resolution = 0.2;
+    const double resolution = 0.15;
     Transformations::square_and_resize(mask,int(resolution*mask.cols));
     mask.convertTo(this->user_mask_matrix, CV_32S);
     //I don't think I need to normalize it
 
 }
 
-void Optimalization::single_option_optimization(cv::Mat &img, AlgorithmOptions &options, std::string option_class, size_t option_index,bool uneven,int max_iterations, int min_start, double resolution){
+double Optimalization::single_option_optimization(cv::Mat &img, AlgorithmOptions &options, std::string option_class, size_t option_index,bool uneven,int max_iterations, int min_start, double resolution){
     //Rescale the image to given ratio
-    const int opt_size = int(img.cols * resolution);   //Material should be a square
+    const int opt_size = int(img.cols * 0.15);   //Material should be a square
     cv::Mat image, result;
     img.copyTo(image);
     Transformations::square_and_resize(image,opt_size);
+    // image.convertTo(image, CV_32S);
     double precision = 0.0, new_precision = 0.0;
     //get the value of the option, and define max and minimum values.
     if(options.get_db_var(option_index,option_class) == AlgorithmOptions::MAX_DB){
@@ -49,16 +50,49 @@ void Optimalization::single_option_optimization(cv::Mat &img, AlgorithmOptions &
             // std::cout << "PRECISION: " << new_precision << std::endl;
             if(new_precision > precision){
                 precision = new_precision;
-                std:: cout << "Found new best value for " << option_index << " : " << x << "  || Precision: " << precision << std::endl;
+                std:: cout << "Found new best value for " << option_index << " : " << x << "  -- Precision: " << precision << std::endl;
                 best_val = x;
             }
         }
         options.set_int_value(option_index, option_class, best_val);
     }
     else{
-
+        //Now, finding the best value for double...
+        //Define range and step
+        //The best margin would alway be the best value and lower and higher
+        const int DEPTH = 3;    //Depth defines how deeply the algorithm goes
+        double range_min = options.get_db_var(option_index,option_class) - (max_iterations/(DEPTH*(DEPTH-1)));
+        if(range_min < 1.0)range_min = 1.0;
+        double range_max = options.get_db_var(option_index,option_class) + (max_iterations/(DEPTH*(DEPTH-1))) + range_min;
+        double mx_range, ms_range;
+        double step = resolution / 2;
+        simulate_watershed(image,result, options);
+        double best_precision = calculate_intersection_over_union(result);
+        double best_value = options.get_db_var(option_index, option_class);
+        double current_reach_level = 1.0;
+        for(int i = 0; i < 1; i++){
+            for(double x = 0.1; x < 5.0; x+=step){
+                options.set_db_value(option_index, option_class, x);
+                simulate_watershed(image,result, options);
+                new_precision = calculate_intersection_over_union(result);
+                // std::cout << "CALC: " << x << "PREC: " << new_precision << " INDEX: " << option_index << std::endl;
+                if(new_precision > best_precision){
+                    best_precision = new_precision;
+                    ms_range = x-(0.90/current_reach_level);
+                    mx_range = x+(0.90/current_reach_level);
+                    best_value = x;
+                    std:: cout << "Found new best value for " << option_index << " : " << best_value << "  || Precision: " << best_precision << std::endl;
+                }
+            }
+            range_max = mx_range;
+            range_min = ms_range;
+            step = step/3;
+            current_reach_level = current_reach_level*10;
+        }
+        options.set_db_value(option_index, option_class, best_value);
+        precision = best_precision;
     }
-
+    return precision;
 }
 
 double Optimalization::calculate_intersection_over_union(cv::Mat &image){

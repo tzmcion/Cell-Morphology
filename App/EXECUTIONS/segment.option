@@ -8,4 +8,4 @@
 #    arguments: [def]
 ID: Full_Segmentation
     iterations: 1
-    arguments: [def]
+    arguments: [../../EXECUTIONS/options_algorithms.option]
