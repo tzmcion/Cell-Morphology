@@ -1,9 +1,9 @@
 #include "./Optimaliation.h"
 
 
-void Optimalization::crop_save_image_sample(cv::Mat &out_img,std::vector<std::string> &images, std::string save_path,int scale){
+void Optimalization::crop_save_image_sample(cv::Mat &out_img,std::vector<std::string> &images, std::string save_path,int crop_size ,int scale){
     const std::string image_to_crop = images[rand() % images.size()];
-    const int CROP_SIZE = 200;
+    const int CROP_SIZE = crop_size;
     //Select random area on the image
     cv::Mat image = cv::imread(image_to_crop,cv::IMREAD_GRAYSCALE);
     int begin_x = rand() % (image.cols - CROP_SIZE);
@@ -18,16 +18,75 @@ void Optimalization::crop_save_image_sample(cv::Mat &out_img,std::vector<std::st
 
 void Optimalization::read_user_mask(std::string path_to_mask){
     cv::Mat mask = cv::imread(path_to_mask,cv::IMREAD_GRAYSCALE);
-    const double resolution = 0.15;
-    Transformations::square_and_resize(mask,int(resolution*mask.cols));
+    Transformations::square_and_resize(mask,int(this->resolution*mask.cols));
     mask.convertTo(this->user_mask_matrix, CV_32S);
     //I don't think I need to normalize it
+}
 
+void Optimalization::start_optimization(cv::Mat &org_img, std::string mask_path, std::string options_path, std::string out_options_path, bool shuffle, size_t iterations, bool save_order, bool itter_shuffle){
+    read_user_mask(mask_path);
+    //Load the options to one single vector
+    AlgorithmOptions options(options_path.c_str());
+    //Order is to be changed
+    std::vector<opt_option> options_to_optimize;
+    options_to_optimize.push_back(opt_option("BACKGROUND_MASK",2,false,20,1,0.1));
+    options_to_optimize.push_back(opt_option("BACKGROUND_MASK",6,false,20,1,0.1));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",8,false,50,10,0.2));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",9,false,10,1,0.2));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",12,false,5,1,0.1));
+    options_to_optimize.push_back(opt_option("FOREGROUND_REGIONS",2,false,20,1,0.1));
+    options_to_optimize.push_back(opt_option("FOREGROUND_REGIONS",4,false,20,1,0.1));
+    options_to_optimize.push_back(opt_option("FOREGROUND_REGIONS",3,true,20,1,0.2));
+    options_to_optimize.push_back(opt_option("FOREGROUND_REGIONS",0,true,20,1,0.2));
+    options_to_optimize.push_back(opt_option("FOREGROUND_REGIONS",1,true,20,1,0.1));
+    options_to_optimize.push_back(opt_option("FOREGROUND_REGIONS",5,true,20,1,0.2));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",4,false,20,1,0.1));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",5,false,20,1,0.1));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",6,false,20,1,0.1));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",1,false,20,1,0.1));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",11,false,20,0,0.1));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",2,true,20,1,0.2));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",3,true,20,1,0.2));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",0,true,20,1,0.2));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",1,true,20,1,0.2));
+    options_to_optimize.push_back(opt_option("WATERSHED",0,true,20,1,0.2));
+    options_to_optimize.push_back(opt_option("WATERSHED",2,true,20,1,0.2));
+    options_to_optimize.push_back(opt_option("WATERSHED",4,true,20,1,0.2));
+    options_to_optimize.push_back(opt_option("WATERSHED",1,true,20,1,0.1));
+    //Prepare algorithm
+    double best_val = 0.0, val = 0.0;
+    options.set_int_value(10,"FOREGROUND_MASK",int(0.25*0.1*5000));
+    std::random_device rd;
+    std::mt19937 g(rd());
+    if(shuffle){
+        std::shuffle(options_to_optimize.begin(), options_to_optimize.end(),g);
+    }
+
+    for(size_t y = 0; y < iterations; y++){
+        for(size_t x = 0; x < options_to_optimize.size(); x++){
+            val = this->single_option_optimization(org_img, options,options_to_optimize[x].name,options_to_optimize[x].index,options_to_optimize[x].is_iter,options_to_optimize[x].max_iter,options_to_optimize[x].min_iter,options_to_optimize[x].resolution);
+        }
+        if(val > best_val){
+            best_val = val;
+            std::string order = "";
+
+            if(save_order){
+                for(size_t i = 0; i < options_to_optimize.size(); i++){
+                    order += options_to_optimize[i].name + "\n";
+                }
+            }
+            options.save_options_to_file(out_options_path.c_str(), order);
+        }
+        if(itter_shuffle){
+            std::shuffle(options_to_optimize.begin(), options_to_optimize.end(),g);
+        }
+    }
+    //End of optimization
 }
 
 double Optimalization::single_option_optimization(cv::Mat &img, AlgorithmOptions &options, std::string option_class, size_t option_index,bool uneven,int max_iterations, int min_start, double resolution){
     //Rescale the image to given ratio
-    const int opt_size = int(img.cols * 0.15);   //Material should be a square
+    const int opt_size = int(img.cols * this->resolution);   //Material should be a square
     cv::Mat image, result;
     img.copyTo(image);
     Transformations::square_and_resize(image,opt_size);
@@ -57,21 +116,18 @@ double Optimalization::single_option_optimization(cv::Mat &img, AlgorithmOptions
         options.set_int_value(option_index, option_class, best_val);
     }
     else{
-        //Now, finding the best value for double...
-        //Define range and step
-        //The best margin would alway be the best value and lower and higher
-        const int DEPTH = 3;    //Depth defines how deeply the algorithm goes
-        double range_min = options.get_db_var(option_index,option_class) - (max_iterations/(DEPTH*(DEPTH-1)));
-        if(range_min < 1.0)range_min = 1.0;
-        double range_max = options.get_db_var(option_index,option_class) + (max_iterations/(DEPTH*(DEPTH-1))) + range_min;
-        double mx_range, ms_range;
-        double step = resolution / 2;
+        const int DEPTH = 2;    //Depth defines how deeply the algorithm goes
+        double range_min = options.get_db_var(option_index,option_class) / 5;
+        if(range_min < 0.01)range_min = 0.01;
+        double range_max = options.get_db_var(option_index,option_class) + (max_iterations/DEPTH);
+        double mx_range = 0.0, ms_range = 0.0;    //ms_range will also be the flag
+        double step = 0.1;
         simulate_watershed(image,result, options);
         double best_precision = calculate_intersection_over_union(result);
         double best_value = options.get_db_var(option_index, option_class);
-        double current_reach_level = 1.0;
-        for(int i = 0; i < 1; i++){
-            for(double x = 0.1; x < 5.0; x+=step){
+        double current_reach_level = 10.0;
+        for(int i = 0; i < DEPTH; i++){
+            for(double x = range_min; x < range_max; x+=step){
                 options.set_db_value(option_index, option_class, x);
                 simulate_watershed(image,result, options);
                 new_precision = calculate_intersection_over_union(result);
@@ -84,9 +140,16 @@ double Optimalization::single_option_optimization(cv::Mat &img, AlgorithmOptions
                     std:: cout << "Found new best value for " << option_index << " : " << best_value << "  || Precision: " << best_precision << std::endl;
                 }
             }
+            if(mx_range == 0.0){
+                mx_range = options.get_db_var(option_index,option_class) +(0.90/current_reach_level);
+                ms_range = options.get_db_var(option_index,option_class) -(0.90/current_reach_level);
+            }
+            if(ms_range <= 0){
+                ms_range = 0.01;
+            }
             range_max = mx_range;
             range_min = ms_range;
-            step = step/3;
+            step = step/10;
             current_reach_level = current_reach_level*10;
         }
         options.set_db_value(option_index, option_class, best_value);

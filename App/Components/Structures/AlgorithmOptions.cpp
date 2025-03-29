@@ -51,6 +51,13 @@ AlgorithmOptions::AlgorithmOptions(const char* path_to_file) : ReadOptions("NULL
             double value = std::atof(part_lines[1].c_str());
             object->data.push_back(std::make_pair(std::numeric_limits<int>::max(),value));
         }
+        //Extract the name
+        std::string option_name = "";
+        for(int x = 0; part_lines[0][x] != '<'; x++){
+            option_name += part_lines[0][x];
+        }
+        object->names.push_back(option_name);
+
     }
     //End of loop, add what was there
     options.push_back(object);
@@ -135,8 +142,34 @@ void AlgorithmOptions::set_db_value(size_t index, std::string name, double new_v
     options[idx_opt]->data[index].second = new_value;
 }
 
-void AlgorithmOptions::save_options_to_file(const char* file_name){
-    //TODO
+void AlgorithmOptions::save_options_to_file(const char* file_name, std::string addition){
+    const std::string TOP_MSG = "# File created automatically via optimization tool \n #PLEASE DO NOT ALTER THE NAMING OR ORDER!";
+    //Code
+    std::ofstream file(file_name);
+    std::cout << "Writing file: " << file_name;
+    std::string current_class = "";
+    if(file.is_open()){
+        file << TOP_MSG.c_str() << std::endl << std::endl;
+        for (size_t x = 0; x < options.size(); x++){
+            file << '-' << options[x]->name << std::endl;
+            for(size_t y = 0; y < options[x]->data.size(); y++){
+                std::string make_line = "    ";
+                make_line += options[x]->names[y];
+                std::pair<int,double> data = options[x]->data[y];
+                if(data.first == AlgorithmOptions::MAX_INT){
+                    make_line += "<double>: ";
+                    make_line += std::to_string(data.second);
+                }else{
+                    make_line += "<int>: ";
+                    make_line += std::to_string(data.first);
+                }
+
+                file << make_line << std::endl;
+            }
+        }
+    }
+    file << std::endl << addition;
+    file.close();
 }
 
 size_t AlgorithmOptions::get_option_index(std::string class_name, std::string searched_name){

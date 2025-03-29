@@ -13,13 +13,15 @@
  class Optimalization{
     //Class for handling Optimalization
     public:
-        Optimalization(){};
+        Optimalization(double resolution = 0.25){
+            this->resolution = resolution;
+        };
         ~Optimalization(){};
         /** 
          * Function crops the image and saves it to the temp folder in provided name
          * @param scale Parameter to define the scale of the saving
         */
-        void crop_save_image_sample(cv::Mat &out_img,std::vector<std::string> &images, std::string save_path,int scale=3);
+        void crop_save_image_sample(cv::Mat &out_img,std::vector<std::string> &images, std::string save_path,int crop_size = 150,int scale=4);
 
         /**
          * Function aims to sequentially change single option to find the best match for user image
@@ -30,6 +32,11 @@
          * Function reads the mask saved in image and saves it in variable
          */
         void read_user_mask(std::string path_to_mask);
+
+        /**
+         * Function starts the main optimization of option
+         */
+        void start_optimization(cv::Mat &org_img, std::string mask_path, std::string options_path, std::string out_options_path, bool shuffle = false, size_t iterations=5, bool save_order = false, bool itter_shuffle=false);
 
         /**
          * Function compares user mask to the material mask specified
@@ -58,10 +65,23 @@
         cv::Mat user_mask_matrix; //OpenCV like connected components matrix for user mask
         AlgorithmOptions *options;  //Algorithm options
 
-        enum Response{  //Possible responses in communication file
-            SAMPLE_CH,
-            START_OPT,
-            AWAIT_USR,
-            PAUSE_OPT //This one to do later
+        //resolution is scale
+        double resolution;
+
+        struct opt_option{
+            opt_option(std::string name, int index, bool is_iter, int max_iter, int min_iter, double resolution){
+                this->name = name;
+                this->index = index;
+                this->is_iter = is_iter;
+                this->max_iter = max_iter;
+                this->min_iter = min_iter;
+                this->resolution = resolution;
+            }
+            std::string name;
+            int index;
+            bool is_iter;
+            int max_iter;
+            int min_iter;
+            double resolution;
         };
  };

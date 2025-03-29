@@ -51,20 +51,27 @@ int main(int argc, char **argv){
     std::cout << "Output folder is: " << Colors::YELLOW <<  OUT_FOLDER << Colors::RESET << std::endl;
     std::cout << Colors::BRIGHT_BLUE << "[INFO] " << Colors::RESET << "The output options will be saved to the output folder \n";
     //Select random image and crop/cut out 300x300 image
-    Optimalization *opt = new Optimalization();
+    Optimalization *opt = new Optimalization(0.25);
     cv::Mat cropped;
-    opt->crop_save_image_sample(cropped,images,std::string(std::string(OUT_FOLDER) + std::string("/cropped_bg.jpg")));
+    opt->crop_save_image_sample(cropped,images,std::string(std::string(OUT_FOLDER) + std::string("/cropped_bg.jpg")),150,4);
     std::string comm_file = std::string(std::string(OUT_FOLDER) + std::string("/info.txt"));
-    std::cout << comm_file;
+    std::string mask_file = std::string(std::string(OUT_FOLDER) + std::string("/generated_mask.bmp"));
+    std::string out_file = std::string(std::string(OUT_FOLDER) + std::string("/options_out.option"));
     //Save the image 
     //The folder must exist (this "temp" folder)
     Entites::FILES::write_to_file(comm_file.c_str(),"CREATED");
     while(1){
         std::string msg = Threading::await_file_change(comm_file.c_str(),500000,2);
-        std::cout << msg << std::endl;
-        if(msg == "!NEW_SAMPLE"){
+        std::cout << msg << "NO DO ZESRANIA" << std::endl;
+        if(std::strcmp("!NEW_SAMPLE",msg.c_str())){
             opt->crop_save_image_sample(cropped,images,std::string(std::string(OUT_FOLDER) + std::string("/cropped_bg.jpg")));
-            Entites::FILES::write_to_file(comm_file.c_str(),"$NEW_SAMPLE",' ',false,true);
+            Entites::FILES::write_to_file(comm_file.c_str(),"SAMPLE_READY",' ',false,true);
+        }
+        if(std::strcmp("!START",msg.c_str())){
+            std::cout << "start the optimization process" << std::endl;
+            Entites::FILES::write_to_file(comm_file.c_str(), std::string("OPTIMIZING: ") + out_file, ' ', false, true);
+            opt->start_optimization(cropped, mask_file, OPTIONS_PATH, out_file);
+            Entites::FILES::write_to_file(comm_file.c_str(), "OPTIMIZATION_DONE", ' ', false, true);
         }
     }
     

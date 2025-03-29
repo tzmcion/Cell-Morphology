@@ -10,7 +10,8 @@ class resultsDisplay:
         self.options = options
         
         def caller():
-            print("buja")
+            # print("buja")
+            pass
             
         config.frame_functions.append(caller)
         pass

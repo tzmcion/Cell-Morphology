@@ -234,7 +234,7 @@ class userDraw:
     def start_optimization(self):
         #Save current mask and proceed to new window/module
         cv2.imwrite(self.temp_path + "/generated_mask.bmp",self.draw_axis*10)
-        self.module_integrator.write_to_file(self.temp_path + "/info.txt", "!MASK_CREATED")
+        self.module_integrator.write_to_file(self.temp_path + "/info.txt", "!START")
         self.results = resultsDisplay("Image_Canvas",self.options)
         pass
         

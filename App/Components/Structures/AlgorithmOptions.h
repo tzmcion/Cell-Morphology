@@ -28,7 +28,7 @@ class AlgorithmOptions: private ReadOptions{
     /**
      * TODO: Function will generate the output .option file
      */
-    void save_options_to_file(const char* file_path);
+    void save_options_to_file(const char* file_path, std::string addition="");
 
     void set_name_for_iterations(std::string new_name){
         this->curr_name = new_name;
@@ -50,6 +50,7 @@ class AlgorithmOptions: private ReadOptions{
         std::string name;
         //Depending on data type of variable, either returning will be "first", or "second"
         std::vector<std::pair<int,double>> data;
+        std::vector<std::string> names;
         size_t iterator = 0;
     };
     std::vector<optionObject*> options;

@@ -19,7 +19,7 @@ int main(int argc, char **argv){
     std::random_device rd;  // Non-deterministic random seed
     std::mt19937 g(rd());   // Mersenne Twister PRNG
     
-    Optimalization opt = Optimalization();
+    Optimalization opt = Optimalization(0.25);
     opt.read_user_mask(user_mask_path);
     //Create new mask
     AlgorithmOptions options(OPTIONS_PATH.c_str());
@@ -45,42 +45,46 @@ int main(int argc, char **argv){
     };
     double best_ever_val = 0.0, total_best = 0.0;
     std::vector<opt_option> options_to_optimize;
-    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",0,true,20,1,0.2));
-    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",1,true,20,1,0.2));
-    options_to_optimize.push_back(opt_option("FOREGROUND_REGIONS",0,true,20,1,0.2));
-    options_to_optimize.push_back(opt_option("WATERSHED",0,true,20,1,0.2));
-    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",2,true,20,1,0.2));
-    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",3,true,20,1,0.2));
-    options_to_optimize.push_back(opt_option("FOREGROUND_REGIONS",3,true,20,1,0.2));
-    options_to_optimize.push_back(opt_option("WATERSHED",2,true,20,1,0.2));
     options_to_optimize.push_back(opt_option("FOREGROUND_MASK",8,false,50,10,0.2));
     options_to_optimize.push_back(opt_option("FOREGROUND_MASK",9,false,10,1,0.2));
     options_to_optimize.push_back(opt_option("FOREGROUND_REGIONS",5,true,20,1,0.2));
-    options_to_optimize.push_back(opt_option("WATERSHED",4,true,20,1,0.2));
     options_to_optimize.push_back(opt_option("FOREGROUND_MASK",12,false,5,1,0.1));
     options_to_optimize.push_back(opt_option("FOREGROUND_REGIONS",1,true,20,1,0.1));
+    options_to_optimize.push_back(opt_option("BACKGROUND_MASK",2,false,20,1,0.1));
+    options_to_optimize.push_back(opt_option("BACKGROUND_MASK",6,false,20,1,0.1));
+    options_to_optimize.push_back(opt_option("FOREGROUND_REGIONS",2,false,20,1,0.1));
+    options_to_optimize.push_back(opt_option("FOREGROUND_REGIONS",4,false,20,1,0.1));
+    options_to_optimize.push_back(opt_option("FOREGROUND_REGIONS",3,true,20,1,0.2));
+    options_to_optimize.push_back(opt_option("FOREGROUND_REGIONS",0,true,20,1,0.2));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",4,false,20,1,0.1));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",5,false,20,1,0.1));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",6,false,20,1,0.1));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",1,false,20,1,0.1));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",11,false,20,0,0.1));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",2,true,20,1,0.2));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",3,true,20,1,0.2));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",0,true,20,1,0.2));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",1,true,20,1,0.2));
+    options_to_optimize.push_back(opt_option("WATERSHED",0,true,20,1,0.2));
+    options_to_optimize.push_back(opt_option("WATERSHED",2,true,20,1,0.2));
+    options_to_optimize.push_back(opt_option("WATERSHED",4,true,20,1,0.2));
     options_to_optimize.push_back(opt_option("WATERSHED",1,true,20,1,0.1));
-    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",1,false,30,1,0.1));
-    options_to_optimize.push_back(opt_option("BACKGROUND_MASK",2,false,30,1,0.1));
-    options_to_optimize.push_back(opt_option("BACKGROUND_MASK",6,false,30,1,0.1));
-    options_to_optimize.push_back(opt_option("FOREGROUND_REGIONS",2,false,30,1,0.1));
-    options_to_optimize.push_back(opt_option("FOREGROUND_REGIONS",4,false,30,1,0.1));
-    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",4,false,30,1,0.1));
-    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",5,false,30,1,0.1));
-    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",6,false,30,1,0.1));
     // options_to_optimize.push_back(opt_option("FOREGROUND_MASK",7,false,30,1,0.1));
     // options_to_optimize.push_back(opt_option("WATERSHED",4,false,30,1,0.1));
 
-    for(size_t y = 0; y < 1000; y++){
+    for(size_t y = 0; y < 1; y++){
         AlgorithmOptions opt_temp(OPTIONS_PATH.c_str());
+        opt_temp.set_int_value(10,"FOREGROUND_MASK",int(0.25*0.25*3000));
+        // std::shuffle(options_to_optimize.begin(), options_to_optimize.end(),g);
         for(size_t x = 0; x < options_to_optimize.size(); x++){
             best_ever_val = opt.single_option_optimization(image,opt_temp,options_to_optimize[x].name,options_to_optimize[x].index,options_to_optimize[x].is_iter,options_to_optimize[x].max_iter,options_to_optimize[x].min_iter,options_to_optimize[x].resolution);
+
         }
         if(best_ever_val > total_best){
             total_best = best_ever_val;
             opt.simulate_watershed(image, super_result, opt_temp);
         }
-        std::shuffle(options_to_optimize.begin(), options_to_optimize.end(),g);
+        opt_temp.save_options_to_file("./test.option");
     }
     std::cout << "BEST EVER VAL:" << total_best << std::endl;
     cv::Mat result, org_result, mask_result, mask_org;
