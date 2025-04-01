@@ -23,7 +23,7 @@ void Optimalization::read_user_mask(std::string path_to_mask){
     //I don't think I need to normalize it
 }
 
-void Optimalization::start_optimization(cv::Mat &org_img, std::string mask_path, std::string options_path, std::string out_options_path, bool shuffle, size_t iterations, bool save_order, bool itter_shuffle){
+void Optimalization::start_optimization(cv::Mat &org_img, std::string mask_path, std::string options_path, std::string out_options_path, bool shuffle, size_t iterations, bool save_order, bool itter_shuffle, int ID){
     read_user_mask(mask_path);
     //Load the options to one single vector
     AlgorithmOptions options(options_path.c_str());
@@ -31,9 +31,9 @@ void Optimalization::start_optimization(cv::Mat &org_img, std::string mask_path,
     std::vector<opt_option> options_to_optimize;
     options_to_optimize.push_back(opt_option("BACKGROUND_MASK",2,false,20,1,0.1));
     options_to_optimize.push_back(opt_option("BACKGROUND_MASK",6,false,20,1,0.1));
-    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",8,false,50,10,0.2));
-    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",9,false,10,1,0.2));
-    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",12,false,5,1,0.1));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",8,false,20,10,0.2));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",9,false,20,1,0.2));
+    options_to_optimize.push_back(opt_option("FOREGROUND_MASK",12,false,20,1,0.1));
     options_to_optimize.push_back(opt_option("FOREGROUND_REGIONS",2,false,20,1,0.1));
     options_to_optimize.push_back(opt_option("FOREGROUND_REGIONS",4,false,20,1,0.1));
     options_to_optimize.push_back(opt_option("FOREGROUND_REGIONS",3,true,20,1,0.2));
@@ -55,27 +55,51 @@ void Optimalization::start_optimization(cv::Mat &org_img, std::string mask_path,
     options_to_optimize.push_back(opt_option("WATERSHED",1,true,20,1,0.1));
     //Prepare algorithm
     double best_val = 0.0, val = 0.0;
-    options.set_int_value(10,"FOREGROUND_MASK",int(0.25*0.1*5000));
+    options.set_int_value(10,"FOREGROUND_MASK",int(this->resolution*0.1*options.get_int_var(10,"FOREGROUND_MASK")));
     std::random_device rd;
     std::mt19937 g(rd());
     if(shuffle){
         std::shuffle(options_to_optimize.begin(), options_to_optimize.end(),g);
     }
+    const int opt_size = int(org_img.cols * this->resolution);   //Material should be a square
+    cv::Mat image;
+    org_img.copyTo(image);
+    Transformations::square_and_resize(image,opt_size);
 
     for(size_t y = 0; y < iterations; y++){
+        std::cout << "--OPTIMIZATION-- CURRENT ITERATION: [" << y+1 << "/" << iterations << "].\n";
         for(size_t x = 0; x < options_to_optimize.size(); x++){
-            val = this->single_option_optimization(org_img, options,options_to_optimize[x].name,options_to_optimize[x].index,options_to_optimize[x].is_iter,options_to_optimize[x].max_iter,options_to_optimize[x].min_iter,options_to_optimize[x].resolution);
+            std::cout << '\r' << std::flush;
+            for(size_t i=0; i < options_to_optimize.size(); i++){
+                std::cout << "[";
+                if(i <= x){
+                    std::cout << "*";
+                }else{
+                    std::cout << " ";
+                }
+                std::cout << "]";
+            }
+            std::cout << std::flush;
+            if(x == options_to_optimize.size() - 1){ 
+                std::cout << std::endl;  // Print newline after the last iteration
+            }
+            val = this->single_option_optimization(image, options,options_to_optimize[x].name,options_to_optimize[x].index,options_to_optimize[x].is_iter,options_to_optimize[x].max_iter,options_to_optimize[x].min_iter,options_to_optimize[x].resolution);
         }
         if(val > best_val){
             best_val = val;
-            std::string order = "";
+            std::string order = "#ORDER OF OPTIONS:: \n#PRECISION: " + std::to_string(best_val) + "\n \n";
 
             if(save_order){
                 for(size_t i = 0; i < options_to_optimize.size(); i++){
-                    order += options_to_optimize[i].name + "\n";
+                    order += "#" + options_to_optimize[i].name + "    " + std::to_string(options_to_optimize[i].index) + "\n";
                 }
             }
-            options.save_options_to_file(out_options_path.c_str(), order);
+            if(ID != 0){
+                std::string to_save = out_options_path.substr(0, out_options_path.find(".option")) + "0" + std::to_string(ID) + ".option";
+                options.save_options_to_file(to_save.c_str(), order);
+            }else{
+                options.save_options_to_file(out_options_path.c_str(), order);
+            }
         }
         if(itter_shuffle){
             std::shuffle(options_to_optimize.begin(), options_to_optimize.end(),g);
@@ -86,10 +110,7 @@ void Optimalization::start_optimization(cv::Mat &org_img, std::string mask_path,
 
 double Optimalization::single_option_optimization(cv::Mat &img, AlgorithmOptions &options, std::string option_class, size_t option_index,bool uneven,int max_iterations, int min_start, double resolution){
     //Rescale the image to given ratio
-    const int opt_size = int(img.cols * this->resolution);   //Material should be a square
-    cv::Mat image, result;
-    img.copyTo(image);
-    Transformations::square_and_resize(image,opt_size);
+    cv::Mat image = img, result;
     // image.convertTo(image, CV_32S);
     double precision = 0.0, new_precision = 0.0;
     //get the value of the option, and define max and minimum values.
@@ -109,7 +130,7 @@ double Optimalization::single_option_optimization(cv::Mat &img, AlgorithmOptions
             // std::cout << "PRECISION: " << new_precision << std::endl;
             if(new_precision > precision){
                 precision = new_precision;
-                std:: cout << "Found new best value for " << option_index << " : " << x << "  -- Precision: " << precision << std::endl;
+                // std:: cout << "Found new best value for " << option_index << " : " << x << "  -- Precision: " << precision << std::endl;
                 best_val = x;
             }
         }
@@ -117,9 +138,9 @@ double Optimalization::single_option_optimization(cv::Mat &img, AlgorithmOptions
     }
     else{
         const int DEPTH = 2;    //Depth defines how deeply the algorithm goes
-        double range_min = options.get_db_var(option_index,option_class) / 5;
+        double range_min = options.get_db_var(option_index,option_class) / 10;
         if(range_min < 0.01)range_min = 0.01;
-        double range_max = options.get_db_var(option_index,option_class) + (max_iterations/DEPTH);
+        double range_max = options.get_db_var(option_index,option_class) + (max_iterations/(DEPTH*DEPTH));
         double mx_range = 0.0, ms_range = 0.0;    //ms_range will also be the flag
         double step = 0.1;
         simulate_watershed(image,result, options);
@@ -137,7 +158,7 @@ double Optimalization::single_option_optimization(cv::Mat &img, AlgorithmOptions
                     ms_range = x-(0.90/current_reach_level);
                     mx_range = x+(0.90/current_reach_level);
                     best_value = x;
-                    std:: cout << "Found new best value for " << option_index << " : " << best_value << "  || Precision: " << best_precision << std::endl;
+                    // std:: cout << "Found new best value for " << option_index << " : " << best_value << "  || Precision: " << best_precision << std::endl;
                 }
             }
             if(mx_range == 0.0){

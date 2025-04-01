@@ -12,8 +12,8 @@
     erosion_size<int>: 1
 -FOREGROUND_REGIONS
     blur_kernel<int>: 3
-    morph_opening_kernel<int>: 13
-    clache_force<double>: 7.900000
+    morph_opening_kernel<int>: 3
+    clache_force<double>: 2.000000
     second_blur_kernel<int>: 3
     minima_threshold<double>: 0.920000
     minima_kernel<int>: 1
@@ -22,13 +22,13 @@
     dil_er_size<int>: 2
     SD_kernel_size<int>: 5
     iterations<int>: 3
-    sigma_min<double>: 4.170000
+    sigma_min<double>: 4.000000
     sigma_max<double>: 5.000000
     sigma_iterator<double>: 1.000000
     sigma_multiplier<double>: 2.000000
-    cell_radius<int>: 10
+    cell_radius<int>: 14
     filter_kernel_size_multiplier<int>: 3
-    gftt_corners<int>: 125
+    gftt_corners<int>: 60
     gftt_quality<double>: 0.050000
     cell_radius_multiplier<int>: 2
 -WATERSHED
@@ -38,3 +38,6 @@
     clache_force<double>: 3.000000
     med_blur_second<int>: 3
 
+#ORDER OF OPTIONS:: 
+#PRECISION: 0.003631
+ 

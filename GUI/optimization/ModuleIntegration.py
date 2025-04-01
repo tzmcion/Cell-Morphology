@@ -1,6 +1,7 @@
 import os
 import subprocess
 import time
+import atexit
 import dearpygui.dearpygui as dpg
 from optimization.OptionsReader import OptionsReader
 
@@ -10,6 +11,10 @@ class ModuleIntegration:
         self.process = None
         self.module_path = "./App/Utils/Options_Optimizer"
         self.path_back = "../../../"
+        atexit.register(self.cleanup)
+        
+    def cleanup(self):
+        self.kill_subprocess()
     
     def kill_subprocess(self):
         """Method kills the subprocess of optimalization"""

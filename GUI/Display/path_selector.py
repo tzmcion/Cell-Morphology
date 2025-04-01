@@ -16,6 +16,17 @@ def ask_folder_path() -> str|None:
     except subprocess.CalledProcessError:
         return None
     
+def ask_save_path() -> str|None:
+    try:
+        result = subprocess.run(
+            ["zenity", "--file-selection", "--save", "--title=Save File"],
+            check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        )
+        folder_path = result.stdout.decode("utf-8").strip()
+        return folder_path
+    except subprocess.CalledProcessError:
+        return None
+    
 
 def study_path(path:str) -> list[str]:
     """

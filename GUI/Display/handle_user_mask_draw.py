@@ -28,6 +28,7 @@ class userDraw:
         with dpg.group(horizontal=True, parent=parent):
             dpg.add_button(label="Draw/Get different sample", callback=self.get_diff_sample)
             dpg.add_button(label="Save mask and start", callback=self.start_optimization)
+            dpg.add_button(label="Create order of options (for dev)", callback=self.start_ordering)
         with dpg.drawlist(600,600,label="Drawing canvas", id="Image_Canvas",pos=(150,150), parent=parent):
             dpg.add_draw_layer(tag="Image_Canvas_Layer_one")
         dpg.add_button(parent=parent, label="Next Object (or click space)", callback=None)
@@ -93,9 +94,10 @@ class userDraw:
         fields_col = set(fields_col)
         fields_to_colour = fields_col.intersection(fields_row)
         size = 3
-        for field in fields_to_colour:
-             dpg.draw_rectangle((field[1],field[0]),(field[1] + size, field[0] + size),color=(int(155 / object_id * 50) % 255,object_id*55 % 255,255,10), fill=(int(155 / object_id * 50) % 255,object_id*55 % 255,255,10),parent="Image_Canvas")
-             self.draw_axis[field[0],field[1]] = object_id
+        if(dpg.does_item_exist("Image_Canvas")):
+            for field in fields_to_colour:
+                dpg.draw_rectangle((field[1],field[0]),(field[1] + size, field[0] + size),color=(int(155 / object_id * 50) % 255,object_id*55 % 255,255,10), fill=(int(155 / object_id * 50) % 255,object_id*55 % 255,255,10),parent="Image_Canvas")
+                self.draw_axis[field[0],field[1]] = object_id
     
     def helper_draw_line(self,x, y, d_x, d_y, object_id):
             x2, y2 = x + d_x, y + d_y
@@ -235,7 +237,13 @@ class userDraw:
         #Save current mask and proceed to new window/module
         cv2.imwrite(self.temp_path + "/generated_mask.bmp",self.draw_axis*10)
         self.module_integrator.write_to_file(self.temp_path + "/info.txt", "!START")
-        self.results = resultsDisplay("Image_Canvas",self.options)
+        self.results = resultsDisplay("Image_Canvas",self.options, self.temp_path)
+        pass
+    
+    def start_ordering(self):
+        cv2.imwrite(self.temp_path + "/generated_mask.bmp",self.draw_axis*10)
+        self.module_integrator.write_to_file(self.temp_path + "/info.txt", "!ORDER")
+        self.results = resultsDisplay("Image_Canvas",self.options, self.temp_path)
         pass
         
     

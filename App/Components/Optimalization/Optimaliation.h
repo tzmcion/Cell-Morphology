@@ -36,7 +36,7 @@
         /**
          * Function starts the main optimization of option
          */
-        void start_optimization(cv::Mat &org_img, std::string mask_path, std::string options_path, std::string out_options_path, bool shuffle = false, size_t iterations=5, bool save_order = false, bool itter_shuffle=false);
+        void start_optimization(cv::Mat &org_img, std::string mask_path, std::string options_path, std::string out_options_path, bool shuffle = false, size_t iterations=5, bool save_order = false, bool itter_shuffle=false, int ID=0);
 
         /**
          * Function compares user mask to the material mask specified

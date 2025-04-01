@@ -51,7 +51,7 @@ int main(int argc, char **argv){
     std::cout << "Output folder is: " << Colors::YELLOW <<  OUT_FOLDER << Colors::RESET << std::endl;
     std::cout << Colors::BRIGHT_BLUE << "[INFO] " << Colors::RESET << "The output options will be saved to the output folder \n";
     //Select random image and crop/cut out 300x300 image
-    Optimalization *opt = new Optimalization(0.25);
+    Optimalization *opt = new Optimalization(0.20);
     cv::Mat cropped;
     opt->crop_save_image_sample(cropped,images,std::string(std::string(OUT_FOLDER) + std::string("/cropped_bg.jpg")),150,4);
     std::string comm_file = std::string(std::string(OUT_FOLDER) + std::string("/info.txt"));
@@ -61,17 +61,45 @@ int main(int argc, char **argv){
     //The folder must exist (this "temp" folder)
     Entites::FILES::write_to_file(comm_file.c_str(),"CREATED");
     while(1){
-        std::string msg = Threading::await_file_change(comm_file.c_str(),500000,2);
-        std::cout << msg << "NO DO ZESRANIA" << std::endl;
-        if(std::strcmp("!NEW_SAMPLE",msg.c_str())){
+        std::string msg = Threading::await_file_change(comm_file.c_str(),500000,500);
+        msg = msg.substr(0,msg.find("\n"));
+        std::cout << msg << std::endl;
+        if(msg == "!NEW_SAMPLE"){
+            std::cout << "NEW_SAMPLE !\n";
             opt->crop_save_image_sample(cropped,images,std::string(std::string(OUT_FOLDER) + std::string("/cropped_bg.jpg")));
             Entites::FILES::write_to_file(comm_file.c_str(),"SAMPLE_READY",' ',false,true);
         }
-        if(std::strcmp("!START",msg.c_str())){
+        if(msg == "!START"){
+            std::cout << "START !\n";
             std::cout << "start the optimization process" << std::endl;
             Entites::FILES::write_to_file(comm_file.c_str(), std::string("OPTIMIZING: ") + out_file, ' ', false, true);
-            opt->start_optimization(cropped, mask_file, OPTIONS_PATH, out_file);
+            opt->start_optimization(cropped, mask_file, OPTIONS_PATH, out_file, false, 2, false);
+            std::cout << "OPTIMIZED" << std::endl;
             Entites::FILES::write_to_file(comm_file.c_str(), "OPTIMIZATION_DONE", ' ', false, true);
+            break;
+        }
+        if(msg == "!ORDER"){
+            std::cout << "ORDER !\n";
+            //Implement threading
+            //For !ORDER
+            size_t cores = std::thread::hardware_concurrency();
+            if(cores == 0 || cores == 1){
+                cores = 2;
+            }
+            Threading threads(cores);
+            std::cout << "start the optimization process" << std::endl;
+            Entites::FILES::write_to_file(comm_file.c_str(), std::string("FINDING BEST ORDER: ") + out_file, ' ', false, true);
+            const size_t ITERATIONS = 400;
+            int current_id = 1;
+            threads.enqueueTask([cores, &current_id, &cropped, mask_file, OPTIONS_PATH, out_file](){
+                //Each thread will get it's own id, otherwise it just won't work
+                std::cout << "Running thread " << current_id;
+                Optimalization *opti = new Optimalization(0.15);
+                opti->start_optimization(cropped, mask_file, OPTIONS_PATH, out_file, false, ITERATIONS, true, true);
+                delete opti;
+            });
+            Entites::FILES::write_to_file(comm_file.c_str(), "ORDERING_DONE", ' ', false, true);
+            break;
         }
     }
     

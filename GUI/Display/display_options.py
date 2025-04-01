@@ -4,6 +4,7 @@ from optimization.OptionsReader import OptionsReader
 from Display.path_selector import ask_folder_path, study_path, get_all_images
 from Display.handle_user_mask_draw import userDraw
 import os
+import glob
 
 """
 File for handling options optimization, therefore here will be displaying of the options
@@ -15,6 +16,9 @@ class OptionsHandler:
         self.setup_options()
         self.reader = None
         self.integrator = None
+        #Cleanup temp folder
+        for file in glob.glob(os.path.join(str(os.getcwd() + "/GUI/temp"), "*")):
+            os.remove(file)
         pass
     
     
