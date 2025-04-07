@@ -55,7 +55,7 @@ int main(int argc, char** argv){
     std::cout << Colors::BRIGHT_BLUE << "    [...] INFO" << Colors::RESET << " Total nr of iterations: " << reader.get_total_operations() << std::endl;
     std::cout << "Starting iterations: " << std::endl;
     system("echo \"OUTPUT\" > ./program_info.ans");
-    system("gnome-terminal --geometry=120x30 -- bash -c 'tail -f ./program_info.ans; exec bash'");
+    // system("gnome-terminal --geometry=120x30 -- bash -c 'tail -f ./program_info.ans; exec bash'");
     do{
         std::cout << Colors::MAGENTA << " [...] PROCESSMENT: " << Colors::RESET << reader.get_folder_name() << std::endl;
         std::cout << " [...] Current arguments: " << reader.get_arguments() << std::endl;
