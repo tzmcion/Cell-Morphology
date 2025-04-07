@@ -44,11 +44,11 @@ int main(int argc, char** argv){
     if(cores == 0){
         cores = 1;
     }
-    Threading threads(cores);
+    Threading threads(4);
     //MULTITHREAD
     std::cout << "Starting the processment of data: \n";
     for(size_t x = 0; x < images.size(); x++){
-        threads.enqueueTask([images,RADIUS,TRAVERSE,MAX_DIFF,OUT_FOLDER,x](){
+        threads.enqueueTask([&images,RADIUS,TRAVERSE,MAX_DIFF,OUT_FOLDER,x](){
             const std::string PATH = images[x];
             std::cout << Colors::YELLOW << "Processing of:: " << Colors::RESET << PATH;
             std::cout << std::flush;
