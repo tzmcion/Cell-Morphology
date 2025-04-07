@@ -51,7 +51,7 @@ int main(int argc, char** argv){
         threads.enqueueTask([&images,RADIUS,TRAVERSE,MAX_DIFF,OUT_FOLDER,x](){
             const std::string PATH = images[x];
             std::cout << Colors::YELLOW << "Processing of:: " << Colors::RESET << PATH;
-            std::cout << std::flush;
+            //std::cout << std::flush;
             cv::Mat img;
             img = cv::imread(PATH,cv::IMREAD_GRAYSCALE);
             Transformations::norm_brightnes(img,RADIUS,TRAVERSE,MAX_DIFF);
