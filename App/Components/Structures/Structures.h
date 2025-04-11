@@ -1,6 +1,6 @@
 /**
  * This file defines structures and usefull entity functions
- * */
+ */
 
 #pragma once
 
@@ -9,9 +9,7 @@
 #include <sys/stat.h>
 
 namespace Entites{
-    //Honestly, I am not sure if I use this queue anywhere in program
-    //It's just a normal queue
-    //I'll check later if it is used and delete it if not
+    //Typical Queue, used in preprocessing algorithm, in Dijsktra point
     template<typename T>
     class Queue{
         public:

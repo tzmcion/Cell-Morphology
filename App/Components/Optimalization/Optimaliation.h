@@ -21,7 +21,7 @@
          * Function crops the image and saves it to the temp folder in provided name
          * @param scale Parameter to define the scale of the saving
         */
-        void crop_save_image_sample(cv::Mat &out_img,std::vector<std::string> &images, std::string save_path,int crop_size = 150,int scale=4);
+        void crop_save_image_sample(cv::Mat &out_img,std::vector<std::string> &images, std::string save_path,int crop_size = 150);
 
         /**
          * Function aims to sequentially change single option to find the best match for user image
@@ -42,9 +42,6 @@
          * Function compares user mask to the material mask specified
          */
         double calculate_intersection_over_union(cv::Mat &image);
-
-        //Function runs the watershed segmentation with given options and returns a mask
-        void simulate_watershed(cv::Mat &img, cv::Mat &out, AlgorithmOptions &options);
 
     private:
         

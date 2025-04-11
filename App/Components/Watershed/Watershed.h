@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Transformations/Transformations.h"
+#include "../Structures/AlgorithmOptions.h"
 #include <opencv2/ximgproc.hpp>
 
 class Watershed{
@@ -10,6 +11,7 @@ class Watershed{
          * It uses standard deviation to emphesize potential cell walls (as they are brighter)
          * the, the walls are computed as strong points in hysterisis thresholding
          * With that, the background mask is created
+         * @return dst_mask where background is labeled as zero 0, and foreground is labeled as 1.
          * @param src source_image
          * @param dst_mask output mask
          * */
@@ -20,6 +22,7 @@ class Watershed{
          * It uses standard deviation to emphesize potential cell walls (as they are brighter)
          * the, the walls are computed as strong points in hysterisis thresholding
          * With that, the background mask is created
+         * @return dst_mask where background is labeled as zero 0, and foreground is labeled as 1.
          * @param src   source image
          * @param dst_mask  destination image/mask (output)
          * @param SD_kernel Size of kernel for standard deviation, bigger->more emphesized, but more noise remains
@@ -83,7 +86,7 @@ class Watershed{
          * @param blur_kernel   size of kernel blur
          * @param dil_er_size   size of morphological opening
          * @param SD_kernel_size    size of kernel in standard deviation
-         * @param iterations    !OBSECOLETE!
+         * @param iterations    !OBESOLETE!
          * @param sigma_min     minimum signa on gaussian kernel
          * @param sigma_max     maximum sigma on gaussian kernel
          * @param sigma_iterator    sigma iterator, so if sigma_min=2.0, sigma_max=3.0, sigma_iterator = 0.2, then 5 iterations will occure, respecting different possible cell radiuses
@@ -96,6 +99,15 @@ class Watershed{
          * */
         static void foreground_mask(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &foreground_regions, cv::Mat &sure_background, int blur_kernel, int dil_er_size, int SD_kernel_size, int iterations, double sigma_min, double sigma_max, double sigma_iterator, double sigma_multiplier, int cell_radius, int filter_kernel_size_multiplier, int gftt_corners, double gftt_quality, int cell_radius_multiplier);
 
+        /**
+         * Funtion performes watershed with given background and foreground masks
+         * @return watershed markers
+         * @param src  source image, must be in grayscale format, cv::uint8, or uchar (one value per pixel between 0-255)
+         * @param dst  destination masks, to which the output will be saved
+         * @param background  background mask, background being 0 and foreground 1 in that mask 
+         * @param foreground  foreground mask, where unsure regions are 0, and detected are >1
+         */
+        static void watershed_with_masks(cv::Mat &src, cv::Mat &dst, cv::Mat &background, cv::Mat &foreground);
 
         /**
          * Function performes watershed with given background mask and foreground mask
@@ -110,10 +122,9 @@ class Watershed{
          * @param clache_force
          * @param med_blur_second
          */
-
          static void watershed_with_masks(cv::Mat &src, cv::Mat &dst, cv::Mat &background, cv::Mat &foreground, int opening_force, int blur_force, int mean_median_force, double clache_force, int med_blur_second);
 
-                 /**
+        /**
          * Functions uses other technique, clacheIMG and medianblur to do first preprocessing of the image
          * @param src source image
          * @param dst destination image
@@ -123,16 +134,24 @@ class Watershed{
 
         /**
          * Function draws the line on the image, making it visually distinguishable
-         * @param src
-         * @param dst
-         * @param watershed_mask
+         * @param src originall image, which will be blended with watershed masks
+         * @param dst output mask, which will be overwriten
+         * @param watershed_mask result of watershed, which will be coloured and blended with src.
          */
         static void draw_watershed_lines(cv::Mat &src, cv::Mat &dst, cv::Mat &watershed_mask);
+
+        /**
+         * Function Performes watershed with given options, or with default options
+         * @param img [uchar | cv::imread_grayscale] grayscale input image
+         * @param out material for output mask
+         * @param options options which can be read from the file, or use default options
+         */
+        static void execute_watershed(cv::Mat &img, cv::Mat &out, AlgorithmOptions &options=AlgorithmOptions::Defaulf());
 
     //*************
     //** PRIVATE **
     //*************
-    // private: 
+    private: 
 
         /**
          * Function peformes standatd deviation on an image, with given kernel
@@ -208,7 +227,7 @@ class Watershed{
 
         /**
          *  Function creates a gaussian kernel, with set SD
-         *  RETURN: Gaussian kernel with given size and SD
+         * @return Gaussian kernel with given size and SD
          * @param size size of kernel
          * @param sigma SD of gaussian distribution
          * */

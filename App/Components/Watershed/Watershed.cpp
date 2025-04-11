@@ -170,6 +170,14 @@ void Watershed::foreground_mask(cv::Mat &src, cv::Mat &dst_mask, cv::Mat &foregr
 //
 //
 //
+void Watershed::watershed_with_masks(cv::Mat &src, cv::Mat &dst, cv::Mat &background, cv::Mat &foreground){
+    int opening_force = 3, blur_force = 3, mean_median_force = 3, med_blur_second = 3;
+    double clache_force = 3.2;
+    Watershed::watershed_with_masks(src,dst,background,foreground,opening_force,blur_force,mean_median_force,clache_force,med_blur_second);
+}
+//
+//
+//
 void Watershed::watershed_with_masks(cv::Mat &src, cv::Mat &dst, cv::Mat &background, cv::Mat &foreground, int opening_force, int blur_force, int mean_median_force, double clache_force, int med_blur_second){
     cv::Mat markers;
     cv::connectedComponents(foreground,markers);
@@ -216,6 +224,27 @@ void Watershed::draw_watershed_lines(cv::Mat &src, cv::Mat &dst, cv::Mat &waters
     Mat blended;
     addWeighted(imageBGRA, 0.5, result, 0.5, 0, blended); // 80% original + 20% overlay
     blended.copyTo(dst);
+}
+//
+//
+//
+void Watershed::execute_watershed(cv::Mat &img, cv::Mat &out, AlgorithmOptions &options){
+    cv::Mat background_mask, foreground_mask, foreground_regions;
+    if(options.is_default == true){
+        //Then The default options are used from the methods/functions
+        Watershed::background_mask(img,background_mask);
+        Watershed::foreground_regions(img,foreground_regions,background_mask);
+        Watershed::foreground_mask(img,foreground_mask,foreground_regions,background_mask);
+        Watershed::watershed_with_masks(img,out,background_mask,foreground_mask);
+        return;
+    }
+    Watershed::background_mask(img,background_mask,options.get_int_var(0,"BACKGROUND_MASK"),options.get_int_var(1,"BACKGROUND_MASK"),options.get_db_var(2,"BACKGROUND_MASK"),options.get_int_var(3,"BACKGROUND_MASK"),options.get_int_var(4,"BACKGROUND_MASK"),options.get_int_var(5,"BACKGROUND_MASK"),options.get_db_var(6,"BACKGROUND_MASK"),options.get_int_var(7,"BACKGROUND_MASK"));
+    // //This will be even longer
+    Watershed::foreground_regions(img,foreground_regions,background_mask,options.get_int_var(0,"FOREGROUND_REGIONS"),options.get_int_var(1,"FOREGROUND_REGIONS"),options.get_db_var(2,"FOREGROUND_REGIONS"),options.get_int_var(3,"FOREGROUND_REGIONS"),options.get_db_var(4,"FOREGROUND_REGIONS"),options.get_int_var(5,"FOREGROUND_REGIONS"));
+    // //And thiss will be the longest
+    Watershed::foreground_mask(img,foreground_mask,foreground_regions,background_mask,options.get_int_var(0,"FOREGROUND_MASK"), options.get_int_var(1,"FOREGROUND_MASK"), options.get_int_var(2,"FOREGROUND_MASK"), options.get_int_var(3,"FOREGROUND_MASK"), options.get_db_var(4,"FOREGROUND_MASK"), options.get_db_var(5,"FOREGROUND_MASK"),options.get_db_var(6,"FOREGROUND_MASK"), options.get_db_var(7,"FOREGROUND_MASK"), options.get_int_var(8,"FOREGROUND_MASK"), options.get_int_var(9,"FOREGROUND_MASK"), options.get_int_var(10,"FOREGROUND_MASK"), options.get_db_var(11,"FOREGROUND_MASK"), options.get_int_var(12,"FOREGROUND_MASK"));
+    //And apply the watershed with masks and options
+    Watershed::watershed_with_masks(img,out,background_mask,foreground_mask,options.get_int_var(0,"WATERSHED"),options.get_int_var(1,"WATERSHED"),options.get_int_var(2,"WATERSHED"),options.get_db_var(3,"WATERSHED"),options.get_int_var(4,"WATERSHED"));
 }
 
 

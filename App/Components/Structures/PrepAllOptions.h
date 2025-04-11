@@ -1,7 +1,8 @@
 /**
- * This file is used by "Preprocess_all" Util
- * It defines how .option file is being read
+ * This file is used by "Preprocess_all" Util, and is inheritated by AlgorithmOptions
+ * It defines how .option file is being read, and provides error messages in reading
  * It stores the operations in vector which is then iterated by next_run()
+ * AlgorithmOptions uses it's method of clearing comments from text file
  * */
 
 #pragma once
@@ -83,5 +84,13 @@ class ReadOptions{
     size_t subindex = 0;
     std::vector<run_file*> data;
 
+    /**
+     *  Function Throws a Formatted Error for options file.
+     *  It is important to do a good error message here, as .option file is the one
+     *  with which user should integrate the most
+     *  @param path Optional to nullptr. IF no path, type nullptr
+     *  @param line Optional to "". IF no line type ""
+     *  @param line_index Optional to -1. IF no line_index, type -1
+     * */
     void error_message(const char* path = nullptr, std::string line = "", int line_index = -1);
 };

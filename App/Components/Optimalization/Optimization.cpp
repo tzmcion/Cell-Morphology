@@ -1,36 +1,37 @@
 #include "./Optimaliation.h"
 
 
-void Optimalization::crop_save_image_sample(cv::Mat &out_img,std::vector<std::string> &images, std::string save_path,int crop_size ,int scale){
-    const std::string image_to_crop = images[rand() % images.size()];
+void Optimalization::crop_save_image_sample(cv::Mat &out_img,std::vector<std::string> &images, std::string save_path,int crop_size){
+    const int SCALE = int(1 / this->resolution);
+    const std::string image_to_crop = images[rand() % images.size()];   //Choosing random image from images vector
     const int CROP_SIZE = crop_size;
-    //Select random area on the image
+    //Selecting random area on the image, random begin_x and begin_y.
     cv::Mat image = cv::imread(image_to_crop,cv::IMREAD_GRAYSCALE);
     int begin_x = rand() % (image.cols - CROP_SIZE);
     int begin_y = rand() % (image.rows - CROP_SIZE);
-    //define region of interest
+    //define region of interest and crop the image
     cv::Rect roi(begin_x,begin_y,CROP_SIZE,CROP_SIZE);
     cv::Mat cropped = image(roi);
-    Transformations::square_and_resize(cropped,CROP_SIZE*scale);
+    //Resize the cropped image with scale
+    Transformations::square_and_resize(cropped,CROP_SIZE*SCALE);
     cv::imwrite(save_path.c_str(),cropped);
-    out_img = cropped;
+    out_img = cropped;  //save to out image
 }
 
 void Optimalization::read_user_mask(std::string path_to_mask){
     cv::Mat mask = cv::imread(path_to_mask,cv::IMREAD_GRAYSCALE);
     Transformations::square_and_resize(mask,int(this->resolution*mask.cols));
     mask.convertTo(this->user_mask_matrix, CV_32S);
-    //I don't think I need to normalize it
 }
 
 void Optimalization::start_optimization(cv::Mat &org_img, std::string mask_path, std::string options_path, std::string out_options_path, bool shuffle, size_t iterations, bool save_order, bool itter_shuffle, int ID){
     read_user_mask(mask_path);
     //Load the options to one single vector
     AlgorithmOptions options(options_path.c_str());
-    //Order is to be changed
+    //Order is to be changed and can be changed
     std::vector<opt_option> options_to_optimize;
-    options_to_optimize.push_back(opt_option("BACKGROUND_MASK",2,false,20,1,0.1));
-    options_to_optimize.push_back(opt_option("BACKGROUND_MASK",6,false,20,1,0.1));
+    //options_to_optimize.push_back(opt_option("BACKGROUND_MASK",2,false,20,1,0.1)); //IGNORED, because BG mask works very good
+    //options_to_optimize.push_back(opt_option("BACKGROUND_MASK",6,false,20,1,0.1)); //IGNORED, because BG mask works very good
     options_to_optimize.push_back(opt_option("FOREGROUND_MASK",8,false,20,10,0.2));
     options_to_optimize.push_back(opt_option("FOREGROUND_MASK",9,false,20,1,0.2));
     options_to_optimize.push_back(opt_option("FOREGROUND_MASK",12,false,20,1,0.1));
@@ -53,9 +54,9 @@ void Optimalization::start_optimization(cv::Mat &org_img, std::string mask_path,
     options_to_optimize.push_back(opt_option("WATERSHED",2,true,20,1,0.2));
     options_to_optimize.push_back(opt_option("WATERSHED",4,true,20,1,0.2));
     options_to_optimize.push_back(opt_option("WATERSHED",1,true,20,1,0.1));
-    //Prepare algorithm
-    double best_val = 0.0, val = 0.0;
+    //Important, set max cells number, normally it should be dependent on background extraction
     options.set_int_value(10,"FOREGROUND_MASK",int(this->resolution*0.1*options.get_int_var(10,"FOREGROUND_MASK")));
+    double best_val = 0.0, val = 0.0;
     std::random_device rd;
     std::mt19937 g(rd());
     if(shuffle){
@@ -117,7 +118,7 @@ double Optimalization::single_option_optimization(cv::Mat &img, AlgorithmOptions
     if(options.get_db_var(option_index,option_class) == AlgorithmOptions::MAX_DB){
         //Then we work with integers
         //With integers it is easier, just iterate over every value from 0 to 10
-        simulate_watershed(image,result,options);
+        Watershed::execute_watershed(image,result,options);
         int best_val = options.get_int_var(option_index,option_class);
         precision = calculate_intersection_over_union(result);
         for(int x = min_start; x < max_iterations; x++){
@@ -125,7 +126,7 @@ double Optimalization::single_option_optimization(cv::Mat &img, AlgorithmOptions
                 x+=1;
             }
             options.set_int_value(option_index, option_class, x);
-            simulate_watershed(image,result,options);
+            Watershed::execute_watershed(image,result,options);
             new_precision = calculate_intersection_over_union(result);
             // std::cout << "PRECISION: " << new_precision << std::endl;
             if(new_precision > precision){
@@ -143,14 +144,14 @@ double Optimalization::single_option_optimization(cv::Mat &img, AlgorithmOptions
         double range_max = options.get_db_var(option_index,option_class) + (max_iterations/(DEPTH*DEPTH));
         double mx_range = 0.0, ms_range = 0.0;    //ms_range will also be the flag
         double step = 0.1;
-        simulate_watershed(image,result, options);
+        Watershed::execute_watershed(image,result,options);
         double best_precision = calculate_intersection_over_union(result);
         double best_value = options.get_db_var(option_index, option_class);
         double current_reach_level = 10.0;
         for(int i = 0; i < DEPTH; i++){
             for(double x = range_min; x < range_max; x+=step){
                 options.set_db_value(option_index, option_class, x);
-                simulate_watershed(image,result, options);
+                Watershed::execute_watershed(image,result,options);
                 new_precision = calculate_intersection_over_union(result);
                 // std::cout << "CALC: " << x << "PREC: " << new_precision << " INDEX: " << option_index << std::endl;
                 if(new_precision > best_precision){
@@ -276,15 +277,4 @@ std::pair<double,long int> Optimalization::calc_intersection_over_union_per_obje
         }
     }
     return std::pair<double,long int>(max_val,overall_matrix);
-}
-
-void Optimalization::simulate_watershed(cv::Mat &img, cv::Mat &out, AlgorithmOptions &options){
-    cv::Mat background_mask, foreground_mask, foreground_regions;
-    Watershed::background_mask(img,background_mask,options.get_int_var(0,"BACKGROUND_MASK"),options.get_int_var(1,"BACKGROUND_MASK"),options.get_db_var(2,"BACKGROUND_MASK"),options.get_int_var(3,"BACKGROUND_MASK"),options.get_int_var(4,"BACKGROUND_MASK"),options.get_int_var(5,"BACKGROUND_MASK"),options.get_db_var(6,"BACKGROUND_MASK"),options.get_int_var(7,"BACKGROUND_MASK"));
-    // //This will be even longer
-    Watershed::foreground_regions(img,foreground_regions,background_mask,options.get_int_var(0,"FOREGROUND_REGIONS"),options.get_int_var(1,"FOREGROUND_REGIONS"),options.get_db_var(2,"FOREGROUND_REGIONS"),options.get_int_var(3,"FOREGROUND_REGIONS"),options.get_db_var(4,"FOREGROUND_REGIONS"),options.get_int_var(5,"FOREGROUND_REGIONS"));
-    // //And thiss will be the longest
-    Watershed::foreground_mask(img,foreground_mask,foreground_regions,background_mask,options.get_int_var(0,"FOREGROUND_MASK"), options.get_int_var(1,"FOREGROUND_MASK"), options.get_int_var(2,"FOREGROUND_MASK"), options.get_int_var(3,"FOREGROUND_MASK"), options.get_db_var(4,"FOREGROUND_MASK"), options.get_db_var(5,"FOREGROUND_MASK"),options.get_db_var(6,"FOREGROUND_MASK"), options.get_db_var(7,"FOREGROUND_MASK"), options.get_int_var(8,"FOREGROUND_MASK"), options.get_int_var(9,"FOREGROUND_MASK"), options.get_int_var(10,"FOREGROUND_MASK"), options.get_db_var(11,"FOREGROUND_MASK"), options.get_int_var(12,"FOREGROUND_MASK"));
-    //And apply the watershed with masks and options
-    Watershed::watershed_with_masks(img,out,background_mask,foreground_mask,options.get_int_var(0,"WATERSHED"),options.get_int_var(1,"WATERSHED"),options.get_int_var(2,"WATERSHED"),options.get_db_var(3,"WATERSHED"),options.get_int_var(4,"WATERSHED"));
 }
