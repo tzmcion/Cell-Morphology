@@ -12,7 +12,7 @@
     SD_kernel<int>: 3
     as_iterations<int>: 3
     as_time<double>: 0.1
-    hs_min<int>: 25
+    hs_min<int>: 15
     hs_max<int>: 80     #use -1 for otsu threshold
     hs_min_area<int>: 0
     max_hole_size<double>: 0.33      #percentage of image width

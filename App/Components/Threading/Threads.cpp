@@ -37,6 +37,18 @@ Threading::~Threading(){
     std::cout << out_data << "All operations finished, process will end with zero" << std::endl << std::endl;
 }
 
+void Threading::awaitJoin(){
+    { // Lock scope
+        std::unique_lock<std::mutex> lock(mutex);
+        stop = true;
+    }
+    condition.notify_all(); // Wake all threads to exit
+    for(std::thread &worker:workers){
+        worker.join();
+    }
+    std::cout << "All workers Finished" << std::endl;
+}
+
 void Threading::enqueueTask(std::function<void()> task) {
     { // Lock scope
         std::unique_lock<std::mutex> lock(mutex);

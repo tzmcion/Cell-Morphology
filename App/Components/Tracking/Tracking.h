@@ -20,13 +20,15 @@ class Tracking{
          * @returns averages - vector of occurances of data in certain ranges (distribution)
          * @returns min_val_calc - value of first cluster/range in vector of occurances
          * @returns max_val_calc - value of last cluster/range in vector of occurances. Can be then calculated and the chart can be drawn
-         * @param patch - watershedMask, image which underwent watershed segmentation, or foreground mask
+         * @param patch - watershedMask, image which underwent watershed segmentation, or foreground mask. The objects on the image must be separated from each other!!
+         * The patch must be in form of grayscale int cv_32S, so it can be recieved as .at<int>, and there will be no need of conversion
          * @param options_path - path to file with options
          * @param averages vector of integers, where stored will be the distribution.
          * @param min_val_calc value of first element in vector averages, being the first cluster of data in distribution
          * @param max_val_calc value of last element in vector averages, stating maximum distribution value
+         * @param avg_radius calculated value of average radius
          */
-        static void radius_by_centers(cv::Mat &patch, const char* options_path, std::vector<int> &averages, double &min_val_calc, double &max_val_calc);
+        static void radius_by_centers(cv::Mat &patch, const char* options_path, std::vector<int> &averages, double &min_val_calc, double &max_val_calc, double &average_radius);
 
         /**
          * Function prints the distribution of vector with data in console
@@ -37,7 +39,16 @@ class Tracking{
          * @param ch_max_val maximum value in distribution
          */
         static void cout_distribution(std::vector<int> &distribution, int chart_height, double ch_min_val, double ch_max_val);
-    // private:
+
+        /**
+         * Function saves the distribution provided in vector to the csv file
+         * The chart is calculated using vector size, left and right values, being ch_min_val and ch_max_val
+         * @param distribution vector with data
+         * @param ch_min_val minimum value of the distribution
+         * @param ch_max_val maximum value of the distribution
+         */
+        static void distribution_to_csv(const char* path_to_save, std::vector<int> &distribution, double ch_min_val, double ch_max_val);
+    private:
 
         /**
          * Function finds the point being closest to the current point, but not exceeding max range
@@ -56,7 +67,8 @@ class Tracking{
         static size_t _vector_index_by_value(double min_distr_val, double max_distr_val, double val, size_t steps){
             const double max_val = max_distr_val-min_distr_val;
             const double val_to_check = val - min_distr_val;
-            return static_cast<size_t>(((val_to_check/max_val) * steps));
+            size_t value = static_cast<size_t>(((val_to_check/max_val) * steps));
+            return value;
         }
 };
 

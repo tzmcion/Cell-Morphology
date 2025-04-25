@@ -44,7 +44,7 @@ int main(int argc, char** argv){
     if(cores == 0){
         cores = 1;
     }
-    Threading threads(4);
+    Threading threads(cores);
     //MULTITHREAD
     std::cout << "Starting the processment of data: \n";
     for(size_t x = 0; x < images.size(); x++){

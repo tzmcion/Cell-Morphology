@@ -3,7 +3,7 @@ import subprocess
 
 FOLDER = str(os.getcwd())
 #Define where the images are for segmentation
-IMAGES = FOLDER + "/TEST"
+IMAGES = FOLDER + "/HIP_preprocessed"
 
 os.chdir('../')
 
@@ -15,7 +15,7 @@ PREPROCESS = APP_PATH + '/Utils/Preprocess_all'
 OPTIONS = FOLDER + '/segment.option'
 
 #Path to out directory, it must exist
-OUT_DIR = FOLDER + '/OUT'
+OUT_DIR = FOLDER + '/OUT/'
 
 #EXCLUDED FOLDERS BY NAME AND ID
 EXCLUDED_FOLDERS = []

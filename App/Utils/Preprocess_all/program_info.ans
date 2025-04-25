@@ -1,21 +1,22 @@
 OUTPUT
-[102m[0m-------------------------------------------------- 
-Reading input files, note that this process will end in infinite loop if provided array does not end with "]"! 
-READING: ../../EXECUTIONS/options_algorithms.option
-Image_0 [35m/home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/T1/org.png[0m
-Image_1 [35m/home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/T1/org1.png[0m
-Detected 2 files to convert in total 
-Output folder is: [33m/home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/T1/Full_Segmentation[0m
-[31mReading options from provided file[0m
-0
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/T1/org.pngPATH: org
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/T1/Full_Segmentation/org.png[0m
-1
-[33mProcessing of:: [0m/home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/T1/org1.pngPATH: org1
-[32m [...DONE! ][0m Saving File... [32m [...DONE! ][0m Succesfully saved to: [35m/home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/T1/Full_Segmentation/org1.png[0m
-***************************************
-*            !!SUCCESS!!              *
-*       ALL OPERATIONS COMPLETED      *                  
-***************************************
-All operations finished, process will end with zero
-
+Directory created successfully: /home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/A02/Fast_Execution
+Directory created successfully: /home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/A02/Fast_Execution/COUNT
+Directory created successfully: /home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/A02/Fast_Execution/SURFACE
+Directory created successfully: /home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/A02/Fast_Execution/TRACKING
+Directory created successfully: /home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/A02/Fast_Execution/MASKS
+[] Under operation::: [35m/home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/A02/00000.JPG[0m
+[] Under operation::: [35m/home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/A02/00001.JPG[0m
+[] Under operation::: [35m/home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/A02/00002.JPG[0m
+[] Under operation::: [35m/home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/A02/00003.JPG[0m
+00000.
+/home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/A02/Fast_Execution/TRACKING/00000.csv
+[] Under operation::: [35m/home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/A02/00004.JPG[0m
+00001.
+/home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/A02/Fast_Execution/TRACKING/00001.csv
+[] Under operation::: [35m/home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/A02/00005.JPG[0m
+00003.
+/home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/A02/Fast_Execution/TRACKING/00003.csv
+[] Under operation::: [35m/home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/A02/00006.JPG[0m
+00002.
+/home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/A02/Fast_Execution/TRACKING/00002.csv
+[] Under operation::: [35m/home/tymoteuszapriasz/KM/App/EXECUTIONS/OUT/A02/00007.JPG[0m

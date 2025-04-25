@@ -53,7 +53,7 @@ int main(int argc, char **argv){
     //Select random image and crop/cut out 300x300 image
     Optimalization *opt = new Optimalization(0.20);
     cv::Mat cropped;
-    opt->crop_save_image_sample(cropped,images,std::string(std::string(OUT_FOLDER) + std::string("/cropped_bg.jpg")),150,4);
+    opt->crop_save_image_sample(cropped,images,std::string(std::string(OUT_FOLDER) + std::string("/cropped_bg.jpg")),150);
     std::string comm_file = std::string(std::string(OUT_FOLDER) + std::string("/info.txt"));
     std::string mask_file = std::string(std::string(OUT_FOLDER) + std::string("/generated_mask.bmp"));
     std::string out_file = std::string(std::string(OUT_FOLDER) + std::string("/options_out.option"));
@@ -83,8 +83,8 @@ int main(int argc, char **argv){
             //Implement threading
             //For !ORDER
             size_t cores = std::thread::hardware_concurrency();
-            if(cores == 0 || cores == 1){
-                cores = 2;
+            if(cores == 0){
+                cores = 1;
             }
             Threading threads(cores);
             std::cout << "start the optimization process" << std::endl;

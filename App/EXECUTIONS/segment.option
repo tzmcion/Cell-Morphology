@@ -6,6 +6,6 @@
 #ID: Count_Surface
 #    iterations: 1
 #    arguments: [def]
-ID: Full_Segmentation
+ID: Fast_Execution
     iterations: 1
     arguments: [../../EXECUTIONS/options_algorithms.option]

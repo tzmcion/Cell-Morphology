@@ -7,6 +7,7 @@
 #include "../Includes/includes.h"
 #include <fstream>
 #include <sys/stat.h>
+#include <algorithm>
 
 namespace Entites{
     //Typical Queue, used in preprocessing algorithm, in Dijsktra point
@@ -155,6 +156,27 @@ namespace Entites{
         }
 
         /**
+         * Function extracts the name of the file from path, and returns the name
+         * @returns extracted filename without extension
+         * @param file_path global file_path
+         */
+        static std::string extract_filename(const char* file_path){
+            std::string file_name = "";
+            std::string initial_path = std::string(file_path);
+            int i = initial_path.length() - 1;
+            bool start = false;
+            while(initial_path[i] != '/'){
+                if(initial_path[i] == '.')start = true;
+                if(start){
+                    file_name += initial_path[i];
+                }
+                i--;
+            }
+            std::reverse(file_name.begin(),file_name.end());
+            return file_name;
+        }
+
+        /**
          *  Function writes data to a specified file by file_path, it can add a separator after the text, and newline
          * */
         static void write_to_file(const char *file_path, std::string line, char separator=';',bool newline = true, bool new_file=false){
@@ -196,6 +218,53 @@ namespace Entites{
             std::FILE* out_file;
             out_file = std::fopen(file_path,"w");
             std::fclose(out_file);
+        }
+
+        /**
+         * Function reads the csv file, sorts id by FIRST COLLUMN, and saves it to the same file
+         * @param path path to the file
+         */
+        static void CSV_sort(const char* path){
+            struct row_data{
+                std::string index_col;
+                std::string rest;
+                row_data(std::string line){
+                    index_col = line.substr(0,line.find(';'));
+                    rest = line.substr(line.find(';') + 1);
+                }
+            };
+
+            //create a vector of row_data
+            std::vector<row_data> rows;
+            //Read the file
+            std::ifstream file(path);
+            // Check if the file opened successfully
+            if (file.is_open()) {
+                std::string line;
+                // Read the file line by line
+                while (std::getline(file, line)) {
+                    rows.push_back(row_data(line));
+                }
+                // Close the file
+                file.close();
+            } else {
+                std::cerr << "Unable to open the file: " << path << std::endl;
+            }
+            if(rows.size() < 1){
+                return;
+            }
+            //Now, sort the vector:
+            std::sort(rows.begin(), rows.end(), [](const row_data& a, const row_data& b) {
+                return a.index_col < b.index_col;
+            });
+            //Now, create a new file
+            Entites::FILES::write_to_file(path,rows[0].index_col,';',false,true);
+            Entites::FILES::write_to_file(path,rows[0].rest,'\0');
+            for(size_t x = 1; x < rows.size(); x++){
+                Entites::FILES::write_to_file(path,rows[x].index_col,';',false);
+                Entites::FILES::write_to_file(path,rows[x].rest,'\0');
+            }
+            return;
         }
     };
 

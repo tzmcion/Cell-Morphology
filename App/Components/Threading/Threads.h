@@ -23,6 +23,11 @@ class Threading{
         void enqueueTask(std::function<void()> task);
 
         /**
+         * Function await for all the threads to finish the job
+         */
+        void awaitJoin();
+
+        /**
         * Function waits until the file changes. If it iterates for more than 5000 times (10 sec), the wait is abandoned
         * @param path_to_monitor a path to the file, which changes are monitored 
         * **/

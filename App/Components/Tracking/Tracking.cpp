@@ -1,19 +1,15 @@
 #include "./Tracking.h"
-
-#define ROUND_2_INT(f) ((int)(f >= 0.0 ? (f + 0.5) : (f - 0.5)))
-#define MAX_RADIUS_FOR_NORMALIZATION: 150
 //
 //
 //
-void Tracking::radius_by_centers(cv::Mat &patch, const char* options_path, std::vector<int> &averages, double &min_val_calc, double &max_val_calc){
+void Tracking::radius_by_centers(cv::Mat &patch, const char* options_path, std::vector<int> &averages, double &min_val_calc, double &max_val_calc, double &average_radius){
     //From options extract value of cell radius
     AlgorithmOptions options(options_path);
-    const int cell_radius = options.get_int_var(8, "FOREGROUND_MASK");
     double avg_radius = 0;
     //To collect the data for distribution
-    const double RADIUS_MIN = (double)cell_radius*0.2;
-    const double MAX_RADIUS = RADIUS_MIN*50;
-    size_t distr_resolution = 30;
+    const double RADIUS_MIN = MIN_RADIUS_FOR_HISTOGRAM;
+    const double MAX_RADIUS = MAX_RADIUS_FOR_HISTOGRAM;
+    size_t distr_resolution = DISTRIBUTION_RESOLUTION;
     averages.resize(distr_resolution);
     std::fill(averages.begin(), averages.end(), 0);
     std::vector<double> radius_values;
@@ -28,18 +24,23 @@ void Tracking::radius_by_centers(cv::Mat &patch, const char* options_path, std::
         radius_values.push_back(radius);
         
     }
-    double radius_max_val = 0.0;
+    double radius_max_val = MAX_RADIUS;
+    /* IF NO NEED TO NORMALIZE MAX VALUE BETWEEN CHARTS, UNCOMMENT*/
+    // for(size_t i = 0; i < radius_values.size(); i++){
+    //     if(radius_values[i] > radius_max_val){
+    //         radius_max_val = radius_values[i];
+    //     }
+    // }
     for(size_t i = 0; i < radius_values.size(); i++){
-        if(radius_values[i] > radius_max_val){
-            radius_max_val = radius_values[i];
-        }
-    }
-    for(size_t i = 0; i < radius_values.size(); i++){
-        averages[Tracking::_vector_index_by_value(RADIUS_MIN,radius_max_val,radius_values[i],distr_resolution)] += 1;
+        size_t idx = Tracking::_vector_index_by_value(RADIUS_MIN,radius_max_val,radius_values[i],distr_resolution);
+        if(idx >= averages.size()) idx = averages.size() - 1; 
+        if(idx < 0) idx = 0;
+        averages[idx] += 1;
     }
     min_val_calc = RADIUS_MIN;
     max_val_calc = radius_max_val;
     avg_radius /= numLabels;
+    average_radius = avg_radius;
 }
 //
 //
@@ -106,6 +107,20 @@ void Tracking::cout_distribution(std::vector<int> &distribution, int chart_heigh
     }
     std::cout << "-|" << std::endl;
 }
+//
+//
+//
+void Tracking::distribution_to_csv(const char* path_to_save,std::vector<int> &distribution, double ch_min_val, double ch_max_val){
+    for(size_t x = 0; x < distribution.size(); x++){
+        double val = (std::round((ch_min_val + ch_max_val*(x/double(distribution.size()))) * 100.0) / 100.0) * PIXEL_TO_RADIUS;
+        Entites::FILES::write_to_file(path_to_save,std::to_string(val),';',false);
+        Entites::FILES::write_to_file(path_to_save,std::to_string(distribution[x]),' ',true);
+    }
+}
+//
+//
+//
+//PRIVATE
 //
 //
 //

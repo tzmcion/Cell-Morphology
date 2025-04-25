@@ -5,7 +5,7 @@ FOLDER = str(os.getcwd())
 
 os.chdir('../')
 os.chdir('../')
-IMAGES = str(os.getcwd()) + "/NOR"
+IMAGES = str(os.getcwd()) + "/NOR_org"
 
 APP_PATH = str(os.getcwd())
 
@@ -13,7 +13,7 @@ PREPROCESS = APP_PATH + '/App/Utils/Preprocess_all'
 OPTIONS = FOLDER + '/settings.option'
 
 #This folder must exist!
-OUT_DIR = FOLDER + '/NOR_preprocessed'
+OUT_DIR = FOLDER + '/test_test'
 
 #EXCLUDED FOLDERS!!!
 #! NOT EXCLUDED A10
