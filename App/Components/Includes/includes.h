@@ -20,8 +20,12 @@
 #include <time.h>
 #include <random> // For optimization, for std::mt19937 and std::random_device, 
 
+//Histogram and distribution variables
 #define ROUND_2_INT(f) ((int)(f >= 0.0 ? (f + 0.5) : (f - 0.5)))
-#define MIN_RADIUS_FOR_HISTOGRAM 2.0
-#define MAX_RADIUS_FOR_HISTOGRAM 82.0
+#define MIN_RADIUS_FOR_HISTOGRAM 4.0
+#define MAX_RADIUS_FOR_HISTOGRAM 84.0
 #define PIXEL_TO_RADIUS 1
-#define DISTRIBUTION_RESOLUTION 160
+#define DISTRIBUTION_RESOLUTION 40
+
+//Segmentation variables
+#define NO_DELETE_PATCHES false //defines if patches which model evaluates should be deleted after program completion of saved

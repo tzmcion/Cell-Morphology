@@ -5,6 +5,7 @@
 #pragma once
 
 #include "../Includes/includes.h"
+#include "../Tracking/Distribution.h"
 #include <fstream>
 #include <sys/stat.h>
 #include <algorithm>
@@ -348,3 +349,46 @@ namespace Entites{
 
     };
 }
+
+class Merger{
+    public:
+        /**
+         * Function merges provided paths
+         */
+    static void CSV_merge(std::vector<std::string> paths, const char* save_path){
+        Mesh* dist_mesh = new Mesh();
+        double min = 0.0,max=0.0;
+        for(size_t x = 0; x < paths.size(); x++)
+        {
+            const char* path = paths[x].c_str();
+            std::vector<int> data;
+            std::ifstream file(path);
+            std::string beg,end, first = "\0", last = "\0";
+            if (file.is_open()) {
+                std::string line;
+                // Read the file line by line
+                while (std::getline(file, line)) {
+                    if(line == "" || line == " ")continue;
+                    beg = line.substr(0,line.find(';'));
+                    end = line.substr(line.find(';') + 1);
+                    if(first == "\0"){
+                        first = beg;
+                    }
+                    data.push_back(std::stoi(end));
+                }
+                // Close the file
+                file.close();
+            } else {
+                std::cerr << "Unable to open the file: " << path << std::endl;
+            }
+            min = std::stold(first);
+            max = std::stold(beg);
+            if(dist_mesh->is_empty()){
+                dist_mesh->create_mesh(data.size());
+            }
+            dist_mesh->add_to_mesh(data);
+        }
+        dist_mesh->save_mesh_to_csv(save_path, min, max);
+        delete dist_mesh;
+    }
+};

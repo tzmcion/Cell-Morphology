@@ -50,6 +50,7 @@ int main(int argc, char**argv){
    Entites::FILES::folder_create(TRACKING_PATH.c_str());
    Entites::FILES::folder_create(MASKS_PATH.c_str());
    std::vector<std::string> images;
+   std::vector<std::string> result_paths;
    Entites::Convert::c_char_to_string(images,PATHS);
    size_t cores = std::thread::hardware_concurrency();
    if(cores == 0){
@@ -74,8 +75,8 @@ int main(int argc, char**argv){
          Watershed::watershed_with_masks(image,wat_out,background_mask,foreground_mask,options.get_int_var(0,"WATERSHED"),options.get_int_var(1,"WATERSHED"),options.get_int_var(2,"WATERSHED"),options.get_db_var(3,"WATERSHED"),options.get_int_var(4,"WATERSHED"));
          cv::Mat foreground_mask_save;
          cv::compare(foreground_mask, 0, foreground_mask_save, cv::CMP_NE);
-         cv::imwrite(MASKS_PATH + "/FOREGROUND_" + FILENAME + ".bmp", foreground_mask_save);
-         cv::imwrite(MASKS_PATH + "/BACKGROUND_" + FILENAME + ".bmp", background_mask);
+         cv::imwrite(MASKS_PATH + "/FOREGROUND_" + FILENAME + "bmp", foreground_mask_save);
+         cv::imwrite(MASKS_PATH + "/BACKGROUND_" + FILENAME + "bmp", background_mask);
          //FIRST, CELL COUNT
          cv::Mat wat_for_connected = wat_out > 1;
          cv::Mat areas, centroids;
@@ -89,28 +90,31 @@ int main(int argc, char**argv){
          std::string Ratio = std::to_string(cells);
          Entites::FILES::write_to_file(OUT_PATH_COUNT.c_str(),CURR_IMG, ';',false);
          Entites::FILES::write_to_file(OUT_PATH_COUNT.c_str(),Ratio);
-         cv::imwrite(COUNT_PATH + "/" + FILENAME + ".jpg",blended);
+         cv::imwrite(COUNT_PATH + "/" + FILENAME + "jpg",blended);
          //
-         //SURFACE_COUNT
+         //SURFACE_COUNT !!!DO ZMIANY, TRZEBA NA TO OSOBNY WATERSHED Z FOREGORUND REGIONS
          //
+         cv::Mat watershed_for_surface;
+         Watershed::watershed_with_masks(image,watershed_for_surface,background_mask,foreground_regions, options.get_int_var(0,"WATERSHED"),options.get_int_var(1,"WATERSHED"),options.get_int_var(2,"WATERSHED"),options.get_db_var(3,"WATERSHED"),options.get_int_var(4,"WATERSHED"));
          cv::Mat result;
          cv::cvtColor(image,result,cv::COLOR_GRAY2RGB);
          int count_green = 0;
-         for (int i = 0; i < wat_out.rows; i++) {
-             for (int j = 0; j < wat_out.cols; j++) {
+         for (int i = 0; i < watershed_for_surface.rows; i++) {
+             for (int j = 0; j < watershed_for_surface.cols; j++) {
                  if(foreground_mask.at<uchar>(i,j) != 0){
                      cv::circle(result, cv::Point(j, i), 1, cv::Scalar(255,0,255), -1);
                  }
-                 int markerValue = wat_out.at<int>(i, j);
+                 int markerValue = watershed_for_surface.at<int>(i, j);
                  if (markerValue == -1) {
-                     result.at<Vec3b>(i, j) = Vec3b(0, 255, 0); // Red for watershed boundaries
+                     count_green += 1;
+                     result.at<Vec3b>(i, j) = Vec3b(0, 255, 0); // Count as background, Green
                  }
                  else if (markerValue == 1) {
-                     result.at<Vec3b>(i, j) = Vec3b(2, 0, 255); // Blue for background
+                     result.at<Vec3b>(i, j) = Vec3b(20, 20, 255); // Red for background
                  }
                  else if (markerValue >= 2) {
                      count_green += 1;
-                     result.at<Vec3b>(i, j) = Vec3b(0,255,0);
+                     result.at<Vec3b>(i, j) = Vec3b(0,255,0);   //Green
                  }
              }
          }
@@ -121,7 +125,7 @@ int main(int argc, char**argv){
          Ratio = std::to_string(count_green*100 / double(image.rows*image.cols));
          Entites::FILES::write_to_file(OUT_PATH_SURF.c_str(),CURR_IMG, ';',false);
          Entites::FILES::write_to_file(OUT_PATH_SURF.c_str(),Ratio);
-         cv::imwrite(SURFACE_PATH + "/" + FILENAME + ".jpg",blended);
+         cv::imwrite(SURFACE_PATH + "/" + FILENAME + "jpg",blended);
          //
          //TRACKING
          //
@@ -144,5 +148,25 @@ int main(int argc, char**argv){
    Entites::FILES::CSV_sort(OUT_PATH_SURF.c_str());
    Entites::FILES::CSV_sort(OUT_PATH_COUNT.c_str());
    //Up to this point, it works
+   //Read all files in a directory
+   std::vector<std::string> paths_to_merge;
+   std::string path = TRACKING_PATH;
+   int count = 0;
+   for (const auto & entry : std::filesystem::directory_iterator(path)){
+        paths_to_merge.push_back(entry.path());
+   }
+   std::sort(paths_to_merge.begin(), paths_to_merge.end());
+   std::vector<std::string> to_merge;
+   //Next code :)
+   for(size_t i = 0; i < paths_to_merge.size(); i++){
+   to_merge.push_back(paths_to_merge[i]);
+   if(i % 4 == 0){
+        const std::string save_path = TRACKING_PATH + "/merged_" + std::to_string(count) + ".csv"; 
+        std::cout << save_path << std::endl;
+        Merger::CSV_merge(to_merge,save_path.c_str());
+        to_merge.clear();
+        count+=1;
+        }
+   }
    return 0;
 }

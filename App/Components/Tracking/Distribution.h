@@ -11,8 +11,8 @@ class Mesh{
      * of single 
      */
     public:
-        Mesh(){};
-        ~Mesh(){};
+        Mesh(){}
+        ~Mesh(){}
 
         /**
          * Function deletes the previous mesh, and creates new one
@@ -26,6 +26,12 @@ class Mesh{
             }
         }
 
+        /**
+         * mesh is empty
+         */
+        bool is_empty(){
+            return data.size() == 0;
+        }
 
         /**
          * Function adds data to the mesh
@@ -33,6 +39,7 @@ class Mesh{
          */
         void add_to_mesh(std::vector<int>& new_data){
             if(new_data.size() != data.size()){
+                std::cout << "NEW SIZE:" << new_data.size() << " OLD SIZE: " << data.size() << std::endl;
                 throw std::invalid_argument("Size of vector to mesh is not equal to provided earlier nr_of_elements");
             }
             for(size_t x = 0; x < data.size(); x++){
@@ -50,11 +57,43 @@ class Mesh{
         void save_mesh_to_csv(const char* path_to_save, double min_value, double max_value){
             for(size_t x = 0; x < data.size(); x++){
                 double val = (std::round((min_value + max_value*(x/double(data.size()))) * 100.0) / 100.0)*PIXEL_TO_RADIUS;
-                Entites::FILES::write_to_file(path_to_save,std::to_string(val),';',false);
-                Entites::FILES::write_to_file(path_to_save,std::to_string(data[x]/mesh_count),' ',true);
+                Mesh::write_to_file(path_to_save,std::to_string(val),';',false);
+                Mesh::write_to_file(path_to_save,std::to_string(data[x]/mesh_count),' ',true);
             }
         }
     private:
         std::vector<int> data;
         int mesh_count = 0;
+
+        static void write_to_file(const char *file_path, std::string line, char separator=';',bool newline = true, bool new_file=false){
+            std::FILE* out_file = std::fopen(file_path, new_file ? "w" : "a");
+                if (!out_file) {
+                    // Handle file open failure
+                    std::perror("Error opening file");
+                    return;
+                }
+
+                // Build the line with the separator
+                std::string new_text = line;
+                if (separator != '\0') {  // Add separator if provided
+                    new_text += separator;
+                }
+
+                // Write the line to the file
+                if (std::fprintf(out_file, "%s", new_text.c_str()) < 0) {
+                    std::perror("Error writing to file");
+                    std::fclose(out_file);
+                    return;
+                }
+
+                // Write a newline if specified
+                if (newline) {
+                    if (std::fprintf(out_file, "\n") < 0) {
+                        std::perror("Error writing newline to file");
+                    }
+                }
+
+                // Close the file
+                std::fclose(out_file);
+        }
 };

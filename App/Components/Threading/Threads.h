@@ -43,7 +43,7 @@ class Threading{
                 if(Entites::Convert::text_file_to_string(path_to_monitor.c_str()) != content)
                     return Entites::Convert::text_file_to_string(path_to_monitor.c_str());
             }
-            return NULL;
+            return "";
         }
         
     private:
