@@ -2,7 +2,7 @@
   <img display='inline' src="https://github.com/user-attachments/assets/956e4f21-71b4-4e55-8f66-19828d040faa" width="100" alt="Logo">
   <h3 display='inline'>Morphology App</h3>
   <p>Segmentation and Classification of cells from Optical Microscope Images 🔬</p>
-  <h5>*This repository is a part of science article, which will be placed *here* when possible</h5>
+  <h5>*This repository is a part of science article <a href="https://link.springer.com/chapter/10.1007/978-3-031-99474-6_5">Classification of Skin Cell Structure in Optical Microscope Images Using Transfer Learning and Watershed Segmentation</a></h5>
   <h6>Build with:</h6>
 </div>
 <p align="center">
